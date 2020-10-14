@@ -5,14 +5,18 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { fromEnv } from '@blue-paper/server-commons';
 
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
+
+  const port = fromEnv('background_port', '3333').asNumber;
+
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.BACKGROUND_PORT || 3333;
+
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });

@@ -15,7 +15,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@blue-paper/server-commons": ["libs/server-commons/src/index.ts"],
+      "@blue-paper/server-database": ["libs/server-database/src/index.ts"],
+      "@blue-paper/shared-commons": ["libs/shared-commons/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

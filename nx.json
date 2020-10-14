@@ -24,7 +24,16 @@
   },
   "projects": {
     "background": {
-      "tags": ["server"]
+      "tags": ["backend:app"]
+    },
+    "server-commons": {
+      "tags": ["backend:lib"]
+    },
+    "server-database": {
+      "tags": ["backend:lib"]
+    },
+    "shared-commons": {
+      "tags": ["commons:lib"]
     }
   }
 }
