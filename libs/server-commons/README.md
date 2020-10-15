@@ -1,6 +1,7 @@
-# server-commons
 
-This library was generated with [Nx](https://nx.dev).
+# Server Commons
+
+> Common backend service functionality
 
 ## Running unit tests
 
