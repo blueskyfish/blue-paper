@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { fromEnv } from '@blue-paper/server-commons';
 
 import { AppModule } from './app/app.module';
+import { BOOTSTRAP_GROUP } from './app/app.config';
 
 async function bootstrap() {
   const port = fromEnv('background_port', '3333').asNumber;
@@ -11,8 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   await app.listen(port, host, () => {
-    Logger.log(`Listening at http://${host}:${port}/`);
+    Logger.log(`Listening at http://${host}:${port}/`, BOOTSTRAP_GROUP);
   });
 }
 
-bootstrap().catch((e) => Logger.error(e, null, 'Bootstrap'));
+bootstrap().catch((e) => Logger.error(e, null, BOOTSTRAP_GROUP));
