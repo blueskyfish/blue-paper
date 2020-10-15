@@ -38,7 +38,7 @@ export class FileSystem {
       content = `${data}`;
     }
 
-    await asyncWriteFile(pathname, data, {encoding});
+    await asyncWriteFile(pathname, content, {encoding});
   }
 
   static async readJson<T>(pathname: string): Promise<T> {
