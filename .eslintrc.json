@@ -38,7 +38,7 @@
         ]
       }
     ],
-    "array-element-newline": ["never"]
+    "array-element-newline": [0, "never"]
   },
   "overrides": [
     {
