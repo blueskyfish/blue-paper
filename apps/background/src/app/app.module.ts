@@ -8,7 +8,8 @@ import { environment } from '../environments/environment.prod';
 @Module({
   imports: [
     ServerDatabaseModule,
-    ServerCommonsModule.forRoot(environment)],
+    ServerCommonsModule.forRoot(environment)
+  ],
   controllers: [AppController],
   providers: [
     AppService

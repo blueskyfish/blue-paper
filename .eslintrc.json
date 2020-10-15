@@ -37,7 +37,8 @@
           }
         ]
       }
-    ]
+    ],
+    "array-element-newline": ["never"]
   },
   "overrides": [
     {
