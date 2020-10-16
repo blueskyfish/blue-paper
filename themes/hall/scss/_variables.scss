@@ -1,6 +1,14 @@
 
 $font-family: 'Roboto', sans-serif;
 
+$gap: 16px;
+$gap-md: 20px;
+
 //
 // Bootstrap overrides
 //
+$theme-colors: (
+  "primary": #156AE2,
+  "danger": #ff4136,
+  "body-background": #ffffff,
+);

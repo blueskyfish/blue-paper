@@ -1,0 +1,9 @@
+
+main.body {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+
+  &.sticky {
+    margin-top: 5rem;
+  }
+}
