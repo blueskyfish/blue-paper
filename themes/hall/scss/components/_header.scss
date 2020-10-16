@@ -1,0 +1,21 @@
+header {
+  background-color: var(--primary);
+  padding: $gap / 2 0;
+
+  @include media-breakpoint-up(md) {
+    padding: $gap-md 0;
+  }
+
+  .navbar {
+    transition: all 0.7s ease-in;
+
+    &.sticky {
+      background-color: var(--primary);
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      transition: all 0.7s ease-out;
+    }
+  }
+}

@@ -1,4 +1,9 @@
 
 @import "hall";
 @import "fonts";
+@import "bootstrap/scss/bootstrap";
 @import "normalize";
+
+@import "components/header";
+@import "components/body";
+@import "components/footer";
