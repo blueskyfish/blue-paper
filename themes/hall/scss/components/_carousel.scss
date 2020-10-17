@@ -1,0 +1,33 @@
+
+.carousel {
+  margin-bottom: $gap;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: $gap-md;
+  }
+
+  .carousel-inner {
+
+    .carousel-item {
+      @include abs-height(220px);
+
+      @include media-breakpoint-up(sm) {
+        @include abs-height(360px);
+      }
+
+      @include media-breakpoint-up(md) {
+        @include abs-height(480px);
+      }
+
+      @include media-breakpoint-up(lg) {
+        @include abs-height(640px);
+      }
+
+      img {
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+
+@mixin abs-width($size) {
+  width: $size;
+  min-width: $size;
+  max-width: $size;
+}
+
+@mixin abs-height($size) {
+  height: $size;
+  min-height: $size;
+  max-height: $size;
+}
+
+@mixin abs-size($size) {
+  @include abs-height($size);
+  @include abs-width($size);
+}
