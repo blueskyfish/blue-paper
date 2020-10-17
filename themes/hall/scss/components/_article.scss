@@ -1,0 +1,65 @@
+.blog {
+  width: 100%;
+  display: block;
+  float: left;
+
+  &:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+  }
+
+  h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    small {
+      font-weight: bold;
+      font-size: 50%;
+    }
+  }
+
+  .right {
+    float: right;
+    padding: $gap 0 $gap $gap;
+
+    &:after {
+      content: ".";
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+  }
+
+  .left {
+    float: left;
+    padding: $gap $gap $gap 0;
+
+    &:after {
+      content: '.';
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+  }
+
+  .preview {
+    @include abs-width(33.3%);
+    height: auto;
+
+    &.double {
+      @include abs-width(50%);
+    }
+  }
+
+  .full-width {
+    @include abs-width(100%);
+    height: auto;
+    padding: $gap 0;
+  }
+}
