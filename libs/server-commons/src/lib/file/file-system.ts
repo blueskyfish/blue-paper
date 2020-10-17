@@ -55,6 +55,7 @@ export class FileSystem {
     try {
       return asyncStat(pathname);
     } catch (e) {
+      Logger.error(`Stats of "${pathname}" is failed => ${e.message}`, null, FILE_GROUP);
       return null;
     }
   }
