@@ -1,14 +1,21 @@
 
-$font-family: 'Roboto', sans-serif;
+$font-family-sans-serif: 'Roboto', sans-serif !important;
 
 $gap: 16px;
 $gap-md: 20px;
 
+
 //
 // Bootstrap overrides
 //
-$theme-colors: (
-  "primary": #156AE2,
-  "danger": #ff4136,
-  "body-background": #ffffff,
-);
+
+$white:     #ffffff;
+$black:     #000000;
+
+//
+// Colors
+//
+$hall-header-background:  $white;
+$hall-body-background:    $white;
+$hall-footer-background:  $white;
+$divider-color:         #adb5bd;
