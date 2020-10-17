@@ -4,7 +4,7 @@
   float: left;
 
   &:after {
-    content: ".";
+    content: '.';
     visibility: hidden;
     display: block;
     height: 0;
@@ -24,20 +24,15 @@
 
   .right {
     float: right;
-    padding: $gap 0 $gap $gap;
+    padding: $gap 0;
 
-    &:after {
-      content: ".";
-      visibility: hidden;
-      display: block;
-      height: 0;
-      clear: both;
+    @include media-breakpoint-up(sm) {
+      padding: $gap 0 $gap $gap;
     }
-  }
 
-  .left {
-    float: left;
-    padding: $gap $gap $gap 0;
+    @include media-breakpoint-up(md) {
+      padding: $gap-md 0 $gap-md $gap-md;
+    }
 
     &:after {
       content: '.';
@@ -48,12 +43,59 @@
     }
   }
 
+  .left {
+    float: left;
+    padding: $gap 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: $gap $gap $gap 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $gap-md $gap-md $gap-md 0;
+    }
+
+    &:after {
+      content: '.';
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+  }
+
+  .line {
+    float: left;
+    padding: $gap 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: $gap $gap / 2;
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $gap-md $gap-md / 2;
+    }
+
+    &:last-of-type {
+      &:after {
+        content: '.';
+        visibility: hidden;
+        display: block;
+        height: 0;
+        clear: both;
+      }
+    }
+  }
+
   .preview {
-    @include abs-width(33.3%);
+    @include abs-width(100%);
     height: auto;
 
-    &.double {
+    @include media-breakpoint-up(sm) {
       @include abs-width(50%);
+    }
+    @include media-breakpoint-up(md) {
+      @include abs-width(33.33%);
     }
   }
 
