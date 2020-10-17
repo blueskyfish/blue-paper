@@ -21,6 +21,7 @@ export class PaperService {
 
     // check if the page url exist
     const pageUrl = ctx.pageUrl;
+    this.log.info(PAPER_GROUP, `Paper from "${pageUrl}"`);
 
     // process the templates
     switch (ctx.template) {
