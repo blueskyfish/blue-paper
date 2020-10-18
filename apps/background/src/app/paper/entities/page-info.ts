@@ -1,4 +1,10 @@
 
+export interface MenuItem {
+  title: string;
+  url: string;
+  active: boolean;
+}
+
 /**
  * The page information from the database
  */
@@ -23,7 +29,12 @@ export interface PageInfo {
      * The title of the brand
      */
     title: string;
-  }
+  },
+
+  /**
+   * The navbar menu list
+   */
+  navMenu: MenuItem[];
 }
 
 /**
@@ -36,5 +47,12 @@ export const DEFAULT_PAGE: PageInfo = {
   brand: {
     url: 'assets/logo-black.svg',
     title: 'Blue Paper'
-  }
+  },
+  navMenu: [
+    {
+      title: 'Home',
+      url: '/index.html',
+      active: false,
+    }
+  ]
 };
