@@ -20,7 +20,7 @@ export class PaperIndexPageService {
       ...page,
       message: 'Hello from paper page',
       path: ctx.pageUrl,
-      query: JSON.stringify(ctx.query),
+      query: ctx.query.toString(),
     };
 
     ctx.render(data);

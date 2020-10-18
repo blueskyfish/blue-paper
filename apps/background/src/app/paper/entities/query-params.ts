@@ -24,4 +24,7 @@ export class QueryParams {
     return Array.isArray(params) ? (params[0] || defValue) : params;
   }
 
+  toString(): string {
+    return JSON.stringify(this.queryParams);
+  }
 }
