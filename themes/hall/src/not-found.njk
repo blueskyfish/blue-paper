@@ -1,18 +1,7 @@
-<html lang="en">
-<head>
-  <base href="/">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hall (Not Found)</title>
-  <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Not Found</h1>
-    <p>{{ message }}</p>
-    <p>{{ pageUrl }}</p>
-    <p>{{ template }}</p>
-    <p>{{ query }}</p>
-  </div>
-</body>
-</html>
+{% extends "./partial/page.html.njk" %}
+
+{% block content %}
+  <h1>Not Found</h1>
+  <p>{{ message }}</p>
+  <p>{{ url }}</p>
+{% endblock %}
