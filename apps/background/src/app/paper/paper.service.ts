@@ -1,6 +1,6 @@
 import { LogService } from '@blue-paper/server-commons';
 import { Injectable } from '@nestjs/common';
-import { PageInfo, PAPER_GROUP } from './entities';
+import { DEFAULT_PAGE, PageInfo, PAPER_GROUP } from './entities';
 import { PageContext } from './page-context';
 import { NotFoundError } from './not-found.error';
 import { PaperIndexPageService } from './paper-index-page.service';
@@ -41,10 +41,10 @@ export class PaperService {
       const pageUrl = ctx.pageUrl;
       this.log.info(PAPER_GROUP, `Paper from "${pageUrl}"`);
       return {
-        title: ctx.template,
+        ...DEFAULT_PAGE,
       };
     } catch (e) {
-      throw new NotFoundError(e.message, { }); // TODO What is the page info
+      throw new NotFoundError(e.message, { ...DEFAULT_PAGE }); // TODO What is the page info
     }
   }
 }
