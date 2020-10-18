@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { PaperPageService } from './paper-page.service';
+import { APP_FILTER } from '@nestjs/core';
+import { NotFoundFilter } from './not-found.filter';
+import { PaperIndexPageService } from './paper-index-page.service';
 import { PaperController } from './paper.controller';
 import { PaperService } from './paper.service';
 
 const paperServices: any[] = [
   PaperService,
-  PaperPageService,
+  PaperIndexPageService,
 ];
 
 /**
@@ -16,6 +18,10 @@ const paperServices: any[] = [
     PaperController,
   ],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: NotFoundFilter,
+    },
     ...paperServices,
   ],
 })

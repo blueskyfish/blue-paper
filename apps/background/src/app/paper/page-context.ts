@@ -1,45 +1,59 @@
 import { isNil, toLower } from '@blue-paper/shared-commons';
 import { Response } from 'express';
 import { basename, dirname } from 'path';
-import { QueryParams } from './paper.models';
+import { QueryParams } from './entities';
 
+/**
+ * extract the page url from the given path
+ * @param {string} path the path
+ * @returns {string} the page url
+ */
+function getPageUrl(path: string): string {
+  const d = dirname(path);
+  if (isNil(d) || d === '' || d === '.') {
+    return '/'
+  }
+  return toLower(d);
+}
+
+/**
+ * The page context from an given request.
+ */
 export class PageContext {
 
-  constructor(public readonly path: string, public readonly queryParams: QueryParams, private res: Response) {}
+  /**
+   * The template name. It is the last part of the property `path`
+   * @type {string}
+   */
+  public readonly template: string;
 
   /**
-   * Get the value or the array of values of the query parameters from given name
-   * @param name the query name
-   * @param defValue the default value if the query name is not exist
+   * The page url. it is the part of the property `path` without the last part.
+   * @type {string}
    */
-  query(name: string, defValue: string): string | string[] {
-    return this.queryParams[name] || defValue;
+  public readonly pageUrl: string;
+
+  /**
+   * Create a page context
+   * @param {string} path the path information from the request
+   * @param {QueryParams} query the query parameters
+   * @param {e.Response} res the response object from the request.
+   */
+  constructor(public readonly path: string, public readonly query: QueryParams, private res: Response) {
+    this.template = toLower(basename(this.path));
+    this.pageUrl =  getPageUrl(this.path);
   }
 
   /**
-   * Get the first value of the query parameters from the given name
+   * Render the output with the given template and the data object.
    *
-   * @param name the query name
-   * @param defValue the default value if the query name is not exist
+   * @param data the data object
+   * @param {string} [template] the template name.
    */
-  first(name: string, defValue: string): string {
-    const params = this.query(name, defValue);
-    return Array.isArray(params) ? (params[0] || defValue) : params;
-  }
-
-  get template(): string {
-    return toLower(basename(this.path));
-  }
-
-  get pageUrl(): string {
-    const d = dirname(this.path);
-    if (isNil(d) || d === '' || d === '.') {
-      return '/'
+  render(data: any, template?: string) {
+    if (isNil(template)) {
+      template = this.template;
     }
-    return toLower(d);
-  }
-
-  render(data: any, template: string = this.template) {
     this.res.render(template, data);
   }
 }
