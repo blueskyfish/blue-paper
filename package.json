@@ -13,7 +13,9 @@
     "start": "nx serve",
     "start:background": "env-cmd -f ./blue-paper.env nx serve background",
     "start:theme": "npm-run-all -p theme:*",
+    "start:db": "docker-compose up -d",
     "build": "nx build",
+    "build:db": "docker-compose build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
@@ -32,6 +34,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+    "stop:db": "docker-compose down",
     "theme:http": "http-server ./themes/hall/src/ -p 28090",
     "theme:sass": "sass ./themes/hall/scss/styles.scss ./themes/hall/src/assets/styles.css --watch -I ./node_modules"
   },

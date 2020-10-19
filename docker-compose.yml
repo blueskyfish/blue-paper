@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    build:
+      context: docker/db
+    image: blue-paper/db:1.0
+    container_name: blue_paper_db
+    volumes:
+      - ./docker/var/mysql/data:/app/data
+    ports:
+      - "28306:3306"
+    restart: unless-stopped
+    env_file:
+      - docker-compose.env
+
+  admin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: blue_paper_admin
+    ports:
+      - "28008:80"
+    links:
+      - db:db
+    depends_on:
+      - db
+    restart: unless-stopped
+    env_file:
+      - docker-compose.env
