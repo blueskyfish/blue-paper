@@ -46,3 +46,9 @@ Thumbs.db
 # Docker
 #
 docker/var/
+
+#
+# OpenSSL Certifications
+#
+test-private.pem
+test-public.pem
