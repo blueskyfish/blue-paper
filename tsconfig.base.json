@@ -18,7 +18,9 @@
     "paths": {
       "@blue-paper/server-commons": ["libs/server-commons/src/index.ts"],
       "@blue-paper/server-database": ["libs/server-database/src/index.ts"],
-      "@blue-paper/shared-commons": ["libs/shared-commons/src/index.ts"]
+      "@blue-paper/shared-commons": ["libs/shared-commons/src/index.ts"],
+      "@blue-paper/server-repository": ["libs/server-repository/src/index.ts"],
+      "@blue-paper/server-paper-service": ["libs/server-paper-service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

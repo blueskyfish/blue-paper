@@ -143,6 +143,68 @@
           }
         }
       }
+    },
+    "server-repository": {
+      "root": "libs/server-repository",
+      "sourceRoot": "libs/server-repository/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-repository/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-repository/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-repository",
+            "tsConfig": "libs/server-repository/tsconfig.lib.json",
+            "packageJson": "libs/server-repository/package.json",
+            "main": "libs/server-repository/src/index.ts",
+            "assets": ["libs/server-repository/*.md"]
+          }
+        }
+      }
+    },
+    "server-paper-service": {
+      "root": "libs/server-paper-service",
+      "sourceRoot": "libs/server-paper-service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-paper-service/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-paper-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-paper-service",
+            "tsConfig": "libs/server-paper-service/tsconfig.lib.json",
+            "packageJson": "libs/server-paper-service/package.json",
+            "main": "libs/server-paper-service/src/index.ts",
+            "assets": ["libs/server-paper-service/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": {

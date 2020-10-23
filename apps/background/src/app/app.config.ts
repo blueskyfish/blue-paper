@@ -1,3 +1,4 @@
+import { IMysqlConfig } from '@blue-paper/server-database';
 import { join } from 'path';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
 import { fromEnv } from '@blue-paper/server-commons';
@@ -23,4 +24,15 @@ export function buildStaticConfig(): ServeStaticModuleOptions[] {
       serveRoot: '/assets',
     }
   ];
+}
+
+export function buildDatabaseConfig(): IMysqlConfig {
+  return {
+    host: fromEnv('DB_HOST', 'localhost').asString,
+    port: fromEnv('DB_PORT', '3306').asNumber,
+    user: fromEnv('DB_USER', 'dummy').asString,
+    database: fromEnv('DB_DATABASE', 'paper').asString,
+    password: fromEnv('DB_PASSWORD', '??').asString,
+    // TODO more settings for database
+  };
 }
