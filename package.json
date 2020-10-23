@@ -12,10 +12,12 @@
     "nx": "nx",
     "start": "nx serve",
     "start:background": "env-cmd -f ./blue-paper.env nx serve background",
+    "start:libs": "npm-watch watch:libs",
     "start:theme": "npm-run-all -p theme:*",
     "start:db": "docker-compose up -d",
     "build": "nx build",
     "build:db": "docker-compose build",
+    "watch:libs": "nx run-many --target=build --projects=server-commons,server-database,server-repository,server-paper-service --parallel=true --verbose",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
@@ -37,6 +39,9 @@
     "stop:db": "docker-compose down",
     "theme:http": "http-server ./themes/hall/src/ -p 28090",
     "theme:sass": "sass ./themes/hall/scss/styles.scss ./themes/hall/src/assets/styles.css --watch -I ./node_modules"
+  },
+  "watch": {
+    "watch:libs": "./libs/**/*.*"
   },
   "private": true,
   "dependencies": {
@@ -76,6 +81,7 @@
     "http-server": "^0.12.3",
     "jest": "26.2.2",
     "npm-run-all": "^4.1.5",
+    "npm-watch": "^0.7.0",
     "prettier": "2.0.4",
     "sass": "^1.27.0",
     "ts-jest": "26.4.0",
