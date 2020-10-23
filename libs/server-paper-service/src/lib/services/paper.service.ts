@@ -54,8 +54,8 @@ export class PaperService {
       // get paper info ()
       const paperInfo = await this.getPaperInfo(paperCtx.pageUrl, rep.menu);
 
-      if (isNil(paperInfo) && isNil(paperInfo.template) && paperInfo.template === '') {
-        throw new NotFoundException(`Page => ${paperCtx.pageUrl}`);
+      if (isNil(paperInfo) || isNil(paperInfo.template) || paperInfo.template === '') {
+        throw new NotFoundException(`Page could not found`);
       }
 
       let data: HtmlData;
@@ -65,7 +65,7 @@ export class PaperService {
           data = await this.indexService.getData(paperInfo, rep);
           break;
         default:
-          throw new NotFoundException(`Page provider not found => ${paperCtx.pageUrl}`);
+          throw new NotFoundException(`Page provider not found`);
       }
 
       paperCtx.send(paperInfo.template || 'index', data);

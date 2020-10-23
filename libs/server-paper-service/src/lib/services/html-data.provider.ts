@@ -1,6 +1,14 @@
 import { IRepositoryPool } from '@blue-paper/server-repository';
+import { isNil } from '@blue-paper/shared-commons';
 import { MenuItem } from '../models/menu-item';
 import { PaperInfo } from '../models/paper-info';
+import { Brand } from '../models/brand.data';
+
+
+export const DEFAULT_BRAND: Brand = {
+  url: 'assets/logo-black.svg',
+  title: 'Hall Theme'
+};
 
 /**
  * The base html data entity.
@@ -11,6 +19,11 @@ export interface HtmlData {
    * The title of the html data
    */
   title: string;
+
+  /**
+   * Brand information
+   */
+  brand: Brand;
 
   /**
    * The navbar menu list
@@ -44,10 +57,16 @@ export interface HtmlDataProvider<D extends HtmlData> {
  * @returns {Partial<D>}
  */
 export const mergeFrom = <D extends HtmlData>(paperInfo: PaperInfo, data: Partial<D>): D => {
-  return {
+  const value = {
     title: paperInfo.title,
     navbar: Array.isArray(paperInfo.navbar) ? [...paperInfo.navbar] : [],
     footer: Array.isArray(paperInfo.footer) ? [...paperInfo.footer] : [],
     ...data,
   } as D;
+
+  if (isNil(value.brand)) {
+    value.brand = {...DEFAULT_BRAND};
+  }
+
+  return value;
 }

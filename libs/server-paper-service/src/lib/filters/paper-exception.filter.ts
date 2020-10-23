@@ -7,25 +7,29 @@ import {
   NotFoundException, UnauthorizedException
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { DEFAULT_BRAND } from '../services/html-data.provider';
 
 // region Get Template
 
-const getTemplate = <T extends {title: string}>(exception: HttpException, data: T) : string => {
+const getTemplate = <T extends {content: {title: string }}>(exception: HttpException, data: T) : string => {
 
   // default title
-  data.title = 'Error';
+  data.content.title = 'Error';
 
   if (exception instanceof BadRequestException) {
-    data.title = 'Bad Request';
+    data.content.title = 'Bad Request';
     return 'bad-request';
-  } else if (exception instanceof NotFoundException) {
-    data.title = 'Not Found';
+  }
+  if (exception instanceof NotFoundException) {
+    data.content.title = 'Not Found';
     return 'not-found';
-  } else if (exception instanceof UnauthorizedException) {
-    data.title = 'Unauthorized';
+  }
+  if (exception instanceof UnauthorizedException) {
+    data.content.title = 'Unauthorized';
     return 'unauthorized';
-  } else if (exception instanceof ForbiddenException) {
-    data.title = 'Forbidden';
+  }
+  if (exception instanceof ForbiddenException) {
+    data.content.title = 'Forbidden';
     return 'forbidden';
   }
   // TODO more errors
@@ -48,7 +52,7 @@ const getTemplate = <T extends {title: string}>(exception: HttpException, data: 
  *
  * More coming soon.
  */
-@Catch(HttpException)
+@Catch(BadRequestException, NotFoundException, ForbiddenException, UnauthorizedException)
 export class PaperExceptionFilter implements ExceptionFilter {
 
   catch(exception: HttpException, host: ArgumentsHost): any {
@@ -58,9 +62,22 @@ export class PaperExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     const data = {
-      title: '',
-      message: exception.message,
-      pageUr: request.originalUrl,
+      brand: { ...DEFAULT_BRAND },
+      title: 'Error',
+      navbar: [
+        {
+          title: 'Home',
+          pageUrl: '/index',
+          active: true,
+        }
+      ],
+      footer: [],
+      content: {
+        title: '',
+        message: exception.message,
+        pageUrl: request.originalUrl,
+        stack: exception.stack,
+      }
     };
 
     const template = getTemplate(exception, data);

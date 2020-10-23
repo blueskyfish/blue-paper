@@ -1,11 +1,11 @@
 import { LogService } from '@blue-paper/server-commons';
-import { BadRequestException, Controller, Get, Param, Query, Res, UseFilters } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res, UseFilters } from '@nestjs/common';
 import { Response } from 'express';
-import { PaperExceptionFilter} from './filters/paper-exception.filter';
-import { PaperService } from './services/paper.service';
-import { PaperContext } from './services/paper.context';
-import { QueryType } from './models/query-types';
+import { PaperExceptionFilter } from './filters/paper-exception.filter';
 import { toQuery } from './models/query-params';
+import { QueryType } from './models/query-types';
+import { PaperContext } from './services/paper.context';
+import { PaperService } from './services/paper.service';
 
 /**
  * The controller answer on request for html pages.
@@ -33,18 +33,15 @@ export class PaperController {
   @Get('*.html')
   async renderHtml(@Param() pathname: string[], @Query() query: QueryType, @Res() res: Response): Promise<void> {
 
-    try {
-      const paperCtx = new PaperContext(pathname[0] || '/', toQuery(query), res);
+    const paperCtx = new PaperContext(pathname[0] || '/', toQuery(query), res);
 
-      await this.paperService.processHtmlPage(paperCtx);
+    await this.paperService.processHtmlPage(paperCtx);
 
-      if (!paperCtx.sentData) {
-        // no data sent to the response !!
-        // TODO empty Page !!
-      }
-    } catch (e) {
-      throw new BadRequestException(`Handle: ${e.message}`)
+    if (!paperCtx.sentData) {
+      // no data sent to the response !!
+      // TODO empty Page !!
+
+      this.log.error('Paper', `Page not render => ${paperCtx.pageUrl} !!!!`);
     }
-
   }
 }

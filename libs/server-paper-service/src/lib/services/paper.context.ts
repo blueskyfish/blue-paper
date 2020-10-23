@@ -29,7 +29,7 @@ export class PaperContext {
    */
   constructor(pageUrl: string, public query: QueryParams, private res: RenderFunc) {
     if (isNil(pageUrl)) {
-      pageUrl = '/';
+      pageUrl = '/index';
     }
     if (!pageUrl.startsWith('/')) {
       pageUrl = `/${pageUrl}`;

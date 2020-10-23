@@ -1,7 +1,7 @@
 import { IRepositoryPool } from '@blue-paper/server-repository';
 import { Injectable } from '@nestjs/common';
-import { PaperInfo } from '../..';
-import { HtmlData, HtmlDataProvider } from './html-data.provider';
+import { PaperInfo } from '../models/paper-info';
+import { HtmlData, HtmlDataProvider, mergeFrom } from './html-data.provider';
 
 /**
  * The data entity for the index pages
@@ -21,7 +21,7 @@ export interface HtmlIndexData extends HtmlData {
     /**
      * The content
      */
-    content: string;
+    body: string;
   }
 }
 
@@ -41,14 +41,11 @@ export class HtmlIndexService implements HtmlDataProvider<HtmlIndexData>{
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getData(paperInfo: PaperInfo, rep: IRepositoryPool): Promise<HtmlIndexData> {
 
-    return {
-      title: paperInfo.title,
-      navbar: Array.isArray(paperInfo.navbar) ? [ ...paperInfo.navbar ] : [],
-      footer: Array.isArray(paperInfo.footer) ? [ ...paperInfo.footer ] : [],
+    return mergeFrom<HtmlIndexData>(paperInfo, {
       content: {
         title: 'Test',
-        content: '<p>Hello Test</p>'
+        body: '<p>Hello Test</p>'
       }
-    };
+    });
   }
 }

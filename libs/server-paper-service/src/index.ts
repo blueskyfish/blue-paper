@@ -6,6 +6,7 @@
 export * from './lib/server-paper-service.module';
 
 // Entities and Models
+export * from './lib/models/brand.data';
 export * from './lib/models/menu-item';
 export * from './lib/models/paper-templates';
 export * from './lib/models/paper-info';
