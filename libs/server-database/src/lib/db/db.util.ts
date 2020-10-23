@@ -5,7 +5,7 @@ import { isNil, startsWith } from '@blue-paper/shared-commons';
  */
 const ERROR_PREFIX = ['EE_', 'HA_ERR_', 'ER_'];
 
-export class MysqlUtil {
+export class DbUtil {
   /**
    * Adjust the codes from the mysql errors to the error exception
    *

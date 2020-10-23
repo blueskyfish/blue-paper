@@ -1,4 +1,4 @@
-import { IMysqlConfig } from '@blue-paper/server-database';
+import { IDbConfig } from '@blue-paper/server-database';
 import { join } from 'path';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
 import { fromEnv } from '@blue-paper/server-commons';
@@ -26,7 +26,7 @@ export function buildStaticConfig(): ServeStaticModuleOptions[] {
   ];
 }
 
-export function buildDatabaseConfig(): IMysqlConfig {
+export function buildDatabaseConfig(): IDbConfig {
   return {
     host: fromEnv('DB_HOST', 'localhost').asString,
     port: fromEnv('DB_PORT', '3306').asNumber,

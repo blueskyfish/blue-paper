@@ -1,12 +1,12 @@
-import { IDatabaseConnection } from '@blue-paper/server-database';
+import { DbConnection } from '@blue-paper/server-database';
 import { IRepository } from './repository';
 
 export class SubRepository implements IRepository {
 
-  constructor(private _conn: IDatabaseConnection) {
+  constructor(private _conn: DbConnection) {
   }
 
-  get conn(): IDatabaseConnection {
+  get conn(): DbConnection {
     return this._conn;
   }
 

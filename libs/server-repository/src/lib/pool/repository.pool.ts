@@ -1,4 +1,4 @@
-import { IDatabaseConnection } from '@blue-paper/server-database';
+import { DbConnection } from '@blue-paper/server-database';
 import { isNil } from '@blue-paper/shared-commons';
 import { MenuRepository } from './menu';
 import { IRepositoryPool } from './repository';
@@ -10,10 +10,10 @@ export class RepositoryPool implements IRepositoryPool {
 
   private _menu: MenuRepository = null;
 
-  constructor(private _conn: IDatabaseConnection) {
+  constructor(private _conn: DbConnection) {
   }
 
-  get conn(): IDatabaseConnection {
+  get conn(): DbConnection {
     return this._conn;
   }
 

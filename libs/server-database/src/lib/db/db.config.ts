@@ -1,4 +1,4 @@
-import { MysqlUtil } from './mysql.util';
+import { DbUtil } from './db.util';
 
 
 export const DEFAULT_TIMEOUT = 10000;
@@ -18,7 +18,7 @@ export const DEFAULT_DB_PORT = 3306;
 /**
  * Interface of the database configuration settings.
  */
-export interface IMysqlConfig {
+export interface IDbConfig {
 
   /**
    * The hostname of the database you are connecting to. (Default `localhost`)
@@ -73,20 +73,20 @@ export interface IMysqlConfig {
   readonly queueLimit?: number;
 }
 
-export class MysqlConfig implements IMysqlConfig {
+export class DbConfig implements IDbConfig {
 
   /**
    * The hostname of the database you are connecting to. (Default `localhost`)
    */
   get host(): string {
-    return MysqlUtil.getValue(DEFAULT_DB_HOST, this.config.host);
+    return DbUtil.getValue(DEFAULT_DB_HOST, this.config.host);
   }
 
   /**
    * The port number to connect to. (Default: `3306`)
    */
   get port(): number {
-    return MysqlUtil.getValue(DEFAULT_DB_PORT, this.config.port);
+    return DbUtil.getValue(DEFAULT_DB_PORT, this.config.port);
   }
 
   /**
@@ -114,21 +114,21 @@ export class MysqlConfig implements IMysqlConfig {
    * The milliseconds before a timeout occurs during the initial connection to the MySQL server. (Default: `10000`)
    */
   get connectTimeout(): number {
-    return MysqlUtil.getValue<number>(DEFAULT_TIMEOUT, this.config.connectTimeout, DEFAULT_TIMEOUT);
+    return DbUtil.getValue<number>(DEFAULT_TIMEOUT, this.config.connectTimeout, DEFAULT_TIMEOUT);
   }
 
   /**
    * The maximum number of connections to create at once. (Default: `10`)
    */
   get connectLimit(): number {
-    return MysqlUtil.getValue(DEFAULT_CONNECT_LIMIT, this.config.connectLimit, DEFAULT_CONNECT_LIMIT);
+    return DbUtil.getValue(DEFAULT_CONNECT_LIMIT, this.config.connectLimit, DEFAULT_CONNECT_LIMIT);
   }
 
   /**
    * The milliseconds before a timeout occurs during the connection acquisition. (Default `10000`)
    */
   get acquireTimeout(): number {
-    return MysqlUtil.getValue(DEFAULT_TIMEOUT, this.config.acquireTimeout, DEFAULT_TIMEOUT);
+    return DbUtil.getValue(DEFAULT_TIMEOUT, this.config.acquireTimeout, DEFAULT_TIMEOUT);
   }
 
 
@@ -136,7 +136,7 @@ export class MysqlConfig implements IMysqlConfig {
    * Determines the pool's action when no connections are available and the limit has been reached (Default `true`)
    */
   get waitForConnections(): boolean {
-    return MysqlUtil.getValue(true, this.config.waitForConnections);
+    return DbUtil.getValue(true, this.config.waitForConnections);
   }
 
   /**
@@ -145,9 +145,9 @@ export class MysqlConfig implements IMysqlConfig {
    * If set to `0`, there is no limit to the number of queued connection requests. (Default: `0`)
    */
   get queueLimit(): number {
-    return MysqlUtil.getValue(0, this.config.queueLimit, 0);
+    return DbUtil.getValue(0, this.config.queueLimit, 0);
   }
 
-  constructor(private config: IMysqlConfig) {
+  constructor(private config: IDbConfig) {
   }
 }

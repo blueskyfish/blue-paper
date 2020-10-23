@@ -1,30 +1,26 @@
-import { LogService } from '@blue-paper/server-commons';
 import { DynamicModule, Module } from '@nestjs/common';
-import { createDatabaseService } from './server-database.config';
-import { DbService } from './service/db.service';
-import { IMysqlConfig, MysqlService } from './service/mysql';
+import { DbConfig, IDbConfig } from './db/db.config';
+import { DbService } from './db/db.service';
 
 const databaseServices = [
-  MysqlService,
+  DbService,
 ];
 
 @Module({})
 export class ServerDatabaseModule {
 
-  static forRoot(config: IMysqlConfig): DynamicModule {
+  static forRoot(config: IDbConfig): DynamicModule {
     return {
       global: true,
       module: ServerDatabaseModule,
       providers: [
         {
-          provide: DbService,
-          useFactory: (log: LogService) => createDatabaseService(config, log),
-          inject: [LogService]
+          provide: DbConfig,
+          useValue: new DbConfig(config),
         },
         ...databaseServices,
       ],
       exports: [
-        DbService,
         ...databaseServices,
       ],
     }

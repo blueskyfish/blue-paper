@@ -1,4 +1,4 @@
-import { IDatabaseConnection } from '@blue-paper/server-database';
+import { DbConnection } from '@blue-paper/server-database';
 import { MenuRepository } from './menu';
 
 /**
@@ -9,7 +9,7 @@ export interface IRepository {
   /**
    * Readonly of the database connection
    */
-  readonly conn: IDatabaseConnection;
+  readonly conn: DbConnection;
 
   /**
    * Close the database connection (release and set null)

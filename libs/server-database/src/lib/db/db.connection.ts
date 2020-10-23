@@ -1,16 +1,8 @@
 import { LogService } from '@blue-paper/server-commons';
 import { get as getValue, size } from '@blue-paper/shared-commons';
 import { Connection, MysqlError, Pool, PoolConnection } from 'mysql';
-import { connectError, queryError, transactionError } from '../db.error';
-import { DB_GROUP, IDatabaseConnection } from '../kind';
-
-// Kind of execution
-export type ExecutionAction =
-  | 'select'
-  | 'insert'
-  | 'update'
-  | 'delete'
-  | 'query';
+import { connectError, queryError, transactionError } from './db.error';
+import { DB_GROUP, ExecutionAction } from './models';
 
 /**
  * The database connection executes sql statements and returns the entities.
@@ -28,7 +20,7 @@ export type ExecutionAction =
  * * `commit()` is commit an open transaction
  * * `rollback()` is rollback an open transaction.
  */
-export class MysqlConnection implements IDatabaseConnection {
+export class DbConnection {
   private _connection: PoolConnection = null;
 
   constructor(private readonly log: LogService, private _pool: Pool) {}

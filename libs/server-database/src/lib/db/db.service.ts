@@ -1,27 +1,28 @@
-import { OnApplicationShutdown } from '@nestjs/common';
 import { LogService } from '@blue-paper/server-commons';
 import { DateUtil, forEachIterator } from '@blue-paper/shared-commons';
+import { Injectable } from '@nestjs/common';
 import { Moment } from 'moment';
 import { createPool, MysqlError, Pool, PoolConnection } from 'mysql';
-import { NULL_VALUE } from '../db.config';
-import { DB_GROUP, IDatabaseService } from '../kind';
-import { MysqlConfig } from './mysql.config';
-import { MysqlConnection } from './mysql.connection';
-import { MysqlUtil } from './mysql.util';
+import { DbConfig } from './db.config';
+import { DbConnection } from './db.connection';
+import { DbUtil } from './db.util';
+import { DB_GROUP, NULL_VALUE } from './models';
 
 /**
- * Manages the database connection pool
+ * This is the facade of the database service.
+ *
+ * @see {@link MysqlService}
+ * @see {@link SqliteService}
  */
-export class MysqlService implements OnApplicationShutdown, IDatabaseService {
+@Injectable()
+export class DbService {
+
   /**
    * A map with the error codes and the counts of occasion
    *
    * @type {Map<string, number>}
    */
-  private readonly errorCounter: Map<string, number> = new Map<
-    string,
-    number
-  >();
+  private readonly errorCounter: Map<string, number> = new Map<string, number>();
 
   /**
    * The duration map for the connection.
@@ -32,7 +33,7 @@ export class MysqlService implements OnApplicationShutdown, IDatabaseService {
 
   private readonly _pool: Pool;
 
-  constructor(private log: LogService, private config: MysqlConfig) {
+  constructor(private log: LogService, private config: DbConfig) {
     // create the pool
     this._pool = createPool({
       host: config.host,
@@ -113,10 +114,10 @@ export class MysqlService implements OnApplicationShutdown, IDatabaseService {
   /**
    * Get an database connection. No connection is open yet, it is only created the first time you use it.
    *
-   * @returns {MysqlConnection}
+   * @returns {DbConnection}
    */
-  getConnection(): MysqlConnection {
-    return new MysqlConnection(this.log, this._pool);
+  getConnection(): DbConnection {
+    return new DbConnection(this.log, this._pool);
   }
 
   /**
@@ -179,7 +180,7 @@ export class MysqlService implements OnApplicationShutdown, IDatabaseService {
 
   private handleEnqueueError(err: MysqlError): void {
     if (err) {
-      const code = MysqlUtil.adjustAndLower(err.code, '.');
+      const code = DbUtil.adjustAndLower(err.code, '.');
       const message = err.sqlMessage;
       const sql = err.sql;
       this.log.warn(DB_GROUP, `Error: ${code} => ${message}\n${sql}\n-----`);
@@ -188,4 +189,5 @@ export class MysqlService implements OnApplicationShutdown, IDatabaseService {
       this.errorCounter.set(code, count + 1);
     }
   }
+
 }

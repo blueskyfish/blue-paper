@@ -1,7 +1,5 @@
 import { MysqlError } from 'mysql';
-import { MysqlUtil } from './mysql/mysql.util';
-
-export const DB_ERROR_GROUP = 'db';
+import { DbUtil } from './db.util';
 
 export class DbError extends Error {
   constructor(
@@ -15,7 +13,7 @@ export class DbError extends Error {
 }
 
 export const transactionError = (err: MysqlError): DbError => {
-  const code = MysqlUtil.adjustAndLower(err.code, '.');
+  const code = DbUtil.adjustAndLower(err.code, '.');
   const message = err.sqlMessage;
 
   return new DbError(`transaction.${code}`, message);
@@ -27,7 +25,7 @@ export const transactionError = (err: MysqlError): DbError => {
  * @returns {DbError} the db error
  */
 export const queryError = (err: MysqlError): DbError => {
-  const code = MysqlUtil.adjustAndLower(err.code, '.');
+  const code = DbUtil.adjustAndLower(err.code, '.');
   const message = err.sqlMessage;
   const sql = err.sql;
 
@@ -35,7 +33,7 @@ export const queryError = (err: MysqlError): DbError => {
 };
 
 export const connectError = (err: MysqlError): DbError => {
-  const code = MysqlUtil.adjustAndLower(err.code, '.');
+  const code = DbUtil.adjustAndLower(err.code, '.');
   const message = err.sqlMessage;
 
   return new DbError(`connect.${code}`, message);
