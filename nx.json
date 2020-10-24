@@ -40,6 +40,12 @@
     },
     "server-paper-service": {
       "tags": ["backend:lib"]
+    },
+    "server-markdown": {
+      "tags": ["backend:lib"]
+    },
+    "server-image-service": {
+      "tags": ["backend:lib"]
     }
   }
 }
