@@ -15,5 +15,6 @@ export * from './lib/file/file-system';
 
 // utils
 export * from './lib/util/number-util';
+export * from './lib/util/time-stop';
 export * from './lib/util/url-utils';
 
