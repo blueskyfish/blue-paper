@@ -1,8 +1,8 @@
 {% extends "./partial/page.html.njk" %}
 
 {% block content %}
-  <h1>Hall Theme</h1>
-  <p>{{ message }}</p>
-  <p>{{ path }}</p>
-  <p>{{ query }}</p>
+  <h1>{{  content.title }}</h1>
+  <div>
+    {{ content.body | safe }}
+  </div>
 {% endblock %}

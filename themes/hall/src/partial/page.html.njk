@@ -17,7 +17,7 @@
   <header class="header fixed-top">
     <div class="container">
       <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/index.html">
           <img src="{{ brand.url }}" alt="{{  brand.title }}" width="30" height="30" loading="lazy">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,13 +25,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav mr-auto">
-            {% for item in navMenu %}
+            {% for item in navbar %}
               {% if item.active %}
               <li class="nav-item active">
               {% else %}
               <li class="nav-item">
               {% endif %}
-                <a href="{{ item.url }}" class="nav-link">{{ item.title }}</a>
+                <a href="{{ item.pageUrl }}.html" class="nav-link">{{ item.title }}</a>
               </li>
             {% endfor %}
           </ul>
