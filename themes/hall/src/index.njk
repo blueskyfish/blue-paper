@@ -1,0 +1,8 @@
+{% extends "./partial/page.html.njk" %}
+
+{% block content %}
+  <h1>{{  content.title }}</h1>
+  <div>
+    {{ content.body | safe }}
+  </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{  title  }}</title>
+  {% block meta %}
+  {% endblock %}
+  {% block styles %}
+  <link rel="stylesheet" href="assets/styles.css">
+  {% endblock %}
+</head>
+<body>
+
+{% block header %}
+  <header class="header fixed-top">
+    <div class="container">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand" href="/index.html">
+          <img src="{{ brand.url }}" alt="{{  brand.title }}" width="30" height="30" loading="lazy">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav mr-auto">
+            {% for item in navbar %}
+              {% if item.active %}
+              <li class="nav-item active">
+              {% else %}
+              <li class="nav-item">
+              {% endif %}
+                <a href="{{ item.pageUrl }}.html" class="nav-link">{{ item.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+{% endblock %}
+
+<main class="content container">
+{% block content %}
+
+{% endblock %}
+</main>
+
+{% block footer %}
+  <footer class="footer navbar fixed-bottom">
+    <div class="container">
+      Hall Theme Footer
+    </div>
+  </footer>
+{% endblock %}
+
+{% block scripts %}
+  <script src="assets/js/jquery.slim.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+</body>
+</html>

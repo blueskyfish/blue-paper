@@ -1,24 +1,27 @@
-import { PaperController } from './paper/paper.controller';
-import { Module } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { ServerCommonsModule } from '@blue-paper/server-commons';
 import { ServerDatabaseModule } from '@blue-paper/server-database';
+import { ServerImageServiceModule } from '@blue-paper/server-image-service';
+import { ServerPaperServiceModule } from '@blue-paper/server-paper-service';
+import { ServerRepositoryModule } from '@blue-paper/server-repository';
+import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { environment } from '../environments/environment.prod';
+import { buildDatabaseConfig, buildImageConfig, buildStaticConfig } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { environment } from '../environments/environment.prod';
-import { buildStaticConfig } from './app.config';
 
 @Module({
   imports: [
-    ServerCommonsModule.forRoot(environment),
-    ServerDatabaseModule,
-
     ServeStaticModule.forRoot(...buildStaticConfig()),
+
+    ServerCommonsModule.forRoot(environment),
+    ServerDatabaseModule.forRoot(buildDatabaseConfig()),
+    ServerImageServiceModule.forRoot(buildImageConfig()),
+    ServerRepositoryModule,
+    ServerPaperServiceModule,
   ],
-  controllers: [
-    PaperController,
-    AppController
-  ],
+  controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -1,9 +1,11 @@
 
-main.body {
-  margin-top: 2rem;
-  margin-bottom: 5rem;
 
-  &.sticky {
-    margin-top: 5rem;
+.content {
+  background: $hall-body-background;
+  padding-top: 5.5rem;
+  padding-bottom: 3rem;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 8rem;
   }
 }

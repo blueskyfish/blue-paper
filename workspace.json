@@ -143,6 +143,130 @@
           }
         }
       }
+    },
+    "server-repository": {
+      "root": "libs/server-repository",
+      "sourceRoot": "libs/server-repository/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-repository/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-repository/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-repository",
+            "tsConfig": "libs/server-repository/tsconfig.lib.json",
+            "packageJson": "libs/server-repository/package.json",
+            "main": "libs/server-repository/src/index.ts",
+            "assets": ["libs/server-repository/*.md"]
+          }
+        }
+      }
+    },
+    "server-paper-service": {
+      "root": "libs/server-paper-service",
+      "sourceRoot": "libs/server-paper-service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-paper-service/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-paper-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-paper-service",
+            "tsConfig": "libs/server-paper-service/tsconfig.lib.json",
+            "packageJson": "libs/server-paper-service/package.json",
+            "main": "libs/server-paper-service/src/index.ts",
+            "assets": ["libs/server-paper-service/*.md"]
+          }
+        }
+      }
+    },
+    "server-markdown": {
+      "root": "libs/server-markdown",
+      "sourceRoot": "libs/server-markdown/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-markdown/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-markdown/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-markdown",
+            "tsConfig": "libs/server-markdown/tsconfig.lib.json",
+            "packageJson": "libs/server-markdown/package.json",
+            "main": "libs/server-markdown/src/index.ts",
+            "assets": ["libs/server-markdown/*.md"]
+          }
+        }
+      }
+    },
+    "server-image-service": {
+      "root": "libs/server-image-service",
+      "sourceRoot": "libs/server-image-service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-image-service/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-image-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-image-service",
+            "tsConfig": "libs/server-image-service/tsconfig.lib.json",
+            "packageJson": "libs/server-image-service/package.json",
+            "main": "libs/server-image-service/src/index.ts",
+            "assets": ["libs/server-image-service/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": {

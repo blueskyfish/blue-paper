@@ -4,5 +4,9 @@ module.exports = {
     '<rootDir>/libs/server-commons',
     '<rootDir>/libs/server-database',
     '<rootDir>/libs/shared-commons',
+    '<rootDir>/libs/server-repository',
+    '<rootDir>/libs/server-paper-service',
+    '<rootDir>/libs/server-markdown',
+    '<rootDir>/libs/server-image-service',
   ],
 };

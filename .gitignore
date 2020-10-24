@@ -9,7 +9,6 @@
 /node_modules
 
 # IDEs and editors
-/.idea
 .project
 .classpath
 .c9/
@@ -24,6 +23,11 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# IDE - Webstorm
+.idea/*
+!.idea/.name
+
+
 # misc
 /.sass-cache
 /connect.lock
@@ -37,3 +41,19 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+#
+# Docker
+#
+docker/var/
+
+#
+# OpenSSL Certifications
+#
+test-private.pem
+test-public.pem
+
+#
+# Data Folder
+#
+data/
