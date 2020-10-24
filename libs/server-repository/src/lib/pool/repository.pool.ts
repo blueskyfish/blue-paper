@@ -1,6 +1,7 @@
 import { DbConnection } from '@blue-paper/server-database';
 import { isNil } from '@blue-paper/shared-commons';
 import { MenuRepository } from './menu';
+import { PageRepository } from './page';
 import { IRepositoryPool } from './repository';
 
 /**
@@ -9,6 +10,7 @@ import { IRepositoryPool } from './repository';
 export class RepositoryPool implements IRepositoryPool {
 
   private _menu: MenuRepository = null;
+  private _page: PageRepository = null;
 
   constructor(private _conn: DbConnection) {
   }
@@ -25,6 +27,11 @@ export class RepositoryPool implements IRepositoryPool {
   get menu(): MenuRepository {
     return isNil(this._menu) ?
       (this._menu = new MenuRepository(this.conn)) : this._menu;
+  }
+
+  get page(): PageRepository {
+    return isNil(this._page) ?
+      (this._page = new PageRepository(this.conn)) : this._page;
   }
 
   /**
@@ -53,6 +60,10 @@ export class RepositoryPool implements IRepositoryPool {
     if (this._menu) {
       this._menu.close();
       this._menu = null;
+    }
+    if (this._page) {
+      this._page.close();
+      this._page = null;
     }
     this._conn = null;
   }

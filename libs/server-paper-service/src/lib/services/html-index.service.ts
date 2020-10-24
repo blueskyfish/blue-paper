@@ -1,5 +1,7 @@
 import { IRepositoryPool } from '@blue-paper/server-repository';
-import { Injectable } from '@nestjs/common';
+import { isNil } from '@blue-paper/shared-commons';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import * as marked from 'marked';
 import { PaperInfo } from '../models/paper-info';
 import { HtmlData, HtmlDataProvider, mergeFrom } from './html-data.provider';
 
@@ -41,10 +43,15 @@ export class HtmlIndexService implements HtmlDataProvider<HtmlIndexData>{
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getData(paperInfo: PaperInfo, rep: IRepositoryPool): Promise<HtmlIndexData> {
 
+    const dbPage = await rep.page.findPage(paperInfo.groupId);
+    if (isNil(dbPage)) {
+      throw new NotFoundException('Page content not found');
+    }
+
     return mergeFrom<HtmlIndexData>(paperInfo, {
       content: {
-        title: 'Test',
-        body: '<p>Hello Test</p>'
+        title: dbPage.title,
+        body: marked(dbPage.content),
       }
     });
   }

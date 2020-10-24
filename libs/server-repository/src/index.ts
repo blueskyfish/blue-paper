@@ -11,3 +11,4 @@ export * from './lib/repository.service';
 // Repositories
 export * from './lib/pool';
 export * from './lib/pool/menu';
+export * from './lib/pool/page';
