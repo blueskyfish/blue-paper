@@ -52,3 +52,8 @@ docker/var/
 #
 test-private.pem
 test-public.pem
+
+#
+# Data Folder
+#
+data/
