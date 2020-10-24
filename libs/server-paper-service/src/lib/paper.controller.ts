@@ -1,4 +1,4 @@
-import { LogService } from '@blue-paper/server-commons';
+import { getFirstPathname, LogService, PathParams } from '@blue-paper/server-commons';
 import { Controller, Get, Param, Query, Res, UseFilters } from '@nestjs/common';
 import { Response } from 'express';
 import { PaperExceptionFilter } from './filters/paper-exception.filter';
@@ -31,9 +31,9 @@ export class PaperController {
    * @returns {Promise<void>}
    */
   @Get('*.html')
-  async renderHtml(@Param() pathname: string[], @Query() query: QueryType, @Res() res: Response): Promise<void> {
+  async renderHtml(@Param() pathname: PathParams, @Query() query: QueryType, @Res() res: Response): Promise<void> {
 
-    const paperCtx = new PaperContext(pathname[0] || '/', toQuery(query), res);
+    const paperCtx = new PaperContext(getFirstPathname(pathname) || '/index', toQuery(query), res);
 
     await this.paperService.processHtmlPage(paperCtx);
 
