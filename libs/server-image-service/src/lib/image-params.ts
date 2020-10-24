@@ -1,4 +1,4 @@
-import { IsEnum, IsIn, IsNumberString, IsString, Length, MaxLength, MinLength, ValidateIf } from 'class-validator';
+import { IsIn, IsNumberString, Length, ValidateIf } from 'class-validator';
 
 /**
  * The image parameters
