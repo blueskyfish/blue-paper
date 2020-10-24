@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
+import { ImageService } from './services/image.service';
 import { Response } from 'express';
-import { ImageParams } from './image-params';
+import { BlogImageParams, PageImageParams } from './image-params';
 
 /**
  * Delivery images
@@ -23,20 +24,39 @@ import { ImageParams } from './image-params';
 @Controller('/images')
 export class ImageController {
 
-  /**
-   * Deliveries image
-   *
-   * @param {ImageParams} params the image parameters.
-   * @param {e.Response} res the express response
-   */
-  @Get('/:groupId/:size/:filename')
-  async getPngImage(@Param() params: ImageParams, @Res() res: Response): Promise<void> {
-
-    res.send({
-      groupId: params.groupId,
-      size: params.size,
-      filename: params.filename,
-    });
+  constructor(private imageService: ImageService) {
   }
 
+  /**
+   * Deliveries page image
+   *
+   * @param {PageImageParams} params the image parameters.
+   * @param {e.Response} res the express response
+   */
+  @Get('/:pageId/:size/:filename')
+  async getPageImage(@Param() params: PageImageParams, @Res() res: Response): Promise<void> {
+
+    const buffer = await this.imageService.getPageImage(params);
+
+    // TODO define the Content-Type of the image
+    res
+      .header('Content-Type', 'image/jpeg')
+      .send(buffer);
+  }
+
+  /**
+   * Deliveries blog image
+   *
+   * @param {BlogImageParams} params the image parameters.
+   * @param {e.Response} res the express response
+   */
+  @Get('/:themeId/:blogId/:size/:filename')
+  async getBlogImage(@Param() params: BlogImageParams, @Res() res: Response): Promise<void> {
+    const buffer = await this.imageService.getBlogImage(params);
+
+    // TODO define the Content-Type of the image
+    res
+      .header('Content-Type', 'image/jpeg')
+      .send(buffer);
+  }
 }
