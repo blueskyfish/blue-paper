@@ -53,7 +53,7 @@ export class FileSystem {
 
   static async stats(pathname: string): Promise<fs.Stats> {
     try {
-      return asyncStat(pathname);
+      return await asyncStat(pathname);
     } catch (e) {
       Logger.error(`Stats of "${pathname}" is failed => ${e.message}`, null, FILE_GROUP);
       return null;
