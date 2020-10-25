@@ -5,11 +5,15 @@ const MILLI_PER_SEC = 1e6;
 /**
  * Stopping time durations
  */
-export class Stopper {
+export class TimeStop {
 
   private readonly start = process.hrtime();
 
-  stop(): number {
+  /**
+   * Returns the duration in milliseconds
+   * @returns {number}
+   */
+  duration(): number {
     const diff = process.hrtime(this.start);
     const nanoSecs = diff[0] * NS_PER_SEC + diff[1];
 
@@ -18,10 +22,10 @@ export class Stopper {
 }
 
 /**
- * Start an stopper.
+ * Start a time stop instance.
  *
- * @returns {Stopper}
+ * @returns {TimeStop}
  */
-export function startStopper(): Stopper {
-  return new Stopper();
+export function timeStop(): TimeStop {
+  return new TimeStop();
 }

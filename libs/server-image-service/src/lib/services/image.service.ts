@@ -1,4 +1,4 @@
-import { FileSystem, LogService, startStopper } from '@blue-paper/server-commons';
+import { FileSystem, LogService, timeStop } from '@blue-paper/server-commons';
 import { Injectable, NotFoundException, OnApplicationBootstrap } from '@nestjs/common';
 import { join } from 'path';
 import * as sharp from 'sharp';
@@ -6,6 +6,9 @@ import { BlogImageParams, PageImageParams } from '../image-params';
 import { ImageConfig } from '../server-image-service.config';
 import { IImageSize, ImageSizes } from './image-size';
 
+/**
+ * Image generator
+ */
 @Injectable()
 export class ImageService implements OnApplicationBootstrap {
 
@@ -24,7 +27,7 @@ export class ImageService implements OnApplicationBootstrap {
   }
 
   async getPageImage(image: PageImageParams): Promise<Buffer> {
-    const stopper = startStopper();
+    const stopper = timeStop();
     try {
       const filename = join(this.config.imagePath, image.pageId, image.filename);
       const isExist = await FileSystem.exists(filename);
@@ -42,12 +45,12 @@ export class ImageService implements OnApplicationBootstrap {
         .toBuffer();
 
     } finally {
-      this.log.debug('Image', `Page Image time ${stopper.stop()} ms`);
+      this.log.debug('Image', `Page Image time ${stopper.duration()} ms`);
     }
   }
 
   async getBlogImage(image: BlogImageParams): Promise<Buffer> {
-    const stopper = startStopper();
+    const stopper = timeStop();
     try {
       const filename = join(this.config.imagePath, image.themeId, image.blogId, image.filename);
       const isExist = await FileSystem.exists(filename);
@@ -65,7 +68,7 @@ export class ImageService implements OnApplicationBootstrap {
         .toBuffer();
 
     } finally {
-      this.log.debug('Image', `Blog Image time ${stopper.stop()} ms`);
+      this.log.debug('Image', `Blog Image time ${stopper.duration()} ms`);
     }
 
   }
