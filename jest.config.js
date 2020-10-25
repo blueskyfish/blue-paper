@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/server-paper-service',
     '<rootDir>/libs/server-markdown',
     '<rootDir>/libs/server-image-service',
+    '<rootDir>/libs/server-image-upload',
   ],
 };

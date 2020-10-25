@@ -1,0 +1,5 @@
+{
+  "name": "@blue-paper/server-image-upload",
+  "version": "1.0.0",
+  "description": "Server library for uploading images"
+}
