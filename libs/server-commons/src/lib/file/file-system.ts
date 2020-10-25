@@ -2,6 +2,7 @@
 import { isNil, isString } from '@blue-paper/shared-commons';
 import { Logger } from '@nestjs/common';
 import * as fs from 'fs';
+import { type } from 'os';
 import * as util from 'util';
 
 const asyncReadFile = util.promisify(fs.readFile);
@@ -51,27 +52,29 @@ export class FileSystem {
     }
   }
 
-  static async stats(pathname: string): Promise<fs.Stats> {
+  static async stats(pathname: string, showError?: boolean): Promise<fs.Stats> {
     try {
       return await asyncStat(pathname);
     } catch (e) {
-      Logger.error(`Stats of "${pathname}" is failed => ${e.message}`, null, FILE_GROUP);
+      if (isNil(showError) || showError === true) {
+        Logger.error(`Stats of "${pathname}" is failed => ${e.message}`, null, FILE_GROUP);
+      }
       return null;
     }
   }
 
   static async isDirectory(pathname: string): Promise<boolean> {
-    const stats = await FileSystem.stats(pathname);
+    const stats = await FileSystem.stats(pathname, false);
     return !isNil(stats) && stats.isDirectory();
   }
 
   static async isFile(pathname: string): Promise<boolean> {
-    const stats = await FileSystem.stats(pathname);
+    const stats = await FileSystem.stats(pathname, false);
     return !isNil(stats) && stats.isFile();
   }
 
   static async exists(pathname: string): Promise<boolean> {
-    const stats = await FileSystem.stats(pathname);
+    const stats = await FileSystem.stats(pathname, false);
     return !isNil(stats);
   }
 }

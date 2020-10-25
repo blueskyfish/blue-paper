@@ -1,6 +1,7 @@
 import { fromEnv } from '@blue-paper/server-commons';
 import { IDbConfig } from '@blue-paper/server-database';
 import { IImageConfig } from '@blue-paper/server-image-service';
+import { IImageUploadConfig } from '@blue-paper/server-image-upload';
 import { Logger } from '@nestjs/common';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -53,5 +54,27 @@ export function buildImageConfig(): IImageConfig {
   return {
     imagePath,
     imageCache,
+  };
+}
+
+export function buildImageUploadConfig(): IImageUploadConfig {
+  const imagePath = fromEnv('IMAGE_PATH', '??').asString;
+  if (imagePath === '??') {
+    throw new Error('Environment "IMAGE_PATH" is required');
+  }
+
+  const imageTemp = fromEnv('IMAGE_PATH', '??').asString;
+  if (imageTemp === '??') {
+    throw new Error('Environment "IMAGE_TEMP" is required');
+  }
+
+  return {
+    imagePath,
+    imageTemp,
+    acceptedMimetypes: [
+      'image/jpeg',
+      'image/png',
+      // 'application/pdf',
+    ]
   };
 }
