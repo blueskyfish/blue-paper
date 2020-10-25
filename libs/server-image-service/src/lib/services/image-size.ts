@@ -1,6 +1,16 @@
-
+/**
+ * The image size. One of the attributes is required or both are in use
+ */
 export interface IImageSize {
+
+  /**
+   * The width of the image
+   */
   width?: number;
+
+  /**
+   * The height of the image
+   */
   height?: number;
 }
 
