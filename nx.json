@@ -45,10 +45,13 @@
       "tags": ["backend:lib"]
     },
     "server-image-service": {
-      "tags": ["backend:lib"]
+      "tags": ["backend:lib", "image:lib"]
     },
     "server-image-upload": {
-      "tags": ["backend:lib"]
+      "tags": ["backend:lib", "image:lib"]
+    },
+    "server-image-commons": {
+      "tags": ["backend:lib", "image:lib"]
     }
   }
 }

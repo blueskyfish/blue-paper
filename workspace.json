@@ -298,6 +298,37 @@
           }
         }
       }
+    },
+    "server-image-commons": {
+      "root": "libs/server-image-commons",
+      "sourceRoot": "libs/server-image-commons/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-image-commons/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-image-commons/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-image-commons",
+            "tsConfig": "libs/server-image-commons/tsconfig.lib.json",
+            "packageJson": "libs/server-image-commons/package.json",
+            "main": "libs/server-image-commons/src/index.ts",
+            "assets": ["libs/server-image-commons/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": {
