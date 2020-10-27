@@ -2,7 +2,7 @@ import { IAuthenticationConfig } from '@blue-paper/server-authentication';
 import { fromEnv } from '@blue-paper/server-commons';
 import { IDbConfig } from '@blue-paper/server-database';
 import { IImageFileConfig } from '@blue-paper/server-image-commons';
-import { IImageUploadConfig } from '@blue-paper/server-image-upload';
+import { IImageUploadConfig } from '@blue-paper/server-image-editor';
 import { Logger } from '@nestjs/common';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
 import { join } from 'path';

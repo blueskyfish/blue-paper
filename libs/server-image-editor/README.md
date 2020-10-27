@@ -1,6 +1,6 @@
-# Server Image Upload
+# Server Image Editor
 
-> Server library for uploading images
+> Server library for the editor environment
 
 This library was generated with [Nx](https://nx.dev).
 

@@ -1,5 +1,5 @@
 {
-  "name": "@blue-paper/server-image-upload",
+  "name": "@blue-paper/server-image-editor",
   "version": "1.0.0",
-  "description": "Server library for uploading images"
+  "description": "Server library for the editor environment"
 }

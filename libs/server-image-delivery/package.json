@@ -1,5 +1,5 @@
 {
-  "name": "@blue-paper/server-image-service",
+  "name": "@blue-paper/server-image-delivery",
   "version": "1.0.0",
   "description": "The server library works with the images (resize, crop and caching)"
 }
