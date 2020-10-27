@@ -13,6 +13,11 @@ export const DbMenu = '`menus`';
 export const DbPage = '`pages`';
 
 /**
+ * The table name of the file repository.
+ */
+export const DbFile = '`files`';
+
+/**
  * The value of enabled = `Y`.
  */
 export const ENABLED = `'${Enabled.Yes}'`;
