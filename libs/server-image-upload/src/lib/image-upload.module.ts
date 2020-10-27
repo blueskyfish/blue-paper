@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
-import { IImageUploadConfig, ImageUploadConfig } from './image-upload.config';
+import { IImageUploadConfig } from './image-upload.config';
 import { ImageUploadController } from './image-upload.controller';
 import { ImageUploadService } from './services/image-upload.service';
 import { buildConfiguration } from './image-upload.configuration';
@@ -23,10 +23,6 @@ export class ServerImageUploadModule {
         ImageUploadController,
       ],
       providers: [
-        {
-          provide: ImageUploadConfig,
-          useValue: new ImageUploadConfig(config)
-        },
         ...imageUploadServices,
       ],
       exports: [

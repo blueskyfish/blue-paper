@@ -2,7 +2,7 @@ export * from './lib/image-upload.config';
 export * from './lib/image-upload.module';
 
 // Entities
-export * from './lib/entities/file-info';
+export * from './lib/entities';
 
 // Controller
 export * from './lib/image-upload.params';
