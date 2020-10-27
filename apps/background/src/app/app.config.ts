@@ -1,6 +1,7 @@
+import { IAuthenticationConfig } from '@blue-paper/server-authentication';
 import { fromEnv } from '@blue-paper/server-commons';
 import { IDbConfig } from '@blue-paper/server-database';
-import { IImageConfig } from '@blue-paper/server-image-service';
+import { IImageFileConfig } from '@blue-paper/server-image-commons';
 import { IImageUploadConfig } from '@blue-paper/server-image-upload';
 import { Logger } from '@nestjs/common';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
@@ -28,6 +29,23 @@ export function buildStaticConfig(): ServeStaticModuleOptions[] {
   ];
 }
 
+export function buildAuthenticationConfig(): IAuthenticationConfig {
+
+  const privateKeyFile = fromEnv('FILE_PRIVATE_KEY', '??').asString;
+  if (privateKeyFile === '??') {
+    throw new Error('Environment "FILE_PRIVATE_KEY" is required');
+  }
+  const publicKeyFile = fromEnv('FILE_PUBLIC_KEY', '??').asString;
+  if (publicKeyFile === '??') {
+    throw new Error('Environment "FILE_PUBLIC_KEY" is required');
+  }
+
+  return {
+    publicKeyFile,
+    privateKeyFile,
+  }
+}
+
 export function buildDatabaseConfig(): IDbConfig {
   return {
     host: fromEnv('DB_HOST', 'localhost').asString,
@@ -39,8 +57,7 @@ export function buildDatabaseConfig(): IDbConfig {
   };
 }
 
-
-export function buildImageConfig(): IImageConfig {
+export function buildImageFileConfig(): IImageFileConfig {
   const imagePath = fromEnv('IMAGE_PATH', '??').asString;
   if (imagePath === '??') {
     throw new Error('Environment "IMAGE_PATH" is required');
@@ -51,25 +68,26 @@ export function buildImageConfig(): IImageConfig {
     throw new Error('Environment "IMAGE_CACHE" is required');
   }
 
-  return {
-    imagePath,
-    imageCache,
-  };
-}
-
-export function buildImageUploadConfig(): IImageUploadConfig {
-  const imagePath = fromEnv('IMAGE_PATH', '??').asString;
-  if (imagePath === '??') {
-    throw new Error('Environment "IMAGE_PATH" is required');
-  }
-
-  const imageTemp = fromEnv('IMAGE_PATH', '??').asString;
+  const imageTemp = fromEnv('IMAGE_TEMP', '??').asString;
   if (imageTemp === '??') {
     throw new Error('Environment "IMAGE_TEMP" is required');
   }
 
   return {
     imagePath,
+    imageCache,
+    imageTemp,
+  }
+}
+
+export function buildImageUploadConfig(): IImageUploadConfig {
+
+  const imageTemp = fromEnv('IMAGE_TEMP', '??').asString;
+  if (imageTemp === '??') {
+    throw new Error('Environment "IMAGE_TEMP" is required');
+  }
+
+  return {
     imageTemp,
     acceptedMimetypes: [
       'image/jpeg',

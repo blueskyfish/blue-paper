@@ -41,4 +41,4 @@ async function bootstrap() {
 }
 
 bootstrap()
-  .catch((e) => Logger.error(e, null, BOOTSTRAP_GROUP));
+  .catch((e) => Logger.error(`Error ${e.message}\n${e.stack}`, null, BOOTSTRAP_GROUP));
