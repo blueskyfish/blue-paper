@@ -10,12 +10,12 @@ const imageUploadServices: any[] = [
 ];
 
 @Module({})
-export class ServerImageUploadModule {
+export class ServerImageEditorModule {
 
   static forRoot(config: IImageUploadConfig): DynamicModule {
     return {
       global: true,
-      module: ServerImageUploadModule,
+      module: ServerImageEditorModule,
       imports: [
         MulterModule.register(buildConfiguration(config.imageTemp, config.acceptedMimetypes)),
       ],

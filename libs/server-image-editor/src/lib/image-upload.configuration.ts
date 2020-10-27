@@ -1,5 +1,5 @@
 import { FileSystem } from '@blue-paper/server-commons';
-import { FileInfo } from '@blue-paper/server-image-upload';
+import { FileInfo } from './entities/file-info';
 import { Logger } from '@nestjs/common';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { Request } from 'express';

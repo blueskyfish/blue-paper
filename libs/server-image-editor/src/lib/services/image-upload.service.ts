@@ -9,7 +9,7 @@ import { IDbInsertFile, IRepositoryPool, RepositoryService } from '@blue-paper/s
 import { isNil } from '@blue-paper/shared-commons';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { FileInfo, PreviewFile } from '../entities';
-import { ImageUploadParams } from '../image-upload.params';
+import { ImageUploadParams } from '../image-editor.params';
 
 export const IMAGE_UPLOAD_GROUP = 'ImageUpload';
 

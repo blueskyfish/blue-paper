@@ -3,7 +3,7 @@ import { BadRequestException, Controller, Param, Post, UploadedFile, UseIntercep
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PreviewFile } from './entities';
 import { FileInfo } from './entities/file-info';
-import { ImageUploadParams } from './image-upload.params';
+import { ImageUploadParams } from './image-editor.params';
 import { ImageUploadService } from './services/image-upload.service';
 
 @Controller('/upload')
