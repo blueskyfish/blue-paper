@@ -10,5 +10,6 @@ module.exports = {
     '<rootDir>/libs/server-image-service',
     '<rootDir>/libs/server-image-upload',
     '<rootDir>/libs/server-image-commons',
+    '<rootDir>/libs/server-authentication',
   ],
 };

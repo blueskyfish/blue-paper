@@ -52,6 +52,9 @@
     },
     "server-image-commons": {
       "tags": ["backend:lib", "image:lib"]
+    },
+    "server-authentication": {
+      "tags": ["backend:lib"]
     }
   }
 }

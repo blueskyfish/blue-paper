@@ -24,7 +24,8 @@
       "@blue-paper/server-markdown": ["libs/server-markdown/src/index.ts"],
       "@blue-paper/server-image-service": ["libs/server-image-service/src/index.ts"],
       "@blue-paper/server-image-upload": ["libs/server-image-upload/src/index.ts"],
-      "@blue-paper/server-image-commons": ["libs/server-image-commons/src/index.ts"]
+      "@blue-paper/server-image-commons": ["libs/server-image-commons/src/index.ts"],
+      "@blue-paper/server-authentication": ["libs/server-authentication/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
