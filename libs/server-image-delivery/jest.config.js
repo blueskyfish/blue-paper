@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'server-image-service',
+  displayName: 'server-image-delivery',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/server-image-service',
+  coverageDirectory: '../../coverage/libs/server-image-delivery',
 };

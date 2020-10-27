@@ -4,7 +4,7 @@ import { isNil } from '@blue-paper/shared-commons';
 import { Controller, Get, Headers, HttpStatus, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { HEADER_CONTENT_TYPE, HEADER_ETAG, HEADER_IF_NOT_MATCH, ImageDataParams } from './image-delivery.params';
-import { IMAGE_DELIVERY_GROUP } from './image-service.const';
+import { IMAGE_DELIVERY_GROUP } from './image-delivery.const';
 import { ImageDeliveryService } from './services/image-delivery.service';
 
 /**

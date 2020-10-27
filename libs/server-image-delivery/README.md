@@ -1,6 +1,6 @@
-# Server Image Service
+# Server Image Delivery
 
->The server library works with the images *(resize, crop and caching)*
+>The server library deliveries images
 
 This library was generated with [Nx](https://nx.dev).
 

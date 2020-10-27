@@ -63,12 +63,6 @@
         "backend:lib"
       ]
     },
-    "server-image-service": {
-      "tags": [
-        "backend:lib",
-        "image:lib"
-      ]
-    },
     "server-image-commons": {
       "tags": [
         "backend:lib",
@@ -81,6 +75,12 @@
       ]
     },
     "server-image-editor": {
+      "tags": [
+        "backend:lib",
+        "image:lib"
+      ]
+    },
+    "server-image-delivery": {
       "tags": [
         "backend:lib",
         "image:lib"

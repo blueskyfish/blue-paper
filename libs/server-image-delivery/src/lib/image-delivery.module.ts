@@ -21,5 +21,5 @@ const imageServices: any[] = [
     ...imageServices,
   ]
 })
-export class ServerImageServiceModule {
+export class ServerImageDeliveryModule {
 }

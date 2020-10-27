@@ -39,9 +39,6 @@
       "@blue-paper/server-markdown": [
         "libs/server-markdown/src/index.ts"
       ],
-      "@blue-paper/server-image-service": [
-        "libs/server-image-service/src/index.ts"
-      ],
       "@blue-paper/server-image-commons": [
         "libs/server-image-commons/src/index.ts"
       ],
@@ -50,6 +47,9 @@
       ],
       "@blue-paper/server-image-editor": [
         "libs/server-image-editor/src/index.ts"
+      ],
+      "@blue-paper/server-image-delivery": [
+        "libs/server-image-delivery/src/index.ts"
       ]
     }
   },

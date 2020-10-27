@@ -1,5 +1,5 @@
 
-export * from './lib/image-service.module';
+export * from './lib/image-delivery.module';
 
 export * from './lib/image-delivery.params';
 
