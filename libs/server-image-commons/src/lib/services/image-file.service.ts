@@ -58,13 +58,17 @@ export class ImageFileService implements OnApplicationBootstrap {
    * @param {string} filename the filename of the image
    * @returns {Promise<string>} the complete filename
    */
-  async buildImageFilenameFrom(menuId: string, groupId: string, filename: string): Promise<string> {
+  async buildImageFilenameAndPrepareDirectory(menuId: string, groupId: string, filename: string): Promise<string> {
     const saveImagePath = join(this.config.imagePath, menuId, groupId);
     const isExist = await FileSystem.exists(saveImagePath);
     if (!isExist) {
       await FileSystem.mkdir(saveImagePath);
     }
     return join(saveImagePath, filename);
+  }
+
+  buildImageFilename(menuId: string, groupId: string, filename: string): string {
+    return join(this.config.imagePath, menuId, groupId, filename);
   }
 
   /**
@@ -81,7 +85,7 @@ export class ImageFileService implements OnApplicationBootstrap {
   /**
    * Build form the given parameter an encrypted image url.
    *
-   * @param{BuildImageUrl} data the build image entity
+   * @param {BuildImageUrl} data the build image entity
    * @returns {string}
    */
   buildEncryptedImageUrl(data: BuildImageUrl): string {
