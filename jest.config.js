@@ -11,5 +11,7 @@ module.exports = {
     '<rootDir>/libs/server-image-upload',
     '<rootDir>/libs/server-image-commons',
     '<rootDir>/libs/server-authentication',
+    '<rootDir>/libs/shared-entities',
+    '<rootDir>/apps/paper-bureau',
   ],
 };

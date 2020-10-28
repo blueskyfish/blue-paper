@@ -12,6 +12,7 @@
     "nx": "nx",
     "start": "nx serve",
     "start:background": "env-cmd -f ./blue-paper.env nx serve background",
+    "start:bureau": "env-cmd -f ./blue-paper.env nx serve paper-bureau",
     "start:libs": "npm-watch watch:libs",
     "start:theme": "npm-run-all -p theme:*",
     "start:db": "docker-compose up -d",

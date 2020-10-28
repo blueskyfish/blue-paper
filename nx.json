@@ -18,73 +18,49 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
   "projects": {
     "background": {
-      "tags": [
-        "backend:app"
-      ]
+      "tags": ["backend:app"]
+    },
+    "paper-bureau": {
+      "tags": ["backend:app"]
     },
     "server-commons": {
-      "tags": [
-        "backend:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-database": {
-      "tags": [
-        "backend:lib"
-      ]
-    },
-    "shared-commons": {
-      "tags": [
-        "commons:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-repository": {
-      "tags": [
-        "backend:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-paper-service": {
-      "tags": [
-        "backend:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-markdown": {
-      "tags": [
-        "backend:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-image-commons": {
-      "tags": [
-        "backend:lib",
-        "image:lib"
-      ]
+      "tags": ["backend:lib", "image:lib"]
     },
     "server-authentication": {
-      "tags": [
-        "backend:lib"
-      ]
+      "tags": ["backend:lib"]
     },
     "server-image-editor": {
-      "tags": [
-        "backend:lib",
-        "image:lib"
-      ]
+      "tags": ["backend:lib", "image:lib"]
     },
     "server-image-delivery": {
-      "tags": [
-        "backend:lib",
-        "image:lib"
-      ]
+      "tags": ["backend:lib", "image:lib"]
+    },
+    "shared-commons": {
+      "tags": ["commons:lib"]
+    },
+    "shared-entities": {
+      "tags": ["commons:lib"]
     }
   }
 }

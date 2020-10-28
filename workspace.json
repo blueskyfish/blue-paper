@@ -14,9 +14,7 @@
             "outputPath": "dist/apps/background",
             "main": "apps/background/src/main.ts",
             "tsConfig": "apps/background/tsconfig.app.json",
-            "assets": [
-              "apps/background/src/assets"
-            ]
+            "assets": ["apps/background/src/assets"]
           },
           "configurations": {
             "production": {
@@ -41,9 +39,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/background/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/background/**/*.ts"]
           }
         },
         "test": {
@@ -64,9 +60,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-commons/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-commons/**/*.ts"]
           }
         },
         "test": {
@@ -83,9 +77,7 @@
             "tsConfig": "libs/server-commons/tsconfig.lib.json",
             "packageJson": "libs/server-commons/package.json",
             "main": "libs/server-commons/src/index.ts",
-            "assets": [
-              "libs/server-commons/*.md"
-            ]
+            "assets": ["libs/server-commons/*.md"]
           }
         }
       }
@@ -99,9 +91,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-database/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-database/**/*.ts"]
           }
         },
         "test": {
@@ -118,9 +108,7 @@
             "tsConfig": "libs/server-database/tsconfig.lib.json",
             "packageJson": "libs/server-database/package.json",
             "main": "libs/server-database/src/index.ts",
-            "assets": [
-              "libs/server-database/*.md"
-            ]
+            "assets": ["libs/server-database/*.md"]
           }
         }
       }
@@ -134,9 +122,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared-commons/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared-commons/**/*.ts"]
           }
         },
         "build": {
@@ -146,9 +132,7 @@
             "tsConfig": "libs/shared-commons/tsconfig.lib.json",
             "packageJson": "libs/shared-commons/package.json",
             "main": "libs/shared-commons/src/index.ts",
-            "assets": [
-              "libs/shared-commons/*.md"
-            ]
+            "assets": ["libs/shared-commons/*.md"]
           }
         },
         "test": {
@@ -169,9 +153,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-repository/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-repository/**/*.ts"]
           }
         },
         "test": {
@@ -188,9 +170,7 @@
             "tsConfig": "libs/server-repository/tsconfig.lib.json",
             "packageJson": "libs/server-repository/package.json",
             "main": "libs/server-repository/src/index.ts",
-            "assets": [
-              "libs/server-repository/*.md"
-            ]
+            "assets": ["libs/server-repository/*.md"]
           }
         }
       }
@@ -204,9 +184,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-paper-service/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-paper-service/**/*.ts"]
           }
         },
         "test": {
@@ -223,9 +201,7 @@
             "tsConfig": "libs/server-paper-service/tsconfig.lib.json",
             "packageJson": "libs/server-paper-service/package.json",
             "main": "libs/server-paper-service/src/index.ts",
-            "assets": [
-              "libs/server-paper-service/*.md"
-            ]
+            "assets": ["libs/server-paper-service/*.md"]
           }
         }
       }
@@ -239,9 +215,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-markdown/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-markdown/**/*.ts"]
           }
         },
         "test": {
@@ -258,9 +232,7 @@
             "tsConfig": "libs/server-markdown/tsconfig.lib.json",
             "packageJson": "libs/server-markdown/package.json",
             "main": "libs/server-markdown/src/index.ts",
-            "assets": [
-              "libs/server-markdown/*.md"
-            ]
+            "assets": ["libs/server-markdown/*.md"]
           }
         }
       }
@@ -274,9 +246,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-image-commons/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-image-commons/**/*.ts"]
           }
         },
         "test": {
@@ -293,9 +263,7 @@
             "tsConfig": "libs/server-image-commons/tsconfig.lib.json",
             "packageJson": "libs/server-image-commons/package.json",
             "main": "libs/server-image-commons/src/index.ts",
-            "assets": [
-              "libs/server-image-commons/*.md"
-            ]
+            "assets": ["libs/server-image-commons/*.md"]
           }
         }
       }
@@ -309,9 +277,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-authentication/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-authentication/**/*.ts"]
           }
         },
         "test": {
@@ -328,9 +294,7 @@
             "tsConfig": "libs/server-authentication/tsconfig.lib.json",
             "packageJson": "libs/server-authentication/package.json",
             "main": "libs/server-authentication/src/index.ts",
-            "assets": [
-              "libs/server-authentication/*.md"
-            ]
+            "assets": ["libs/server-authentication/*.md"]
           }
         }
       }
@@ -344,9 +308,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-image-editor/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-image-editor/**/*.ts"]
           }
         },
         "test": {
@@ -363,9 +325,7 @@
             "tsConfig": "libs/server-image-editor/tsconfig.lib.json",
             "packageJson": "libs/server-image-editor/package.json",
             "main": "libs/server-image-editor/src/index.ts",
-            "assets": [
-              "libs/server-image-editor/*.md"
-            ]
+            "assets": ["libs/server-image-editor/*.md"]
           }
         }
       }
@@ -379,9 +339,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/server-image-delivery/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/server-image-delivery/**/*.ts"]
           }
         },
         "test": {
@@ -398,9 +356,88 @@
             "tsConfig": "libs/server-image-delivery/tsconfig.lib.json",
             "packageJson": "libs/server-image-delivery/package.json",
             "main": "libs/server-image-delivery/src/index.ts",
-            "assets": [
-              "libs/server-image-delivery/*.md"
-            ]
+            "assets": ["libs/server-image-delivery/*.md"]
+          }
+        }
+      }
+    },
+    "shared-entities": {
+      "root": "libs/shared-entities",
+      "sourceRoot": "libs/shared-entities/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-entities/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-entities/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/shared-entities",
+            "tsConfig": "libs/shared-entities/tsconfig.lib.json",
+            "packageJson": "libs/shared-entities/package.json",
+            "main": "libs/shared-entities/src/index.ts",
+            "assets": ["libs/shared-entities/*.md"]
+          }
+        }
+      }
+    },
+    "paper-bureau": {
+      "root": "apps/paper-bureau",
+      "sourceRoot": "apps/paper-bureau/src",
+      "projectType": "application",
+      "prefix": "paper-bureau",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/paper-bureau",
+            "main": "apps/paper-bureau/src/main.ts",
+            "tsConfig": "apps/paper-bureau/tsconfig.app.json",
+            "assets": ["apps/paper-bureau/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/paper-bureau/src/environments/environment.ts",
+                  "with": "apps/paper-bureau/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "paper-bureau:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/paper-bureau/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/paper-bureau/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

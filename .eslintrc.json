@@ -38,6 +38,10 @@
           {
             "sourceTag": "image:lib",
             "onlyDependOnLibsWithTags": ["image:lib", "commons:lib", "backend:lib"]
+          },
+          {
+            "sourceTag": "commons:lib",
+            "onlyDependOnLibsWithTags": ["commons:lib"]
           }
         ]
       }

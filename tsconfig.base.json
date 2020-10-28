@@ -10,51 +10,24 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@blue-paper/server-commons": [
-        "libs/server-commons/src/index.ts"
-      ],
-      "@blue-paper/server-database": [
-        "libs/server-database/src/index.ts"
-      ],
-      "@blue-paper/shared-commons": [
-        "libs/shared-commons/src/index.ts"
-      ],
-      "@blue-paper/server-repository": [
-        "libs/server-repository/src/index.ts"
-      ],
-      "@blue-paper/server-paper-service": [
-        "libs/server-paper-service/src/index.ts"
-      ],
-      "@blue-paper/server-markdown": [
-        "libs/server-markdown/src/index.ts"
-      ],
-      "@blue-paper/server-image-commons": [
-        "libs/server-image-commons/src/index.ts"
-      ],
-      "@blue-paper/server-authentication": [
-        "libs/server-authentication/src/index.ts"
-      ],
-      "@blue-paper/server-image-editor": [
-        "libs/server-image-editor/src/index.ts"
-      ],
-      "@blue-paper/server-image-delivery": [
-        "libs/server-image-delivery/src/index.ts"
-      ]
+      "@blue-paper/server-commons": ["libs/server-commons/src/index.ts"],
+      "@blue-paper/server-database": ["libs/server-database/src/index.ts"],
+      "@blue-paper/shared-commons": ["libs/shared-commons/src/index.ts"],
+      "@blue-paper/server-repository": ["libs/server-repository/src/index.ts"],
+      "@blue-paper/server-paper-service": ["libs/server-paper-service/src/index.ts"],
+      "@blue-paper/server-markdown": ["libs/server-markdown/src/index.ts"],
+      "@blue-paper/server-image-commons": ["libs/server-image-commons/src/index.ts"],
+      "@blue-paper/server-authentication": ["libs/server-authentication/src/index.ts"],
+      "@blue-paper/server-image-editor": ["libs/server-image-editor/src/index.ts"],
+      "@blue-paper/server-image-delivery": ["libs/server-image-delivery/src/index.ts"],
+      "@blue-paper/shared-entities": ["libs/shared-entities/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
