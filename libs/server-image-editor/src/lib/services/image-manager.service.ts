@@ -7,9 +7,10 @@ import {
 } from '@blue-paper/server-image-commons';
 import { IDbInsertFile, IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
+import { ImageUrlInfo } from '@blue-paper/shared-entities';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { FileInfo, PreviewFile } from '../entities';
-import { ImageUploadParams } from '../image-editor.params';
+import { FileInfo } from '../entities';
+import { ImageEditorParams } from '../image-editor.params';
 
 export const IMAGE_UPLOAD_GROUP = 'ImageUpload';
 
@@ -27,15 +28,15 @@ export class ImageUploadService {
   /**
    * Save the uploaded image to the file system and update the file repository. It returns a thumbnail of the image.
    *
-   * @param {ImageUploadParams} params the menu id with the group id
+   * @param {ImageEditorParams} params the menu id with the group id
    * @param {FileInfo} file the uploaded image file
    * @returns {Promise<any>} the
    */
-  async imageUpload(params: ImageUploadParams, file: FileInfo): Promise<PreviewFile> {
+  async imageUpload(params: ImageEditorParams, file: FileInfo): Promise<ImageUrlInfo> {
 
     this.log.info(IMAGE_UPLOAD_GROUP, `Image Upload Info (path=${file.path}, orignal=${file.originalname}, buffer=${(isNil(file.buffer) || file.buffer.length === 0) ? 'false' : 'true'})`);
 
-    return this.repository.execute<PreviewFile>(async (rep: IRepositoryPool) => {
+    return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
 
       const start = timeStop();
       // clean filename
@@ -51,7 +52,7 @@ export class ImageUploadService {
         throw new BadRequestException(`Image Upload File double (${params.groupId}/${filename}`);
       }
 
-      const imageFilename = await this.imageFile.buildImageFilenameFrom(params.menuId, params.groupId, filename);
+      const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(params.menuId, params.groupId, filename);
 
       try {
 
@@ -76,16 +77,17 @@ export class ImageUploadService {
         );
         const imageUrl = this.imageFile.buildEncryptedImageUrl(buildImageData);
 
-        // Result
+        // Result Image Url
         return {
-          id: fileId,
+          fileId,
           menuId: toInt(params.menuId),
           groupId: toInt(params.groupId),
-          imageUrl,
+          filename,
           mimetype: file.mimetype,
           etag: etag,
-          size: file.size
-        };
+          size: ImageSizeName.Thumbnail,
+          imageUrl,
+        } as ImageUrlInfo;
 
       } catch (e) {
         await rep.rollback();
