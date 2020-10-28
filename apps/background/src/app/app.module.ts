@@ -18,6 +18,7 @@ import {
 } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ImageDeliveryController } from './image/image-delivery.controller';
 
 @Module({
   imports: [
@@ -32,7 +33,10 @@ import { AppService } from './app.service';
     ServerRepositoryModule,
     ServerPaperServiceModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    ImageDeliveryController,
+    AppController
+  ],
   providers: [AppService],
 })
 export class AppModule {

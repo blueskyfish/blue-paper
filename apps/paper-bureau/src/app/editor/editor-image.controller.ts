@@ -1,4 +1,5 @@
 import { LogService, toInt } from '@blue-paper/server-commons';
+import { ImageDataParams } from '@blue-paper/server-image-commons';
 import { HEADER_IF_NOT_MATCH, ImageDeliveryService } from '@blue-paper/server-image-delivery';
 import { FileInfo, ImageManagerService } from '@blue-paper/server-image-editor';
 import { isNil } from '@blue-paper/shared-commons';
@@ -16,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { EditorImageDataParams, EditorImageParams } from './editor-image.params';
+import { EditorImageParams } from './editor-image.params';
 
 @Controller('/editor/image')
 export class EditorImageController {
@@ -38,7 +39,9 @@ export class EditorImageController {
    */
   @Get('/:imageData.:fileExtension(jpg|png)')
   async getImageBuffer(
-    @Param() params: EditorImageDataParams, @Headers(HEADER_IF_NOT_MATCH) etagMatch: string, @Res() res: Response
+    @Param() params: ImageDataParams,
+    @Headers(HEADER_IF_NOT_MATCH) etagMatch: string,
+    @Res() res: Response
   ): Promise<void> {
 
     await this.imageService.responseImage(params.imageData, params.fileExtension, etagMatch, res);

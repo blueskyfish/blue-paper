@@ -19,12 +19,3 @@ export class EditorImageParams {
   @IsNumberString()
   groupId: string;
 }
-
-export class EditorImageDataParams {
-
-  @IsString()
-  imageData: string;
-
-  @IsIn(['png', 'jpg'])
-  fileExtension: string;
-}
