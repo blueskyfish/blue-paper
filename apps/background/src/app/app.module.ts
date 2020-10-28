@@ -17,7 +17,6 @@ import {
   buildStaticConfig
 } from './app.config';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ImageDeliveryController } from './image/image-delivery.controller';
 
 @Module({
@@ -37,7 +36,7 @@ import { ImageDeliveryController } from './image/image-delivery.controller';
     ImageDeliveryController,
     AppController
   ],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {
 }

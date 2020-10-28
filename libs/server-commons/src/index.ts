@@ -1,7 +1,10 @@
 
 export * from './lib/server-commons.module';
 
-// enviroment
+// System service
+export * from './lib/system.service';
+
+// environment
 export * from './lib/env/env.service';
 export * from './lib/env/env.value';
 export * from './lib/env/env.reader';

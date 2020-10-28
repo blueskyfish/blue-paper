@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { SystemService } from '@blue-paper/server-commons';
+import { Controller, Get, Query } from '@nestjs/common';
 
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly systemService: SystemService) {}
 
-  @Get('/hello')
-  getData() {
-    return this.appService.getData();
+  @Get('/')
+  getHello(@Query('name') name?: string) {
+    return this.systemService.getHello(name);
   }
 }

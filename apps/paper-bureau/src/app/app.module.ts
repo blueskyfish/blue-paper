@@ -15,7 +15,6 @@ import {
 } from './app.config';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { EditorImageController } from './editor/editor-image.controller';
 
 @Module({
@@ -32,6 +31,6 @@ import { EditorImageController } from './editor/editor-image.controller';
     EditorImageController,
     AppController
   ],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
