@@ -2,7 +2,6 @@
 import { isNil, isString } from '@blue-paper/shared-commons';
 import { Logger } from '@nestjs/common';
 import * as fs from 'fs';
-import { type } from 'os';
 import * as util from 'util';
 
 const asyncReadFile = util.promisify(fs.readFile);
