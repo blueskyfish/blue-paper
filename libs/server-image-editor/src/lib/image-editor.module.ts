@@ -1,12 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { IImageUploadConfig } from './image-upload.config';
-import { ImageUploadController } from './image-upload.controller';
-import { ImageUploadService } from './services/image-upload.service';
+import { ImageManagerService } from './services/image-manager.service';
 import { buildConfiguration } from './image-upload.configuration';
 
 const imageUploadServices: any[] = [
-  ImageUploadService,
+  ImageManagerService,
 ];
 
 @Module({})
@@ -18,9 +17,6 @@ export class ServerImageEditorModule {
       module: ServerImageEditorModule,
       imports: [
         MulterModule.register(buildConfiguration(config.imageTemp, config.acceptedMimetypes)),
-      ],
-      controllers: [
-        ImageUploadController,
       ],
       providers: [
         ...imageUploadServices,

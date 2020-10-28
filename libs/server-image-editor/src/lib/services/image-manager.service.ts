@@ -1,40 +1,40 @@
-import { FileSystem, LogService, timeStop, toInt } from '@blue-paper/server-commons';
+import { FileSystem, LogService, timeStop } from '@blue-paper/server-commons';
 import {
   buildImageUrlFactory,
+  getImageSizeNameFrom,
   ImageFileService,
-  ImageProcessService,
   ImageSizeName
 } from '@blue-paper/server-image-commons';
 import { IDbInsertFile, IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { FileInfo } from '../entities';
-import { ImageEditorParams } from '../image-editor.params';
 
 export const IMAGE_UPLOAD_GROUP = 'ImageUpload';
 
 @Injectable()
-export class ImageUploadService {
+export class ImageManagerService {
 
   constructor(
     private log: LogService,
+    private repository: RepositoryService,
     private imageFile: ImageFileService,
-    private imageProcess: ImageProcessService,
-    private repository: RepositoryService
   ) {
   }
 
   /**
    * Save the uploaded image to the file system and update the file repository. It returns a thumbnail of the image.
    *
-   * @param {ImageEditorParams} params the menu id with the group id
+   * @param {number} menuId the menu id
+   * @param {number} groupId the group id
    * @param {FileInfo} file the uploaded image file
    * @returns {Promise<any>} the
    */
-  async imageUpload(params: ImageEditorParams, file: FileInfo): Promise<ImageUrlInfo> {
+  async imageUpload(menuId: number, groupId: number, file: FileInfo): Promise<ImageUrlInfo> {
 
-    this.log.info(IMAGE_UPLOAD_GROUP, `Image Upload Info (path=${file.path}, orignal=${file.originalname}, buffer=${(isNil(file.buffer) || file.buffer.length === 0) ? 'false' : 'true'})`);
+    this.log.info(IMAGE_UPLOAD_GROUP,
+      `Image Upload Info (path=${file.path}, orignal=${file.originalname}, buffer=${(isNil(file.buffer) || file.buffer.length === 0) ? 'false' : 'true'})`);
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
 
@@ -42,20 +42,16 @@ export class ImageUploadService {
       // clean filename
       const filename = this.imageFile.adjustUploadedFilename(file.originalname);
 
-      const menuId = toInt(params.menuId);
-      const groupId = toInt(params.groupId);
-
       // check if file is unique with group_id + filename
       const dbFile = await rep.file.findFileByGroupAndFilename(groupId, filename);
       if (!isNil(dbFile)) {
         // Combination of group id + filename !!
-        throw new BadRequestException(`Image Upload File double (${params.groupId}/${filename}`);
+        throw new BadRequestException(`Image Upload File double (${groupId}/${filename}`);
       }
 
-      const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(params.menuId, params.groupId, filename);
+      const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(`${menuId}`, `${groupId}`, filename);
 
       try {
-
         this.check(`Move File to ${imageFilename} failed`, await FileSystem.moveFile(file.path, imageFilename));
 
         const etag = this.imageFile.createEtag(imageFilename);
@@ -80,8 +76,8 @@ export class ImageUploadService {
         // Result Image Url
         return {
           fileId,
-          menuId: toInt(params.menuId),
-          groupId: toInt(params.groupId),
+          menuId,
+          groupId,
           filename,
           mimetype: file.mimetype,
           etag: etag,
@@ -92,11 +88,66 @@ export class ImageUploadService {
       } catch (e) {
         await rep.rollback();
         this.log.error(IMAGE_UPLOAD_GROUP, `Image Upload is failed (${e.message})`);
-        console.log(e.stack);
-        throw new BadRequestException(`File Upload failed (${params.menuId}/${params.groupId}/${filename})`);
+        // console.log(e.stack);
+        throw new BadRequestException(`File Upload failed (${menuId}/${groupId}/${filename})`);
       } finally {
         this.log.debug(IMAGE_UPLOAD_GROUP,
-          `Image Upload in ${start.duration()} ms (${params.menuId}/${params.groupId}/${filename})`);
+          `Image Upload in ${start.duration()} ms (${menuId}/${groupId}/${filename})`);
+      }
+    });
+  }
+
+  async getImageListFromMenuGroup(menuId: number, groupId: number): Promise<ImageUrlInfo[]> {
+    return this.repository.execute<ImageUrlInfo[]>(async (rep: IRepositoryPool) => {
+
+      const dbFileList = await rep.file.getImageListFromMenuGroup(menuId, groupId);
+
+      return dbFileList
+        .map(img => (
+          {
+            fileId: img.id,
+            menuId: img.menuId,
+            groupId: img.groupId,
+            size: ImageSizeName.Thumbnail,
+            filename: img.filename,
+            mimetype: img.mimetype,
+            etag: img.etag,
+            imageUrl: this.imageFile.buildImageFilename(`${menuId}`, `${groupId}`, img.filename),
+          } as ImageUrlInfo
+        ));
+    });
+  }
+
+  /**
+   * Get the image url information from given file id with the size name
+   * @param {number} fileId
+   * @param {string} sizeName
+   * @returns {Promise<ImageUrlInfo>}
+   */
+  async getImageUrlInfo(fileId: number, sizeName: string): Promise<ImageUrlInfo> {
+
+    const size = getImageSizeNameFrom(sizeName);
+
+    return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
+      const db = await  rep.file.findFileById(fileId);
+      if (isNil(db)) {
+        throw new NotFoundException(`Image "${fileId}" is not found`);
+      }
+
+      const { id, menuId, groupId, mimetype, filename, etag } = db;
+
+      const buildImageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
+      const imageUrl = this.imageFile.buildEncryptedImageUrl(buildImageData);
+
+      return {
+        fileId,
+        menuId,
+        groupId,
+        mimetype,
+        filename,
+        size,
+        etag,
+        imageUrl,
       }
     });
   }
