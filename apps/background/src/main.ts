@@ -27,7 +27,7 @@ async function bootstrap() {
     trimBlocks: false,
     lstripBlocks: false,
     watch: true,
-    noCache: fromEnv('NODE_ENV', 'local').asString === 'local' ? true : false,
+    noCache: fromEnv('NODE_ENV', 'local').asString === 'local',
     express: app,
   });
   app.engine('njk', environment.render);
@@ -41,4 +41,4 @@ async function bootstrap() {
 }
 
 bootstrap()
-  .catch((e) => Logger.error(`Error ${e.message}\n${e.stack}`, null, BOOTSTRAP_GROUP));
+  .catch((e) => Logger.error(`Startup Error ${e.message}`, null, BOOTSTRAP_GROUP));
