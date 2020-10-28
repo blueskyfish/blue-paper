@@ -11,7 +11,7 @@ import { ImageUrlInfo } from '@blue-paper/shared-entities';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { FileInfo } from '../entities';
 
-export const IMAGE_UPLOAD_GROUP = 'ImageUpload';
+export const IMAGE_MANAGER_GROUP = 'ImageManager';
 
 @Injectable()
 export class ImageManagerService {
@@ -33,7 +33,7 @@ export class ImageManagerService {
    */
   async imageUpload(menuId: number, groupId: number, file: FileInfo): Promise<ImageUrlInfo> {
 
-    this.log.info(IMAGE_UPLOAD_GROUP,
+    this.log.info(IMAGE_MANAGER_GROUP,
       `Image Upload Info (path=${file.path}, orignal=${file.originalname}, buffer=${(isNil(file.buffer) || file.buffer.length === 0) ? 'false' : 'true'})`);
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
@@ -87,11 +87,11 @@ export class ImageManagerService {
 
       } catch (e) {
         await rep.rollback();
-        this.log.error(IMAGE_UPLOAD_GROUP, `Image Upload is failed (${e.message})`);
+        this.log.error(IMAGE_MANAGER_GROUP, `Image Upload is failed (${e.message})`);
         // console.log(e.stack);
         throw new BadRequestException(`File Upload failed (${menuId}/${groupId}/${filename})`);
       } finally {
-        this.log.debug(IMAGE_UPLOAD_GROUP,
+        this.log.debug(IMAGE_MANAGER_GROUP,
           `Image Upload in ${start.duration()} ms (${menuId}/${groupId}/${filename})`);
       }
     });
@@ -158,7 +158,7 @@ export class ImageManagerService {
 
   private check(message: string, value: boolean): void {
     if (!value) {
-      this.log.error(IMAGE_UPLOAD_GROUP, message);
+      this.log.error(IMAGE_MANAGER_GROUP, message);
       throw new Error(message);
     }
   }
