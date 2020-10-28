@@ -19,7 +19,7 @@ export class ImageManagerService {
   constructor(
     private log: LogService,
     private repository: RepositoryService,
-    private imageFile: ImageFileService,
+    private imageFile: ImageFileService
   ) {
   }
 
@@ -103,18 +103,22 @@ export class ImageManagerService {
       const dbFileList = await rep.file.getImageListFromMenuGroup(menuId, groupId);
 
       return dbFileList
-        .map(img => (
-          {
-            fileId: img.id,
-            menuId: img.menuId,
-            groupId: img.groupId,
+        .map(({ id, menuId, groupId, filename, mimetype, etag}) => {
+          // Prepare image url
+          const imageData = buildImageUrlFactory(id, menuId, groupId, ImageSizeName.Thumbnail, mimetype, filename, etag);
+          const imageUrl = this.imageFile.buildEncryptedImageUrl(imageData);
+
+          return {
+            fileId: id,
+            menuId,
+            groupId,
             size: ImageSizeName.Thumbnail,
-            filename: img.filename,
-            mimetype: img.mimetype,
-            etag: img.etag,
-            imageUrl: this.imageFile.buildImageFilename(`${menuId}`, `${groupId}`, img.filename),
-          } as ImageUrlInfo
-        ));
+            filename,
+            mimetype,
+            etag,
+            imageUrl,
+          } as ImageUrlInfo;
+        });
     });
   }
 
@@ -129,7 +133,7 @@ export class ImageManagerService {
     const size = getImageSizeNameFrom(sizeName);
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
-      const db = await  rep.file.findFileById(fileId);
+      const db = await rep.file.findFileById(fileId);
       if (isNil(db)) {
         throw new NotFoundException(`Image "${fileId}" is not found`);
       }
@@ -147,8 +151,8 @@ export class ImageManagerService {
         filename,
         size,
         etag,
-        imageUrl,
-      }
+        imageUrl
+      };
     });
   }
 
