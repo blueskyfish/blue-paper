@@ -23,7 +23,10 @@
     }
   },
   "projects": {
-    "background": {
+    "paper-bureau": {
+      "tags": ["backend:app"]
+    },
+    "paper-kiosk": {
       "tags": ["backend:app"]
     },
     "server-commons": {
@@ -31,9 +34,6 @@
     },
     "server-database": {
       "tags": ["backend:lib"]
-    },
-    "shared-commons": {
-      "tags": ["commons:lib"]
     },
     "server-repository": {
       "tags": ["backend:lib"]
@@ -44,8 +44,23 @@
     "server-markdown": {
       "tags": ["backend:lib"]
     },
-    "server-image-service": {
+    "server-image-commons": {
+      "tags": ["backend:lib", "image:lib"]
+    },
+    "server-authentication": {
       "tags": ["backend:lib"]
+    },
+    "server-image-editor": {
+      "tags": ["backend:lib", "image:lib"]
+    },
+    "server-image-delivery": {
+      "tags": ["backend:lib", "image:lib"]
+    },
+    "shared-commons": {
+      "tags": ["commons:lib"]
+    },
+    "shared-entities": {
+      "tags": ["commons:lib"]
     }
   }
 }

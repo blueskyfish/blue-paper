@@ -1,56 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "background": {
-      "root": "apps/background",
-      "sourceRoot": "apps/background/src",
-      "projectType": "application",
-      "prefix": "background",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/background",
-            "main": "apps/background/src/main.ts",
-            "tsConfig": "apps/background/tsconfig.app.json",
-            "assets": ["apps/background/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/background/src/environments/environment.ts",
-                  "with": "apps/background/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "background:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/background/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/background/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "server-commons": {
       "root": "libs/server-commons",
       "sourceRoot": "libs/server-commons/src",
@@ -237,33 +187,261 @@
         }
       }
     },
-    "server-image-service": {
-      "root": "libs/server-image-service",
-      "sourceRoot": "libs/server-image-service/src",
+    "server-image-commons": {
+      "root": "libs/server-image-commons",
+      "sourceRoot": "libs/server-image-commons/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/server-image-service/**/*.ts"]
+            "lintFilePatterns": ["libs/server-image-commons/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/server-image-service/jest.config.js",
+            "jestConfig": "libs/server-image-commons/jest.config.js",
             "passWithNoTests": true
           }
         },
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "outputPath": "dist/libs/server-image-service",
-            "tsConfig": "libs/server-image-service/tsconfig.lib.json",
-            "packageJson": "libs/server-image-service/package.json",
-            "main": "libs/server-image-service/src/index.ts",
-            "assets": ["libs/server-image-service/*.md"]
+            "outputPath": "dist/libs/server-image-commons",
+            "tsConfig": "libs/server-image-commons/tsconfig.lib.json",
+            "packageJson": "libs/server-image-commons/package.json",
+            "main": "libs/server-image-commons/src/index.ts",
+            "assets": ["libs/server-image-commons/*.md"]
+          }
+        }
+      }
+    },
+    "server-authentication": {
+      "root": "libs/server-authentication",
+      "sourceRoot": "libs/server-authentication/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-authentication/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-authentication/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-authentication",
+            "tsConfig": "libs/server-authentication/tsconfig.lib.json",
+            "packageJson": "libs/server-authentication/package.json",
+            "main": "libs/server-authentication/src/index.ts",
+            "assets": ["libs/server-authentication/*.md"]
+          }
+        }
+      }
+    },
+    "server-image-editor": {
+      "root": "libs/server-image-editor",
+      "sourceRoot": "libs/server-image-editor/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-image-editor/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-image-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-image-editor",
+            "tsConfig": "libs/server-image-editor/tsconfig.lib.json",
+            "packageJson": "libs/server-image-editor/package.json",
+            "main": "libs/server-image-editor/src/index.ts",
+            "assets": ["libs/server-image-editor/*.md"]
+          }
+        }
+      }
+    },
+    "server-image-delivery": {
+      "root": "libs/server-image-delivery",
+      "sourceRoot": "libs/server-image-delivery/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-image-delivery/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-image-delivery/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-image-delivery",
+            "tsConfig": "libs/server-image-delivery/tsconfig.lib.json",
+            "packageJson": "libs/server-image-delivery/package.json",
+            "main": "libs/server-image-delivery/src/index.ts",
+            "assets": ["libs/server-image-delivery/*.md"]
+          }
+        }
+      }
+    },
+    "shared-entities": {
+      "root": "libs/shared-entities",
+      "sourceRoot": "libs/shared-entities/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-entities/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-entities/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/shared-entities",
+            "tsConfig": "libs/shared-entities/tsconfig.lib.json",
+            "packageJson": "libs/shared-entities/package.json",
+            "main": "libs/shared-entities/src/index.ts",
+            "assets": ["libs/shared-entities/*.md"]
+          }
+        }
+      }
+    },
+    "paper-bureau": {
+      "root": "apps/paper-bureau",
+      "sourceRoot": "apps/paper-bureau/src",
+      "projectType": "application",
+      "prefix": "paper-bureau",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/paper-bureau",
+            "main": "apps/paper-bureau/src/main.ts",
+            "tsConfig": "apps/paper-bureau/tsconfig.app.json",
+            "assets": ["apps/paper-bureau/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/paper-bureau/src/environments/environment.ts",
+                  "with": "apps/paper-bureau/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "paper-bureau:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/paper-bureau/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/paper-bureau/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "paper-kiosk": {
+      "root": "apps/paper-kiosk",
+      "sourceRoot": "apps/paper-kiosk/src",
+      "projectType": "application",
+      "prefix": "background",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/paper-kiosk",
+            "main": "apps/paper-kiosk/src/main.ts",
+            "tsConfig": "apps/paper-kiosk/tsconfig.app.json",
+            "assets": [
+              "apps/paper-kiosk/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/paper-kiosk/src/environments/environment.ts",
+                  "with": "apps/paper-kiosk/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "paper-kiosk:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/paper-kiosk/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/paper-kiosk/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
@@ -272,5 +450,5 @@
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "background"
+  "defaultProject": "paper-kiosk"
 }

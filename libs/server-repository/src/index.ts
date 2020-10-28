@@ -12,3 +12,4 @@ export * from './lib/repository.service';
 export * from './lib/pool';
 export * from './lib/pool/menu';
 export * from './lib/pool/page';
+export * from './lib/pool/file';
