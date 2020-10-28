@@ -1,3 +1,4 @@
+import { LogService, timeStop } from '@blue-paper/server-commons';
 import {
   BuildImageUrl,
   getImageSizeNameFrom,
@@ -6,7 +7,11 @@ import {
 } from '@blue-paper/server-image-commons';
 import { IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { Response } from 'express';
+import { HEADER_CONTENT_TYPE, HEADER_ETAG } from '../image-delivery.params';
+
+const IMAGE_DELIVERY_GROUP = 'ImageDelivery';
 
 /**
  * Image delivery service
@@ -15,6 +20,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 export class ImageDeliveryService {
 
   constructor(
+    private log: LogService,
     private repository: RepositoryService,
     private imageFile: ImageFileService,
     private imageProcess: ImageProcessService,
@@ -51,9 +57,38 @@ export class ImageDeliveryService {
    * @returns {Promise<Buffer>} the buffer
    */
   async getImageBuffer(data: BuildImageUrl): Promise<Buffer> {
-    const filename = await this.imageFile.buildImageFilenameAndPrepareDirectory(`${data.menuId}`, `${data.groupId}`, data.filename);
+    const filename = await this.imageFile.buildImageFilename(data.menuId, data.groupId, data.filename);
     const imageSize = this.imageFile.getSizeFrom(getImageSizeNameFrom(data.size));
     return await this.imageProcess.processFile(imageSize, filename);
   }
 
+  /**
+   * Collect the image data and buffer and send as response
+   *
+   */
+  async responseImage(imageData: string, fileExtension: string, etagMatch: string, res: Response): Promise<void> {
+
+    const timer = timeStop();
+    try {
+      this.log.debug(IMAGE_DELIVERY_GROUP, `url: ${imageData}.${fileExtension}\neTag: ${etagMatch}`);
+
+      // extract the image url entity
+      const data = await this.findImageUrl(imageData);
+
+      if (!isNil(etagMatch) && data.etag === etagMatch) {
+        this.log.debug(IMAGE_DELIVERY_GROUP, `Image not modified (${etagMatch})`)
+        res.status(HttpStatus.NOT_MODIFIED).end();
+        return;
+      }
+
+      const buffer = await this.getImageBuffer(data);
+
+      res.header(HEADER_ETAG, data.etag)
+        .header(HEADER_CONTENT_TYPE, data.mimetype)
+        .send(buffer);
+
+    } finally {
+      this.log.debug(IMAGE_DELIVERY_GROUP, `Image delivery in ${timer.duration()} ms`);
+    }
+  }
 }

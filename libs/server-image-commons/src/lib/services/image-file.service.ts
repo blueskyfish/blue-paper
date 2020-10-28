@@ -50,16 +50,17 @@ export class ImageFileService implements OnApplicationBootstrap {
   }
 
   /**
-   * Build the complete filename from the given parameters. It is check if the given directory is exist and if not
-   * then it is creating.
+   * Build the complete filename of the image on the filesystem from the given parameters.
    *
-   * @param {string} menuId the menu id as string
-   * @param {string} groupId the group id as string
+   * It is check if the given directory is exist and if not then it is creating.
+   *
+   * @param {number} menuId the menu id as string
+   * @param {number} groupId the group id as string
    * @param {string} filename the filename of the image
    * @returns {Promise<string>} the complete filename
    */
-  async buildImageFilenameAndPrepareDirectory(menuId: string, groupId: string, filename: string): Promise<string> {
-    const saveImagePath = join(this.config.imagePath, menuId, groupId);
+  async buildImageFilenameAndPrepareDirectory(menuId: number, groupId: number, filename: string): Promise<string> {
+    const saveImagePath = join(this.config.imagePath, `${menuId}`, `${groupId}`);
     const isExist = await FileSystem.exists(saveImagePath);
     if (!isExist) {
       await FileSystem.mkdir(saveImagePath);
@@ -67,8 +68,16 @@ export class ImageFileService implements OnApplicationBootstrap {
     return join(saveImagePath, filename);
   }
 
-  buildImageFilename(menuId: string, groupId: string, filename: string): string {
-    return join(this.config.imagePath, menuId, groupId, filename);
+  /**
+   * Build the complete filename of the image on the filesystem from the given parameters.
+   *
+   * @param {number} menuId the menu id as string
+   * @param {number} groupId the group id as string
+   * @param {string} filename the filename of the image
+   * @returns {string} the complete filename
+   */
+  buildImageFilename(menuId: number, groupId: number, filename: string): string {
+    return join(this.config.imagePath, `${menuId}`, `${groupId}`, filename);
   }
 
   /**

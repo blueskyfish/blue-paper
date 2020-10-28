@@ -1,10 +1,5 @@
 import { LogService, toInt } from '@blue-paper/server-commons';
-import {
-  HEADER_CONTENT_TYPE,
-  HEADER_ETAG,
-  HEADER_IF_NOT_MATCH,
-  ImageDeliveryService
-} from '@blue-paper/server-image-delivery';
+import { HEADER_IF_NOT_MATCH, ImageDeliveryService } from '@blue-paper/server-image-delivery';
 import { FileInfo, ImageManagerService } from '@blue-paper/server-image-editor';
 import { isNil } from '@blue-paper/shared-commons';
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
@@ -13,7 +8,6 @@ import {
   Controller,
   Get,
   Headers,
-  HttpStatus,
   Param,
   Post,
   Res,
@@ -23,7 +17,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { EditorImageDataParams, EditorImageParams } from './editor-image.params';
-import { ERROR_IMAGE_GROUP } from './editor.const';
 
 @Controller('/editor/image')
 export class EditorImageController {
@@ -48,22 +41,7 @@ export class EditorImageController {
     @Param() params: EditorImageDataParams, @Headers(HEADER_IF_NOT_MATCH) etagMatch: string, @Res() res: Response
   ): Promise<void> {
 
-    this.log.debug(ERROR_IMAGE_GROUP, `url: ${params.imageData}.${params.fileExtension}\neTag: ${etagMatch}`);
-
-    // extract the image url entity
-    const data = await this.imageService.findImageUrl(params.imageData);
-
-    if (!isNil(etagMatch) && data.etag === etagMatch) {
-      this.log.debug(ERROR_IMAGE_GROUP, `Image not modified (${etagMatch})`)
-      res.status(HttpStatus.NOT_MODIFIED).end();
-      return;
-    }
-
-    const buffer = await this.imageService.getImageBuffer(data);
-
-    res.header(HEADER_ETAG, data.etag)
-      .header(HEADER_CONTENT_TYPE, data.mimetype)
-      .send(buffer);
+    await this.imageService.responseImage(params.imageData, params.fileExtension, etagMatch, res);
   }
 
 

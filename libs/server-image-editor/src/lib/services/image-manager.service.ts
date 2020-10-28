@@ -26,6 +26,8 @@ export class ImageManagerService {
   /**
    * Save the uploaded image to the file system and update the file repository. It returns a thumbnail of the image.
    *
+   * **NOTE**: The property buffer is always `null` or `undefined` because usage of disk storage.
+   *
    * @param {number} menuId the menu id
    * @param {number} groupId the group id
    * @param {FileInfo} file the uploaded image file
@@ -34,7 +36,7 @@ export class ImageManagerService {
   async imageUpload(menuId: number, groupId: number, file: FileInfo): Promise<ImageUrlInfo> {
 
     this.log.info(IMAGE_MANAGER_GROUP,
-      `Image Upload Info (path=${file.path}, orignal=${file.originalname}, buffer=${(isNil(file.buffer) || file.buffer.length === 0) ? 'false' : 'true'})`);
+      `Image Upload Info (path=${file.path}, orignal=${file.originalname}, mimetype=${file.mimetype})`);
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
 
@@ -49,7 +51,7 @@ export class ImageManagerService {
         throw new BadRequestException(`Image Upload File double (${groupId}/${filename}`);
       }
 
-      const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(`${menuId}`, `${groupId}`, filename);
+      const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(menuId, groupId, filename);
 
       try {
         this.check(`Move File to ${imageFilename} failed`, await FileSystem.moveFile(file.path, imageFilename));
@@ -152,7 +154,7 @@ export class ImageManagerService {
         size,
         etag,
         imageUrl
-      };
+      }; // as ImageUrlInfo
     });
   }
 
