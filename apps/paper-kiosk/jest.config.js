@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'background',
+  displayName: 'paper-kiosk',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/background',
+  coverageDirectory: '../../coverage/apps/paper-kiosk',
 };

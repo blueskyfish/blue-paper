@@ -23,10 +23,10 @@
     }
   },
   "projects": {
-    "background": {
+    "paper-bureau": {
       "tags": ["backend:app"]
     },
-    "paper-bureau": {
+    "paper-kiosk": {
       "tags": ["backend:app"]
     },
     "server-commons": {
