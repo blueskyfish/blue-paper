@@ -1,0 +1,5 @@
+{
+  "name": "@blue-paper/shared-entities",
+  "version": "1.0.0",
+  "description": "Shared library for the entities betwenn backend and frontend"
+}
