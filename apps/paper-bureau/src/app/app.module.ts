@@ -16,6 +16,7 @@ import {
 
 import { AppController } from './app.controller';
 import { EditorImageController } from './editor/editor-image.controller';
+import { ImageDeliveryController } from './editor/image-delivery.controller';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EditorImageController } from './editor/editor-image.controller';
   ],
   controllers: [
     EditorImageController,
+    ImageDeliveryController,
     AppController
   ],
   providers: [],

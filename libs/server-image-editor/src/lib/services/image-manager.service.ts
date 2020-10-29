@@ -3,12 +3,15 @@ import {
   buildImageUrlFactory,
   getImageSizeNameFrom,
   ImageFileService,
+  ImageProcessService,
   ImageSizeName
 } from '@blue-paper/server-image-commons';
+import { HEADER_CONTENT_TYPE, HEADER_ETAG } from '@blue-paper/server-image-delivery';
 import { IDbInsertFile, IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { Response } from 'express';
 import { FileInfo } from '../entities';
 
 export const IMAGE_MANAGER_GROUP = 'ImageManager';
@@ -19,7 +22,8 @@ export class ImageManagerService {
   constructor(
     private log: LogService,
     private repository: RepositoryService,
-    private imageFile: ImageFileService
+    private imageFile: ImageFileService,
+    private imageProcess: ImageProcessService
   ) {
   }
 
@@ -103,18 +107,19 @@ export class ImageManagerService {
     return this.repository.execute<ImageUrlInfo[]>(async (rep: IRepositoryPool) => {
 
       const dbFileList = await rep.file.getImageListFromMenuGroup(menuId, groupId);
+      const size = ImageSizeName.Thumbnail;
 
       return dbFileList
         .map(({ id, menuId, groupId, filename, mimetype, etag}) => {
           // Prepare image url
           const imageData = buildImageUrlFactory(id, menuId, groupId, ImageSizeName.Thumbnail, mimetype, filename, etag);
-          const imageUrl = this.imageFile.buildEncryptedImageUrl(imageData);
+          const imageUrl = this.imageFile.buildEditorImageUrl(imageData, size);
 
           return {
             fileId: id,
             menuId,
             groupId,
-            size: ImageSizeName.Thumbnail,
+            size,
             filename,
             mimetype,
             etag,
@@ -155,6 +160,44 @@ export class ImageManagerService {
         etag,
         imageUrl
       }; // as ImageUrlInfo
+    });
+  }
+
+  /**
+   * Delivery the image. Only available in the editor mode.
+   */
+  async renderImage(menuId: number, groupId: number, filename: string, sizeName: string, etagMatch: string, res: Response): Promise<void> {
+
+    await this.repository.execute<void>(async (rep: IRepositoryPool) => {
+
+      const timer = timeStop();
+      try {
+        const sizeNameOfImage = getImageSizeNameFrom(sizeName);
+        const imageFilename = this.imageFile.buildImageFilename(menuId, groupId, filename);
+        const isExistImage = await FileSystem.exists(imageFilename);
+        const dbFile = await rep.file.findFileByGroupAndFilename(groupId, filename);
+
+        if (!isExistImage || isNil(dbFile) || dbFile.menuId !== menuId || isNil(sizeNameOfImage)) {
+          throw new NotFoundException(`Image (${menuId}/${groupId}/${sizeName}/${filename}) is not found`);
+        }
+
+        if (!isNil(etagMatch) && dbFile.etag === etagMatch) {
+          this.log.debug('ImageEditor', `Image not modified (${etagMatch})`)
+          res.status(HttpStatus.NOT_MODIFIED).end();
+          return;
+        }
+
+        const theImageSize = this.imageFile.getSizeFrom(sizeNameOfImage);
+        const buffer = await this.imageProcess.processFile(theImageSize, imageFilename);
+
+        res
+          .header(HEADER_ETAG, dbFile.etag)
+          .header(HEADER_CONTENT_TYPE, dbFile.mimetype)
+          .send(buffer);
+
+      } finally {
+        this.log.debug('ImageEditor', `Image (${menuId}/${groupId}/${sizeName}/${filename} is delivery in ${timer.duration()} ms`);
+      }
     });
   }
 

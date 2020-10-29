@@ -104,6 +104,17 @@ export class ImageFileService implements OnApplicationBootstrap {
   }
 
   /**
+   * Build from the given image url entity and returns an public image url (only for Editors)
+   *
+   * @param {BuildImageUrl} data data the build image entity
+   * @param {ImageSizeName} sizeName
+   * @returns {string}
+   */
+  buildEditorImageUrl(data: BuildImageUrl, sizeName: ImageSizeName): string {
+    return `/api/images/${data.menuId}/${data.groupId}/${sizeName}/${data.filename}`;
+  }
+
+  /**
    * Decrypt the data and returns the
    * @param {string} data
    * @returns {BuildImageUrl}

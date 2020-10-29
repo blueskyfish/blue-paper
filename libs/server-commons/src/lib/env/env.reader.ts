@@ -1,8 +1,8 @@
 import { EnvValue } from './env.value';
 
 /**
- * Read from the enviroment variable and returns the value.
- * @param name the enviroment name
+ * Read from the environment variable and returns the value.
+ * @param name the environment name
  * @param defValue the default value
  */
 export function fromEnv(name: string, defValue: string): EnvValue {

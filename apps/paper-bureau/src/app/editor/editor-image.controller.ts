@@ -18,6 +18,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { EditorImageParams } from './editor-image.params';
+import { PublicImageParams } from './params/public-image.params';
 
 @Controller('/editor/image')
 export class EditorImageController {
@@ -35,7 +36,7 @@ export class EditorImageController {
   }
 
   /**
-   * Get the image e.g. `/editor/image/:imageData.jpg`
+   * Get from encrypted url the image e.g. `/editor/image/:imageData.jpg`
    */
   @Get('/:imageData.:fileExtension(jpg|png)')
   async getImageBuffer(
