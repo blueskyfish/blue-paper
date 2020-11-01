@@ -7,7 +7,7 @@
  */
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
 
-export const QUERY_SIZE_PARAMS = /size=(fullsize|gallery|preview|original)/;
+export const QUERY_SIZE_PARAMS = /size=(fullwidth|gallery|preview|original)/;
 
 /**
  * The callback function for encrypting the image url with the image url entity
