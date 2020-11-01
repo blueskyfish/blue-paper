@@ -5,7 +5,95 @@
   padding-top: 5.5rem;
   padding-bottom: 3rem;
 
+  @include clearfix();
+
   @include media-breakpoint-up(md) {
     padding-top: 8rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @include clearfix();
+  }
+
+  // Image align right
+  .right {
+    float: right;
+    padding: $gap 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: $gap 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $gap-md;
+    }
+
+    @include clearfix();
+  }
+
+  // Image align left
+  .left {
+    float: left;
+    padding: $gap 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: $gap 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $gap-md;
+    }
+
+    @include clearfix();
+  }
+
+  // Image in a line (3 times)
+  .line {
+    float: left;
+    padding: $gap 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: $gap $gap / 2;
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $gap-md $gap-md / 2;
+    }
+
+    &:last-of-type {
+      @include clearfix();
+    }
+  }
+
+  // Image in the size of "preview"
+  .preview {
+    @include abs-width(100%);
+    height: auto;
+
+    @include media-breakpoint-up(sm) {
+      @include abs-width(50%);
+    }
+    @include media-breakpoint-up(md) {
+      @include abs-width(33.33%);
+    }
+  }
+
+  // Image in the size of "gallery"
+  .gallery {
+    @include abs-width(100%);
+    height: auto;
+    @include media-breakpoint-up(sm) {
+      @include abs-width(50%);
+    }
+    @include media-breakpoint-up(md) {
+      @include abs-width(33.33%);
+    }
+  }
+
+  // Image in the size "fullwidth"
+  .fullwidth {
+    @include abs-width(100%);
+    height: auto;
+    padding: $gap 0;
   }
 }
