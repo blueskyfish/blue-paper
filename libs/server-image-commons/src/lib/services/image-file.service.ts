@@ -1,6 +1,8 @@
 import { CryptoService } from '@blue-paper/server-authentication';
 import { ENCODING_HEX, FileSystem, LogService } from '@blue-paper/server-commons';
+import { IDbFile } from '@blue-paper/server-repository';
 import { toLower } from '@blue-paper/shared-commons';
+import { ImageUrlInfo } from '@blue-paper/shared-entities';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { join } from 'path';
@@ -8,6 +10,8 @@ import { v4 as uuidV4 } from 'uuid';
 import { IImageSize, ImageSizeName, ImageSizes } from '../entities';
 import { BuildImageUrl } from './entities';
 import { ImageSettingService } from './image-setting.service';
+
+export const IMAGE_FILE_GROUP = 'ImageFile';
 
 export const DEFAULT_SIZE: IImageSize = Object.freeze({
   width: 64,
@@ -20,12 +24,12 @@ export const DEFAULT_SIZE: IImageSize = Object.freeze({
 @Injectable()
 export class ImageFileService implements OnApplicationBootstrap {
 
-  private sizes: ImageSizes
+  private sizes: ImageSizes;
 
   constructor(
     private log: LogService,
     private config: ImageSettingService,
-    private cryptoService: CryptoService,
+    private cryptoService: CryptoService
   ) {
   }
 
@@ -52,7 +56,7 @@ export class ImageFileService implements OnApplicationBootstrap {
   /**
    * Build the complete filename of the image on the filesystem from the given parameters.
    *
-   * It is check if the given directory is exist and if not then it is creating.
+   * It is check if the given directory is exist and if not existing then it is creating.
    *
    * @param {number} menuId the menu id as string
    * @param {number} groupId the group id as string
@@ -100,17 +104,19 @@ export class ImageFileService implements OnApplicationBootstrap {
   buildEncryptedImageUrl(data: BuildImageUrl): string {
     const ext = this.getFileExtension(data.mimetype);
     const imagePart = this.cryptoService.encryptJson(data);
+    // TODO The public image prefix url
     return `/images/${imagePart}.${ext}`;
   }
 
   /**
-   * Build from the given image url entity and returns an public image url (only for Editors)
+   * Build from the given image url entity and returns an editor image url (only for Editors)
    *
    * @param {BuildImageUrl} data data the build image entity
    * @param {ImageSizeName} sizeName
    * @returns {string}
    */
   buildEditorImageUrl(data: BuildImageUrl, sizeName: ImageSizeName): string {
+    // TODO The editor Image prefix url
     return `/api/images/${data.menuId}/${data.groupId}/${sizeName}/${data.filename}`;
   }
 
@@ -131,12 +137,38 @@ export class ImageFileService implements OnApplicationBootstrap {
       case 'image/jpg':
         return 'jpg';
       default:
-        throw new Error(`ImageFile: Unknown mimetype "${mimetype}"`)
+        throw new Error(`${IMAGE_FILE_GROUP}: Unknown mimetype "${mimetype}"`);
     }
   }
 
   async onApplicationBootstrap(): Promise<any> {
     await this.loadImageSizesFromFile();
+  }
+
+  /**
+   * Convert an list of image files into an list of {@link ImageUrlInfo} entities
+   * @param {IDbFile[]} dbFiles the list of image files
+   * @param {ImageSizeName} size the size of the image
+   * @returns {ImageUrlInfo[]}
+   */
+  toImageUrlInfoList(dbFiles: IDbFile[], size: ImageSizeName = ImageSizeName.Thumbnail): ImageUrlInfo[] {
+    return dbFiles
+      .map(({ id, menuId, groupId, filename, mimetype, etag }) => {
+        // Prepare image url
+        const imageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
+        const imageUrl = this.buildEditorImageUrl(imageData, size);
+
+        return {
+          fileId: id,
+          menuId,
+          groupId,
+          size,
+          filename,
+          mimetype,
+          etag,
+          imageUrl
+        } as ImageUrlInfo;
+      });
   }
 
   private async loadImageSizesFromFile(): Promise<void> {
@@ -146,13 +178,13 @@ export class ImageFileService implements OnApplicationBootstrap {
     this.sizes = await FileSystem.exists(sizesFilename)
       .then((isExist: boolean) => {
         if (!isExist) {
-          this.log.error('ImageFile', `Image Sizes not found on file "${sizesFilename})`)
-          return {}
+          this.log.error(IMAGE_FILE_GROUP, `Image Sizes not found on file "${sizesFilename})`);
+          return {};
         }
         return FileSystem.readJson<ImageSizes>(sizesFilename);
       });
 
-    this.log.info('ImageFile', `Image Sizes => ${JSON.stringify(this.sizes)}`);
+    this.log.info(IMAGE_FILE_GROUP, `Image Sizes => ${JSON.stringify(this.sizes)}`);
   }
 }
 
@@ -169,7 +201,7 @@ export function buildImageUrlFactory(
     size,
     mimetype,
     filename,
-    etag,
+    etag
   };
 }
 
@@ -189,6 +221,6 @@ export function getImageSizeNameFrom(sizeName: string): ImageSizeName {
     case 'thumbnail':
       return ImageSizeName.Thumbnail;
     default:
-      throw new Error(`ImageFile: unknown size name "${sizeName}"`);
+      throw new Error(`${IMAGE_FILE_GROUP}: unknown size name "${sizeName}"`);
   }
 }

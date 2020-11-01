@@ -1,4 +1,4 @@
-import { LogService, timeStop } from '@blue-paper/server-commons';
+import { FileSystem, LogService, timeStop } from '@blue-paper/server-commons';
 import {
   BuildImageUrl,
   getImageSizeNameFrom,
@@ -41,11 +41,11 @@ export class ImageDeliveryService {
         throw new NotFoundException('Image is not found');
       }
 
+      this.log.debug(IMAGE_DELIVERY_GROUP, `Found file ${data.fileId} => ${data.filename}`);
       const dbFile = await rep.file.findFileById(data.fileId);
       if (isNil(dbFile) || dbFile.etag !== data.etag) {
         throw new NotFoundException('Image is not found');
       }
-
       return data;
     });
   }
@@ -58,6 +58,13 @@ export class ImageDeliveryService {
    */
   async getImageBuffer(data: BuildImageUrl): Promise<Buffer> {
     const filename = await this.imageFile.buildImageFilename(data.menuId, data.groupId, data.filename);
+
+    const isExist = await FileSystem.exists(filename);
+    if (!isExist) {
+      throw new NotFoundException(
+        `${IMAGE_DELIVERY_GROUP}: File is not exist (${data.menuId}/${data.groupId}/${data.filename})`);
+    }
+
     const imageSize = this.imageFile.getSizeFrom(getImageSizeNameFrom(data.size));
     return await this.imageProcess.processFile(imageSize, filename);
   }
@@ -66,11 +73,11 @@ export class ImageDeliveryService {
    * Collect the image data and buffer and send as response
    *
    */
-  async responseImage(imageData: string, fileExtension: string, etagMatch: string, res: Response): Promise<void> {
+  async responseImage(imageData: string, etagMatch: string, res: Response): Promise<void> {
 
     const timer = timeStop();
     try {
-      this.log.debug(IMAGE_DELIVERY_GROUP, `url: ${imageData}.${fileExtension}\neTag: ${etagMatch}`);
+      this.log.debug(IMAGE_DELIVERY_GROUP, `url: ${imageData}\neTag: ${etagMatch || 'not founded'}`);
 
       // extract the image url entity
       const data = await this.findImageUrl(imageData);
