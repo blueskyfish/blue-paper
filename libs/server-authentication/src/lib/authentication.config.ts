@@ -46,6 +46,14 @@ export class AuthenticationConfig {
     try {
       this._privateKey = await FileSystem.readFile(this.config.privateKeyFile);
       this._publicKey = await FileSystem.readFile(this.config.publicKeyFile);
+
+      Logger.log(`Private: (${this._privateKey.substring(0, 10)}...) size=${this._privateKey.length}`,
+        AUTHENTICATION_GROUP
+      );
+      Logger.log(`Public (${this._publicKey.substring(0, 10)}...) size=${this._publicKey.length}`,
+        AUTHENTICATION_GROUP
+      );
+
       return true;
     } catch (e) {
       Logger.error(`Key reading is failed (${e.message}`, e.stack, AUTHENTICATION_GROUP);
