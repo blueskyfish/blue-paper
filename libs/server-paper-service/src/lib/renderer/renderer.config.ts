@@ -7,7 +7,17 @@
  */
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
 
+/**
+ * Find the image size name in the query
+ * @type {RegExp}
+ */
 export const QUERY_SIZE_PARAMS = /size=(fullwidth|gallery|preview|original)/;
+
+/**
+ * Find the css style names for the image
+ * @type {RegExp}
+ */
+export const QUERY_STYLE_PARAMS = /style=([a-z,]+)/;
 
 /**
  * The callback function for encrypting the image url with the image url entity
