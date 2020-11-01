@@ -3,7 +3,7 @@
  */
 
 // Module
-export * from './lib/server-paper-service.module';
+export * from './lib/paper-service.module';
 
 // Entities and Models
 export * from './lib/models/brand.data';
@@ -21,8 +21,5 @@ export * from './lib/services/html-index.service';
 
 // Exception Filter
 export * from './lib/filters/paper-exception.filter';
-
-// Controllers
-export * from './lib/paper.controller';
 
 

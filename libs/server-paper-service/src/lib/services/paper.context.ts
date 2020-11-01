@@ -1,6 +1,6 @@
 import { isNil } from '@blue-paper/shared-commons';
 import { QueryParams } from '../models/query-params';
-import { RenderFunc } from '../models/render-func';
+import { TemplateRenderFunc } from '../models/render-func';
 
 
 export class PaperContext {
@@ -25,9 +25,9 @@ export class PaperContext {
    *
    * @param {string} pageUrl
    * @param {QueryParams} query
-   * @param {RenderFunc} res
+   * @param {TemplateRenderFunc} templateRender
    */
-  constructor(pageUrl: string, public query: QueryParams, private res: RenderFunc) {
+  constructor(pageUrl: string, public query: QueryParams, private templateRender: TemplateRenderFunc) {
     if (isNil(pageUrl)) {
       pageUrl = '/index';
     }
@@ -45,7 +45,7 @@ export class PaperContext {
       return;
     }
     // render the data
-    this.res.render(template, data);
+    this.templateRender(template, data);
     // set `true` of sent data !!
     this._sentData = true;
   }

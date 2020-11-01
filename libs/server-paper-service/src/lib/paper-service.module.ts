@@ -1,20 +1,21 @@
 import { Global, Module } from '@nestjs/common';
-import { PaperController } from './paper.controller';
 import { HtmlIndexService } from './services/html-index.service';
 import { PaperService } from './services/paper.service';
+
+const paperServices = [
+  PaperService,
+  HtmlIndexService,
+]
 
 @Global()
 @Module({
   controllers: [
-    PaperController,
   ],
   providers: [
-    PaperService,
-    HtmlIndexService,
+    ...paperServices,
   ],
   exports: [
-    PaperService,
-    HtmlIndexService,
+    ...paperServices,
   ],
 })
 export class ServerPaperServiceModule {

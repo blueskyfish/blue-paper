@@ -1,5 +1,8 @@
 import { QueryType } from './query-types';
 
+/**
+ * Query parameters as map with the key and there values
+ */
 export class QueryParams {
 
   /**
@@ -7,7 +10,7 @@ export class QueryParams {
    *
    * @param {QueryType} params
    */
-  constructor(public readonly params: QueryType) {
+  protected constructor(public readonly params: QueryType) {
   }
 
   /**
@@ -17,6 +20,21 @@ export class QueryParams {
    */
   query(name: string, defValue: string): string | string[] {
     return this.params[name] || defValue;
+  }
+
+  /**
+   * Get the value of the query parameters as list
+   *
+   * @param {string} name the query parameter
+   * @param {string} defValue the default value
+   * @returns {string[]} the list of values
+   */
+  asList(name: string, defValue: string): string[] {
+    const value = this.query(name, defValue);
+    if (!Array.isArray(value)) {
+      return [value];
+    }
+    return value;
   }
 
   /**
@@ -33,8 +51,20 @@ export class QueryParams {
   toString(): string {
     return JSON.stringify(this.params);
   }
+
+  /**
+   * Create an instance of query parameters
+   * @param {QueryType} query
+   * @returns {QueryParams}
+   */
+  static toQuery(query: QueryType): QueryParams {
+    return new QueryParams(query);
+  }
 }
 
+/**
+ * @deprecated
+ */
 export function toQuery(query: QueryType): QueryParams {
-  return new QueryParams(query);
+  return null; //new QueryParams(query);
 }
