@@ -1,10 +1,9 @@
 import { FileSystem, LogService, timeStop } from '@blue-paper/server-commons';
 import {
   buildImageUrlFactory,
-  getImageSizeNameFrom,
   ImageFileService,
   ImageProcessService,
-  ImageSizeName
+  ImageSize
 } from '@blue-paper/server-image-commons';
 import { HEADER_CONTENT_TYPE, HEADER_ETAG } from '@blue-paper/server-image-delivery';
 import { IDbInsertFile, IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
@@ -75,7 +74,7 @@ export class ImageManagerService {
         await rep.commit();
 
         const buildImageData = buildImageUrlFactory(
-          fileId, menuId, groupId, ImageSizeName.Thumbnail, file.mimetype, filename, etag
+          fileId, menuId, groupId, ImageSize.thumbnail, file.mimetype, filename, etag
         );
         const imageUrl = this.imageFile.buildEncryptedImageUrl(buildImageData);
 
@@ -87,7 +86,7 @@ export class ImageManagerService {
           filename,
           mimetype: file.mimetype,
           etag: etag,
-          size: ImageSizeName.Thumbnail,
+          size: ImageSize.thumbnail,
           imageUrl,
         } as ImageUrlInfo;
 
@@ -107,12 +106,12 @@ export class ImageManagerService {
     return this.repository.execute<ImageUrlInfo[]>(async (rep: IRepositoryPool) => {
 
       const dbFileList = await rep.file.getImageListFromMenuGroup(menuId, groupId);
-      const size = ImageSizeName.Thumbnail;
+      const size = ImageSize.thumbnail;
 
       return dbFileList
         .map(({ id, menuId, groupId, filename, mimetype, etag}) => {
           // Prepare image url
-          const imageData = buildImageUrlFactory(id, menuId, groupId, ImageSizeName.Thumbnail, mimetype, filename, etag);
+          const imageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
           const imageUrl = this.imageFile.buildEditorImageUrl(imageData, size);
 
           return {
@@ -132,12 +131,10 @@ export class ImageManagerService {
   /**
    * Get the image url information from given file id with the size name
    * @param {number} fileId
-   * @param {string} sizeName
+   * @param {string} size
    * @returns {Promise<ImageUrlInfo>}
    */
-  async getImageUrlInfo(fileId: number, sizeName: string): Promise<ImageUrlInfo> {
-
-    const size = getImageSizeNameFrom(sizeName);
+  async getImageUrlInfo(fileId: number, size: string): Promise<ImageUrlInfo> {
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
       const db = await rep.file.findFileById(fileId);
@@ -172,12 +169,11 @@ export class ImageManagerService {
 
       const timer = timeStop();
       try {
-        const sizeNameOfImage = getImageSizeNameFrom(sizeName);
         const imageFilename = this.imageFile.buildImageFilename(menuId, groupId, filename);
         const isExistImage = await FileSystem.exists(imageFilename);
         const dbFile = await rep.file.findFileByGroupAndFilename(groupId, filename);
 
-        if (!isExistImage || isNil(dbFile) || dbFile.menuId !== menuId || isNil(sizeNameOfImage)) {
+        if (!isExistImage || isNil(dbFile) || dbFile.menuId !== menuId) {
           throw new NotFoundException(`Image (${menuId}/${groupId}/${sizeName}/${filename}) is not found`);
         }
 
@@ -187,7 +183,7 @@ export class ImageManagerService {
           return;
         }
 
-        const theImageSize = this.imageFile.getSizeFrom(sizeNameOfImage);
+        const theImageSize = this.imageFile.getSizeFrom(sizeName);
         const buffer = await this.imageProcess.processFile(theImageSize, imageFilename);
 
         res

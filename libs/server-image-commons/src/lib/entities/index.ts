@@ -1,3 +1,2 @@
 
-export * from './image-size-name';
-export * from './image-sizes';
+export * from './image-size.dict';

@@ -1,5 +1,5 @@
 import { LogService } from '@blue-paper/server-commons';
-import { getImageSizeNameFrom, ImageSizeName } from '@blue-paper/server-image-commons';
+import { ImageSize } from '@blue-paper/server-image-commons';
 import { isNil } from '@blue-paper/shared-commons';
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
 import { MarkedOptions, Renderer } from 'marked';
@@ -36,7 +36,7 @@ export class ImageRenderer extends Renderer {
     const urlImage = urlParts[0];
     const urlQueries = urlParts[1];
 
-    this.log.debug(IMAGE_RENDER_GROUP, `image url (${urlImage}${isNil(urlQueries) ? '-' : urlQueries}`);
+    this.log.debug(IMAGE_RENDER_GROUP, `image url (${urlImage}?${isNil(urlQueries) ? '-' : urlQueries}`);
 
     const imageUrlInfo = this.sourceList.find((info: ImageUrlInfo) => this.findFrom(info.imageUrl, urlImage));
     if (isNil(imageUrlInfo)) {
@@ -46,16 +46,17 @@ export class ImageRenderer extends Renderer {
     }
 
     // Search for size query parameter (Default is "preview")
-    let size: ImageSizeName = null
+    let size: string = null
     if (!isNil(urlQueries)) {
       const exec = QUERY_SIZE_PARAMS.exec(urlQueries);
       if (exec && exec[1]) {
-        size = getImageSizeNameFrom(exec[1]);
+        size = exec[1];
+        this.log.debug(IMAGE_RENDER_GROUP, `Image Size founded (size=${size})`);
       }
     }
 
     if (isNil(size)) {
-      size = ImageSizeName.Preview;
+      size = ImageSize.preview;
     }
 
     this.log.debug(IMAGE_RENDER_GROUP, `Found image ${imageUrlInfo.imageUrl}`);

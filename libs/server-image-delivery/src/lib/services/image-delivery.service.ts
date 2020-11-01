@@ -1,7 +1,6 @@
 import { FileSystem, LogService, timeStop } from '@blue-paper/server-commons';
 import {
   BuildImageUrl,
-  getImageSizeNameFrom,
   ImageFileService,
   ImageProcessService
 } from '@blue-paper/server-image-commons';
@@ -41,7 +40,7 @@ export class ImageDeliveryService {
         throw new NotFoundException('Image is not found');
       }
 
-      this.log.debug(IMAGE_DELIVERY_GROUP, `Found file ${data.fileId} => ${data.filename}`);
+      this.log.debug(IMAGE_DELIVERY_GROUP, `Found file (${data.fileId} => ${data.filename} => ${data.size})`);
       const dbFile = await rep.file.findFileById(data.fileId);
       if (isNil(dbFile) || dbFile.etag !== data.etag) {
         throw new NotFoundException('Image is not found');
@@ -65,7 +64,8 @@ export class ImageDeliveryService {
         `${IMAGE_DELIVERY_GROUP}: File is not exist (${data.menuId}/${data.groupId}/${data.filename})`);
     }
 
-    const imageSize = this.imageFile.getSizeFrom(getImageSizeNameFrom(data.size));
+    const imageSize = this.imageFile.getSizeFrom(data.size);
+    this.log.debug(IMAGE_DELIVERY_GROUP, `Image Size (${data.size} => ${imageSize.width || 'auto'} x ${imageSize.height || 'auto'}`)
     return await this.imageProcess.processFile(imageSize, filename);
   }
 
@@ -77,12 +77,16 @@ export class ImageDeliveryService {
 
     const timer = timeStop();
     try {
-      this.log.debug(IMAGE_DELIVERY_GROUP, `url: ${imageData}\neTag: ${etagMatch || 'not founded'}`);
+      // this.log.debug(IMAGE_DELIVERY_GROUP, `url: ${imageData}\neTag: ${etagMatch || 'not founded'}`);
 
       // extract the image url entity
       const data = await this.findImageUrl(imageData);
+      this.log.debug(IMAGE_DELIVERY_GROUP, `Image (${data.filename} => ${data.size})`);
 
-      if (!isNil(etagMatch) && data.etag === etagMatch) {
+      const etagWithSize = this.imageFile.createSizedEtag(data.size, data.etag);
+      this.log.debug(IMAGE_DELIVERY_GROUP, `Compare eTag:\n${etagWithSize}\n${etagMatch || 'not found'}`);
+
+      if (!isNil(etagMatch) && etagWithSize === etagMatch) {
         this.log.debug(IMAGE_DELIVERY_GROUP, `Image not modified (${etagMatch})`)
         res.status(HttpStatus.NOT_MODIFIED).end();
         return;
@@ -90,7 +94,7 @@ export class ImageDeliveryService {
 
       const buffer = await this.getImageBuffer(data);
 
-      res.header(HEADER_ETAG, data.etag)
+      res.header(HEADER_ETAG, etagWithSize)
         .header(HEADER_CONTENT_TYPE, data.mimetype)
         .send(buffer);
 
