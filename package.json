@@ -18,7 +18,7 @@
     "start:db": "docker-compose up -d",
     "build": "nx build",
     "build:db": "docker-compose build",
-    "watch:libs": "nx run-many --target=build --projects=shared-commons,shared-entities,server-commons,server-database,server-authentication,server-repository,server-image-commons,server-image-delivery,server-image-editor,server-markdown,server-paper-service --parallel=true",
+    "watch:libs": "nx run-many --target=build --projects=shared-commons,shared-entities,server-commons,server-database,server-authentication,server-repository,server-image-commons,server-image-delivery,server-image-editor,server-paper-service --parallel=true",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
