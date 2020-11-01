@@ -19,24 +19,27 @@ export class ImageRenderer extends Renderer {
   }
 
   image(href: string | null, title: string | null, text: string): string {
-    const imageUrl = this.findImageAndBuildUrl(href);
-    if (isNil(imageUrl)) {
+    const value = this.findImageAndBuildUrl(href);
+    if (isNil(value)) {
       // not found the image url info bean.
       return text;
     }
 
-    return super.image(imageUrl, title, text);
+    const imageText = super.image(value.imageUrl, title, text);
+    return imageText.replace(/>|\/>/, (closeTag) => {
+      return ` "class="${value.size}" ${closeTag}`;
+    });
   }
 
-  private findImageAndBuildUrl(href: string): string {
+  private findImageAndBuildUrl(href: string): {imageUrl: string, size: string} {
 
     const urlParts = href.split('?');
-    this.log.debug(IMAGE_RENDER_GROUP, `Find Image (${JSON.stringify(urlParts)})`);
+    // this.log.debug(IMAGE_RENDER_GROUP, `Find Image (${JSON.stringify(urlParts)})`);
 
     const urlImage = urlParts[0];
     const urlQueries = urlParts[1];
 
-    this.log.debug(IMAGE_RENDER_GROUP, `image url (${urlImage}?${isNil(urlQueries) ? '-' : urlQueries}`);
+    this.log.trace(IMAGE_RENDER_GROUP, `image url (${urlImage}?${isNil(urlQueries) ? '-' : urlQueries}`);
 
     const imageUrlInfo = this.sourceList.find((info: ImageUrlInfo) => this.findFrom(info.imageUrl, urlImage));
     if (isNil(imageUrlInfo)) {
@@ -51,7 +54,7 @@ export class ImageRenderer extends Renderer {
       const exec = QUERY_SIZE_PARAMS.exec(urlQueries);
       if (exec && exec[1]) {
         size = exec[1];
-        this.log.debug(IMAGE_RENDER_GROUP, `Image Size founded (size=${size})`);
+        this.log.trace(IMAGE_RENDER_GROUP, `Image Size founded (size=${size})`);
       }
     }
 
@@ -59,9 +62,12 @@ export class ImageRenderer extends Renderer {
       size = ImageSize.preview;
     }
 
-    this.log.debug(IMAGE_RENDER_GROUP, `Found image ${imageUrlInfo.imageUrl}`);
+    this.log.trace(IMAGE_RENDER_GROUP, `Found image ${imageUrlInfo.imageUrl}`);
 
-    return this.encryptImageUrl({ ...imageUrlInfo, size });
+    return {
+      imageUrl: this.encryptImageUrl({ ...imageUrlInfo, size }),
+      size,
+    };
   }
 
   findFrom = (imageUrl: string, url: string): boolean => {
