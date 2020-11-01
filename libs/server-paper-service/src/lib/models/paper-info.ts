@@ -8,7 +8,7 @@ export interface PaperInfo {
   /**
    * menu id
    */
-  readonly id: number;
+  readonly menuId: number;
 
   /**
    * The page or blog id
