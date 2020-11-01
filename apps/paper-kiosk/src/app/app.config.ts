@@ -2,7 +2,6 @@ import { IAuthenticationConfig } from '@blue-paper/server-authentication';
 import { fromEnv } from '@blue-paper/server-commons';
 import { IDbConfig } from '@blue-paper/server-database';
 import { IImageFileConfig } from '@blue-paper/server-image-commons';
-import { IImageUploadConfig } from '@blue-paper/server-image-editor';
 import { Logger } from '@nestjs/common';
 import { ServeStaticModuleOptions } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -11,6 +10,11 @@ import { join } from 'path';
  * Group name of bootstrap
  */
 export const BOOTSTRAP_GROUP = 'Bootstrap';
+
+/**
+ * Group name for the controllers
+ */
+export const CONTROLLER_GROUP = 'Controller';
 
 export const APP_HOME = fromEnv('background_home', process.cwd()).asString;
 
@@ -78,21 +82,4 @@ export function buildImageFileConfig(): IImageFileConfig {
     imageCache,
     imageTemp,
   }
-}
-
-export function buildImageUploadConfig(): IImageUploadConfig {
-
-  const imageTemp = fromEnv('IMAGE_TEMP', '??').asString;
-  if (imageTemp === '??') {
-    throw new Error('Environment "IMAGE_TEMP" is required');
-  }
-
-  return {
-    imageTemp,
-    acceptedMimetypes: [
-      'image/jpeg',
-      'image/png',
-      // 'application/pdf',
-    ]
-  };
 }

@@ -1,4 +1,3 @@
-import { ImageDataParams } from '@blue-paper/server-image-commons';
 import { HEADER_IF_NOT_MATCH, ImageDeliveryService } from '@blue-paper/server-image-delivery';
 import { Controller, Get, Headers, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
@@ -12,13 +11,12 @@ export class ImageDeliveryController {
   /**
    * Get the image e.g. `/editor/image/:imageData.jpg`
    */
-  @Get('/:imageData.:fileExtension(jpg|png)')
+  @Get('/*.(jpg|png)$')
   async getImageBuffer(
-    @Param() params: ImageDataParams,
+    @Param('0') imageData: string,
     @Headers(HEADER_IF_NOT_MATCH) etagMatch: string,
     @Res() res: Response
   ): Promise<void> {
-
-    await this.imageDelivery.responseImage(params.imageData, params.fileExtension, etagMatch, res);
+    await this.imageDelivery.responseImage(imageData, etagMatch, res);
   }
 }

@@ -3,7 +3,6 @@ import { ServerCommonsModule } from '@blue-paper/server-commons';
 import { ServerDatabaseModule } from '@blue-paper/server-database';
 import { ServerImageCommonsModule } from '@blue-paper/server-image-commons';
 import { ServerImageDeliveryModule } from '@blue-paper/server-image-delivery';
-import { ServerImageEditorModule } from '@blue-paper/server-image-editor';
 import { ServerPaperServiceModule } from '@blue-paper/server-paper-service';
 import { ServerRepositoryModule } from '@blue-paper/server-repository';
 import { Module } from '@nestjs/common';
@@ -13,11 +12,11 @@ import {
   buildAuthenticationConfig,
   buildDatabaseConfig,
   buildImageFileConfig,
-  buildImageUploadConfig,
   buildStaticConfig
 } from './app.config';
 import { AppController } from './app.controller';
-import { ImageDeliveryController } from './image/image-delivery.controller';
+import { HtmlPaperController } from './html-paper.controller';
+import { ImageDeliveryController } from './image-delivery.controller';
 
 @Module({
   imports: [
@@ -28,12 +27,12 @@ import { ImageDeliveryController } from './image/image-delivery.controller';
     ServerDatabaseModule.forRoot(buildDatabaseConfig()),
     ServerImageCommonsModule.forRoot(buildImageFileConfig()),
     ServerImageDeliveryModule,
-    ServerImageEditorModule.forRoot(buildImageUploadConfig()),
     ServerRepositoryModule,
     ServerPaperServiceModule,
   ],
   controllers: [
     ImageDeliveryController,
+    HtmlPaperController,
     AppController
   ],
   providers: [],
