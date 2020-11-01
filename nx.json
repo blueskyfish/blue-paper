@@ -41,9 +41,6 @@
     "server-paper-service": {
       "tags": ["backend:lib"]
     },
-    "server-markdown": {
-      "tags": ["backend:lib"]
-    },
     "server-image-commons": {
       "tags": ["backend:lib", "image:lib"]
     },
