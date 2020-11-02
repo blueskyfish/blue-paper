@@ -1,8 +1,10 @@
 {% extends "./partial/page.html.njk" %}
 
 {% block content %}
-  <h1>{{  content.title }}</h1>
-  <div>
-    {{ content.body | safe }}
-  </div>
+  <main class="container">
+    <section class="content">
+      <h1>{{ content.title }}</h1>
+      {{ content.body | safe }}
+    </section>
+  </main>
 {% endblock %}

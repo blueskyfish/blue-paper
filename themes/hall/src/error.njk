@@ -1,0 +1,14 @@
+{% extends './partial/base.html.njk' %}
+
+{% block body %}
+  <main class="container">
+    <section class="error">
+      <h1>{{ content.title }}</h1>
+      <p class="home"><a href="/index.html">Home</a></p>
+      <hr/>
+      <p>Message<br>{{ content.message }}</p>
+      <p>PageUrl<br>{{ content.pageUrl }}</p>
+      <pre><code>{{ content.stack }}</code></pre>
+    </section>
+  </main>
+{% endblock %}

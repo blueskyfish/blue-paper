@@ -1,17 +1,6 @@
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8">
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{{  title  }}</title>
-  {% block meta %}
-  {% endblock %}
-  {% block styles %}
-  <link rel="stylesheet" href="assets/styles.css">
-  {% endblock %}
-</head>
-<body>
+{% extends './base.html.njk' %}
+
+{% block body %}
 
 {% block header %}
   <header class="header fixed-top">
@@ -41,11 +30,9 @@
   </header>
 {% endblock %}
 
-<main class="content container">
 {% block content %}
 
 {% endblock %}
-</main>
 
 {% block footer %}
   <footer class="footer navbar fixed-bottom">
@@ -55,10 +42,4 @@
   </footer>
 {% endblock %}
 
-{% block scripts %}
-  <script src="assets/js/jquery.slim.min.js"></script>
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
-
-</body>
-</html>

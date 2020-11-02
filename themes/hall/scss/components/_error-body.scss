@@ -1,0 +1,22 @@
+//
+// Styles for the page template "error"
+//
+.error {
+  background: $hall-body-background;
+  padding-top: 5.5rem;
+  padding-bottom: 3rem;
+
+  @include clearfix();
+
+  @include media-breakpoint-up(md) {
+    padding-top: 8rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @include clearfix();
+  }
+
+  .home {
+    font-weight: bold;
+  }
+}
