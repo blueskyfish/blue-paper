@@ -18,19 +18,15 @@ const getTemplate = <T extends {content: {title: string }}>(exception: HttpExcep
 
   if (exception instanceof BadRequestException) {
     data.content.title = 'Bad Request';
-    return 'bad-request';
   }
   if (exception instanceof NotFoundException) {
     data.content.title = 'Not Found';
-    return 'not-found';
   }
   if (exception instanceof UnauthorizedException) {
     data.content.title = 'Unauthorized';
-    return 'unauthorized';
   }
   if (exception instanceof ForbiddenException) {
     data.content.title = 'Forbidden';
-    return 'forbidden';
   }
   // TODO more errors
 
@@ -62,16 +58,7 @@ export class PaperExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     const data = {
-      brand: { ...DEFAULT_BRAND },
       title: 'Error',
-      navbar: [
-        {
-          title: 'Home',
-          pageUrl: '/index',
-          active: true,
-        }
-      ],
-      footer: [],
       content: {
         title: '',
         message: exception.message,
