@@ -38,14 +38,14 @@ export class EditorImageController {
   /**
    * Get from encrypted url the image e.g. `/editor/image/:imageData.jpg`
    */
-  @Get('/:imageData.:fileExtension(jpg|png)')
+  @Get('/*.(jpg|png)$')
   async getImageBuffer(
-    @Param() params: ImageDataParams,
+    @Param('0') imageData: string,
     @Headers(HEADER_IF_NOT_MATCH) etagMatch: string,
     @Res() res: Response
   ): Promise<void> {
 
-    await this.imageService.responseImage(params.imageData, params.fileExtension, etagMatch, res);
+    await this.imageService.responseImage(imageData, etagMatch, res);
   }
 
 
