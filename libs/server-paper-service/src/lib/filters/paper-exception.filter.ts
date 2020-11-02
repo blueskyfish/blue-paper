@@ -7,7 +7,6 @@ import {
   NotFoundException, UnauthorizedException
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { DEFAULT_BRAND } from '../services/html-data.provider';
 
 // region Get Template
 
