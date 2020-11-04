@@ -13,6 +13,7 @@
     "start": "nx serve",
     "start:kiosk": "env-cmd -f ./blue-paper.env nx serve paper-kiosk",
     "start:bureau": "env-cmd -f ./blue-paper.env nx serve paper-bureau",
+    "start:editor": "nx serve paper-editor --port 28080 --proxy-config=./paper-editor.proxy.json",
     "start:libs": "npm-watch watch:libs",
     "start:theme": "npm-run-all -p theme:*",
     "start:db": "docker-compose up -d",
