@@ -1,0 +1,7 @@
+
+@import "themes/editor/src/blue-paper";
+
+.toolbar {
+  height: 100%;
+  @include display-flex(column);
+}

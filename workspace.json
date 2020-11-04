@@ -453,7 +453,21 @@
             "polyfills": "apps/paper-editor/src/polyfills.ts",
             "tsConfig": "apps/paper-editor/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/paper-editor/src/favicon.ico", "apps/paper-editor/src/assets"],
+            "extractCss": true,
+            "assets": [
+              "apps/paper-editor/src/favicon.ico",
+              "apps/paper-editor/src/assets",
+              {
+                "glob": "*.*",
+                "input": "./themes/editor/src/assets/fonts",
+                "output": "./assets/fonts"
+              },
+              {
+                "glob": "mdi.svg",
+                "input": "./node_modules/@mdi/angular-material",
+                "output": "./assets"
+              }
+            ],
             "styles": ["apps/paper-editor/src/styles.scss"],
             "scripts": []
           },
@@ -573,6 +587,33 @@
           "@schematics/angular:service": {
             "skipTests": true
           }
+        }
+      }
+    },
+    "ui-components": {
+      "projectType": "library",
+      "root": "libs/ui-components",
+      "sourceRoot": "libs/ui-components/src",
+      "prefix": "bpa",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-components/tsconfig.lib.json", "libs/ui-components/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
         }
       }
     }

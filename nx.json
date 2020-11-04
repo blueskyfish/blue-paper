@@ -64,6 +64,9 @@
     },
     "ui-commons": {
       "tags": ["frontend:lib"]
+    },
+    "ui-components": {
+      "tags": ["frontend:lib"]
     }
   }
 }
