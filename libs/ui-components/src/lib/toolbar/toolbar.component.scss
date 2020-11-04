@@ -2,6 +2,7 @@
 @import "themes/editor/src/blue-paper";
 
 .toolbar {
-  height: 100%;
   @include display-flex(column);
+  align-items: center;
+  height: 100%;
 }
