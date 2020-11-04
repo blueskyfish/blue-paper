@@ -1,7 +1,6 @@
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { isDate, isString } from 'util';
-import { isNil } from './lo-util';
+import { isNil, isString } from './lo-util';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TIME_FORMAT = 'HH:mm';
@@ -21,7 +20,7 @@ export class DateUtil {
   }
 
   static formatTimestamp(m?: Moment | Date): string {
-    if (isDate(m)) {
+    if (moment.isDate(m)) {
       m = moment(m);
     }
     if (!m) {
@@ -31,7 +30,7 @@ export class DateUtil {
   }
 
   static formatDate(m: Moment | Date | string): string {
-    if (isString(m) || isDate(m)) {
+    if (isString(m) || moment.isDate(m)) {
       m = moment(m);
     }
     return (m as Moment).format(DATE_FORMAT);
@@ -57,7 +56,7 @@ export class DateUtil {
   }
 
   static fromDate(date: string | Date): Moment {
-    if (isDate(date)) {
+    if (moment.isDate(date)) {
       return moment(date);
     }
     return moment(date, DATE_FORMAT);

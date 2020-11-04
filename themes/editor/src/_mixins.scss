@@ -1,0 +1,57 @@
+
+@mixin display-flex($direction, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-resizable($basis: auto, $grow: 1, $shrink: 1) {
+  flex-basis: $basis;
+  flex-grow: $grow;
+  flex-shrink: $shrink;
+}
+
+@mixin flex-fixed($basis: auto) {
+  flex-basis: $basis;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+@mixin on-host($direction, $wrap: nowrap) {
+  :host {
+    @include flex-resizable();
+    @include display-flex($direction, $wrap);
+    overflow: auto;
+
+    @content;
+  }
+}
+
+@mixin nowrapWithEllipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin nowrap() {
+  white-space: nowrap;
+}
+
+@mixin disableOutline() {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+@mixin abs-height($height) {
+  height: $height;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin abs-width($width) {
+  width: $width;
+  min-width: $width;
+  max-width: $width;
+}

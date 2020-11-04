@@ -41,9 +41,6 @@
     "server-paper-service": {
       "tags": ["backend:lib"]
     },
-    "server-markdown": {
-      "tags": ["backend:lib"]
-    },
     "server-image-commons": {
       "tags": ["backend:lib", "image:lib"]
     },
@@ -61,6 +58,15 @@
     },
     "shared-entities": {
       "tags": ["commons:lib"]
+    },
+    "paper-editor": {
+      "tags": ["frontend:app"]
+    },
+    "ui-commons": {
+      "tags": ["frontend:lib"]
+    },
+    "ui-components": {
+      "tags": ["frontend:lib"]
     }
   }
 }

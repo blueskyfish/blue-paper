@@ -7,25 +7,8 @@ import { PaperTemplates } from '../models/paper-templates';
 import { HtmlData } from './html-data.provider';
 import { HtmlIndexService } from './html-index.service';
 import { PaperContext } from './paper.context';
+import { addMenu, PAPER_GROUP } from './paper.util';
 
-const addMenu = (paperInfo: PaperInfo, menu: IDbMenu, active: boolean): void => {
-  switch (menu.place) {
-    case 'navbar':
-      paperInfo.navbar.push({
-        title: menu.title,
-        pageUrl: menu.pageUrl,
-        active,
-      });
-      break;
-    case 'footer':
-      paperInfo.footer.push({
-        title: menu.title,
-        pageUrl: menu.pageUrl,
-        active,
-      });
-      break;
-  }
-}
 
 
 /**
@@ -46,34 +29,34 @@ export class PaperService {
   /**
    * Process the html page with the given paper context.
    *
-   * @param {PaperContext} paperCtx the current paper context of the request
+   * @param {PaperContext} paperContext the current paper context of the request
    */
-  async processHtmlPage(paperCtx: PaperContext): Promise<void> {
+  async processHtmlPage(paperContext: PaperContext): Promise<void> {
     return await this.repository.execute<void>(async (rep: IRepositoryPool) => {
 
       // get paper info ()
-      const paperInfo = await this.getPaperInfo(paperCtx.pageUrl, rep.menu);
+      const paperInfo = await this.getPaperInfo(paperContext.pageUrl, rep.menu);
 
       if (isNil(paperInfo) || isNil(paperInfo.template) || paperInfo.template === '') {
-        throw new NotFoundException(`Page could not found`);
+        throw new NotFoundException(`${PAPER_GROUP}: Page could not found`);
       }
 
-      let data: HtmlData;
+      let data: HtmlData = null;
 
       switch (paperInfo.template) {
         case PaperTemplates.Index:
           data = await this.indexService.getData(paperInfo, rep);
           break;
         default:
-          throw new NotFoundException(`Page provider not found`);
+          throw new NotFoundException(`${PAPER_GROUP}: Page provider not found`);
       }
 
-      paperCtx.send(paperInfo.template || 'index', data);
+      paperContext.send(paperInfo.template || 'index', data);
     });
   }
 
   /**
-   * Get the paper information.
+   * Get the paper information. If the return value is `null`, then the page url is not existing.
    *
    * @param {string} currentUrl the page url
    * @param {MenuRepository} menuRepository
@@ -87,7 +70,7 @@ export class PaperService {
 
     // changeable page information
     const paperInfo = {
-      id: 0,
+      menuId: 0,
       groupId: 0,
       template: 'index',
       title: '',
@@ -105,7 +88,7 @@ export class PaperService {
           currentMenu = menu;
 
           // Update paper info
-          paperInfo.id = menu.id;
+          paperInfo.menuId = menu.id;
           paperInfo.groupId = menu.groupId;
           paperInfo.template = menu.template;
           paperInfo.title = menu.title;
@@ -120,6 +103,7 @@ export class PaperService {
       });
     }
 
+    // currentMenu is null => not found
     return isNil(currentMenu) ? null : { ...paperInfo };
   }
 }

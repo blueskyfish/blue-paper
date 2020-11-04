@@ -156,37 +156,6 @@
         }
       }
     },
-    "server-markdown": {
-      "root": "libs/server-markdown",
-      "sourceRoot": "libs/server-markdown/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/server-markdown/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/server-markdown/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/server-markdown",
-            "tsConfig": "libs/server-markdown/tsconfig.lib.json",
-            "packageJson": "libs/server-markdown/package.json",
-            "main": "libs/server-markdown/src/index.ts",
-            "assets": ["libs/server-markdown/*.md"]
-          }
-        }
-      }
-    },
     "server-image-commons": {
       "root": "libs/server-image-commons",
       "sourceRoot": "libs/server-image-commons/src",
@@ -405,9 +374,7 @@
             "outputPath": "dist/apps/paper-kiosk",
             "main": "apps/paper-kiosk/src/main.ts",
             "tsConfig": "apps/paper-kiosk/tsconfig.app.json",
-            "assets": [
-              "apps/paper-kiosk/src/assets"
-            ]
+            "assets": ["apps/paper-kiosk/src/assets"]
           },
           "configurations": {
             "production": {
@@ -432,9 +399,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/paper-kiosk/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/paper-kiosk/**/*.ts"]
           }
         },
         "test": {
@@ -445,10 +410,225 @@
           }
         }
       }
+    },
+    "paper-editor": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "apps/paper-editor",
+      "sourceRoot": "apps/paper-editor/src",
+      "prefix": "bpa",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/paper-editor",
+            "index": "apps/paper-editor/src/index.html",
+            "main": "apps/paper-editor/src/main.ts",
+            "polyfills": "apps/paper-editor/src/polyfills.ts",
+            "tsConfig": "apps/paper-editor/tsconfig.app.json",
+            "aot": true,
+            "extractCss": true,
+            "assets": [
+              "apps/paper-editor/src/favicon.ico",
+              "apps/paper-editor/src/assets",
+              {
+                "glob": "*.*",
+                "input": "./themes/editor/src/assets/fonts",
+                "output": "./assets/fonts"
+              },
+              {
+                "glob": "mdi.svg",
+                "input": "./node_modules/@mdi/angular-material",
+                "output": "./assets"
+              }
+            ],
+            "styles": ["apps/paper-editor/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/paper-editor/src/environments/environment.ts",
+                  "with": "apps/paper-editor/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "paper-editor:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "paper-editor:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "paper-editor:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/paper-editor/tsconfig.app.json",
+              "apps/paper-editor/tsconfig.spec.json",
+              "apps/paper-editor/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/paper-editor/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/paper-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-commons": {
+      "projectType": "library",
+      "root": "libs/ui-commons",
+      "sourceRoot": "libs/ui-commons/src",
+      "prefix": "bpa",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-commons/tsconfig.lib.json", "libs/ui-commons/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-commons/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-commons/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "@schematics/angular:component": {
+            "style": "scss",
+            "skipTests": true
+          },
+          "@schematics/angular:class": {
+            "skipTests": true
+          },
+          "@schematics/angular:directive": {
+            "skipTests": true
+          },
+          "@schematics/angular:guard": {
+            "skipTests": true
+          },
+          "@schematics/angular:interceptor": {
+            "skipTests": true
+          },
+          "@schematics/angular:module": {
+            "skipTests": true
+          },
+          "@schematics/angular:pipe": {
+            "skipTests": true
+          },
+          "@schematics/angular:service": {
+            "skipTests": true
+          }
+        }
+      }
+    },
+    "ui-components": {
+      "projectType": "library",
+      "root": "libs/ui-components",
+      "sourceRoot": "libs/ui-components/src",
+      "prefix": "bpa",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-components/tsconfig.lib.json", "libs/ui-components/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "paper-kiosk"
+  "defaultProject": "paper-kiosk",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  }
 }

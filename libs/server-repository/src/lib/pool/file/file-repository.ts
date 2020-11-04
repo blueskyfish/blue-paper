@@ -8,6 +8,9 @@ import {
 import { IDbFile } from './file.entity';
 import { IDbInsertFile } from './insert-file.entity';
 
+/**
+ * The repository of the table `files`.
+ */
 export class FileRepository extends SubRepository {
 
   async findFileByGroupAndFilename(groupId: number, filename: string): Promise<IDbFile> {

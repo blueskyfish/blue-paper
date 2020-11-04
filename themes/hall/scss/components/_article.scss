@@ -3,13 +3,7 @@
   display: block;
   float: left;
 
-  &:after {
-    content: '.';
-    visibility: hidden;
-    display: block;
-    height: 0;
-    clear: both;
-  }
+  @include clearfix();
 
   h2 {
     white-space: nowrap;
@@ -22,6 +16,7 @@
     }
   }
 
+  // Image align right
   .right {
     float: right;
     padding: $gap 0;
@@ -34,15 +29,10 @@
       padding: $gap-md 0 $gap-md $gap-md;
     }
 
-    &:after {
-      content: '.';
-      visibility: hidden;
-      display: block;
-      height: 0;
-      clear: both;
-    }
+    @include clearfix();
   }
 
+  // Image align left
   .left {
     float: left;
     padding: $gap 0;
@@ -55,15 +45,10 @@
       padding: $gap-md $gap-md $gap-md 0;
     }
 
-    &:after {
-      content: '.';
-      visibility: hidden;
-      display: block;
-      height: 0;
-      clear: both;
-    }
+    @include clearfix();
   }
 
+  // Image in a line (3 times)
   .line {
     float: left;
     padding: $gap 0;
@@ -77,16 +62,11 @@
     }
 
     &:last-of-type {
-      &:after {
-        content: '.';
-        visibility: hidden;
-        display: block;
-        height: 0;
-        clear: both;
-      }
+      @include clearfix();
     }
   }
 
+  // Image in the size of "preview"
   .preview {
     @include abs-width(100%);
     height: auto;
@@ -99,7 +79,20 @@
     }
   }
 
-  .full-width {
+  // Image in the size of "gallery"
+  .gallery {
+    @include abs-width(100%);
+    height: auto;
+    @include media-breakpoint-up(sm) {
+      @include abs-width(50%);
+    }
+    @include media-breakpoint-up(md) {
+      @include abs-width(33.33%);
+    }
+  }
+
+  // Image in the size "fullwidth"
+  .fullwidth {
     @include abs-width(100%);
     height: auto;
     padding: $gap 0;

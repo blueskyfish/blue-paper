@@ -32,6 +32,10 @@
             "onlyDependOnLibsWithTags": ["backend:lib", "commons:lib"]
           },
           {
+            "sourceTag": "frontend:app",
+            "onlyDependOnLibsWithTags": ["commons:lib", "frontend:lib"]
+          },
+          {
             "sourceTag": "backend:lib",
             "onlyDependOnLibsWithTags": ["backend:lib", "commons:lib"]
           },
@@ -42,6 +46,10 @@
           {
             "sourceTag": "commons:lib",
             "onlyDependOnLibsWithTags": ["commons:lib"]
+          },
+          {
+            "sourceTag": "forntend:lib",
+            "onlyDependOnLibsWithTags": ["frontend:lib","commons:lib"]
           }
         ]
       }

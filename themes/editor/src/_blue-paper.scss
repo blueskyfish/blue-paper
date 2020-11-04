@@ -1,0 +1,37 @@
+
+@import "../../../node_modules/@angular/material/theming";
+
+$bpa-primary: mat-palette($mat-light-blue);
+$bpa-accent: mat-palette($mat-deep-orange);
+$bpa-warn: mat-palette($mat-red);
+
+//
+// Material Theme
+//
+$bpa-theme: mat-light-theme($bpa-primary, $bpa-accent, $bpa-warn);
+
+//
+// foreground- & background palettes
+$background-palette: map-get($bpa-theme, background);
+$foreground-palette: map-get($bpa-theme, foreground);
+
+//
+// colors
+//
+$ebb-divider-color: mat-color($foreground-palette, divider);
+$ebb-primary-color: mat-color($bpa-primary, 500);
+
+$active-background-color: mat-color($background-palette, selected-button);
+$active-text-color: mat-color($bpa-primary, 600);
+
+$disable-text: mat-color($foreground-palette, disabled-text);
+
+//
+// margin or padding gaps
+//
+$full-gap: 16px;
+$half-gap: $full-gap / 2;
+$four-gap: $full-gap / 4;
+
+
+@import "mixins";

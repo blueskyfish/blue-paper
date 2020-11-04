@@ -1,6 +1,8 @@
-
+/**
+ * A repository entity of the table `files`
+ */
 export interface IDbPage {
-  id: number;
+  pageId: number;
   title: string;
   content: string;
   creation: Date;
