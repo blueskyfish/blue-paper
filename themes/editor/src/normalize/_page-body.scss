@@ -1,0 +1,23 @@
+
+//
+// Style "page-body" is for top level views (e.g "Login" or "Home")
+//
+.page-body {
+  @include display-flex(row);
+  align-items: stretch;
+
+  height: 100%;
+  width: 100%;
+
+  .sidebar {
+    @include flex-fixed();
+
+    background-color: mat-color($foreground-palette, text);
+    color: mat-color($background-palette, background);
+  }
+
+  .content {
+    @include flex-resizable();
+    overflow: auto;
+  }
+}
