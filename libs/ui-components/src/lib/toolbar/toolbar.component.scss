@@ -2,7 +2,33 @@
 @import "themes/editor/src/blue-paper";
 
 .toolbar {
-  @include display-flex(column);
-  align-items: center;
   height: 100%;
+  padding: 0 $four-gap;
+
+  .toolbar-menu {
+    @include display-flex(column);
+
+    align-items: center;
+    height: 100%;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .toolbar-item {
+      @include flex-fixed();
+
+      &.divider {
+        @include flex-resizable();
+      }
+
+      &:first-of-type {
+        margin-top: $half-gap;
+      }
+
+      &:last-of-type {
+        margin-bottom: $full-gap;
+      }
+    }
+  }
 }

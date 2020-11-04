@@ -15,7 +15,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToolbarComponent } from './toolbar';
 
 const components = [
   ToolbarComponent,
@@ -24,6 +26,7 @@ const components = [
 @NgModule({
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -41,6 +44,7 @@ const components = [
     MatRadioModule,
     MatCheckboxModule,
     MatSliderModule,
+    MatTooltipModule,
   ],
   declarations: [
     ...components,

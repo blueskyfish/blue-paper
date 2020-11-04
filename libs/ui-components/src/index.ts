@@ -1,3 +1,3 @@
 export * from './lib/ui-components.module';
 
-export * from './lib'
+export * from './lib/toolbar';
