@@ -12,5 +12,6 @@ module.exports = {
     '<rootDir>/libs/server-authentication',
     '<rootDir>/libs/shared-entities',
     '<rootDir>/apps/paper-bureau',
+    '<rootDir>/apps/paper-editor',
   ],
 };

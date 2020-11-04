@@ -58,6 +58,9 @@
     },
     "shared-entities": {
       "tags": ["commons:lib"]
+    },
+    "paper-editor": {
+      "tags": ["frontend:app"]
     }
   }
 }
