@@ -13,5 +13,6 @@ module.exports = {
     '<rootDir>/libs/shared-entities',
     '<rootDir>/apps/paper-bureau',
     '<rootDir>/apps/paper-editor',
+    '<rootDir>/libs/ui-commons',
   ],
 };

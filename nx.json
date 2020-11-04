@@ -61,6 +61,9 @@
     },
     "paper-editor": {
       "tags": ["frontend:app"]
+    },
+    "ui-commons": {
+      "tags": ["frontend:lib"]
     }
   }
 }

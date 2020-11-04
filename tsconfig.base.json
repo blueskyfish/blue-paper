@@ -25,7 +25,8 @@
       "@blue-paper/server-authentication": ["libs/server-authentication/src/index.ts"],
       "@blue-paper/server-image-editor": ["libs/server-image-editor/src/index.ts"],
       "@blue-paper/server-image-delivery": ["libs/server-image-delivery/src/index.ts"],
-      "@blue-paper/shared-entities": ["libs/shared-entities/src/index.ts"]
+      "@blue-paper/shared-entities": ["libs/shared-entities/src/index.ts"],
+      "@blue-paper/ui-commons": ["libs/ui-commons/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

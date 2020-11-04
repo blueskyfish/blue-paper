@@ -374,9 +374,7 @@
             "outputPath": "dist/apps/paper-kiosk",
             "main": "apps/paper-kiosk/src/main.ts",
             "tsConfig": "apps/paper-kiosk/tsconfig.app.json",
-            "assets": [
-              "apps/paper-kiosk/src/assets"
-            ]
+            "assets": ["apps/paper-kiosk/src/assets"]
           },
           "configurations": {
             "production": {
@@ -401,9 +399,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/paper-kiosk/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/paper-kiosk/**/*.ts"]
           }
         },
         "test": {
@@ -525,6 +521,57 @@
           "options": {
             "jestConfig": "apps/paper-editor/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-commons": {
+      "projectType": "library",
+      "root": "libs/ui-commons",
+      "sourceRoot": "libs/ui-commons/src",
+      "prefix": "bpa",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-commons/tsconfig.lib.json", "libs/ui-commons/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-commons/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-commons/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "@schematics/angular:component": {
+            "style": "scss",
+            "skipTests": true
+          },
+          "@schematics/angular:class": {
+            "skipTests": true
+          },
+          "@schematics/angular:directive": {
+            "skipTests": true
+          },
+          "@schematics/angular:guard": {
+            "skipTests": true
+          },
+          "@schematics/angular:interceptor": {
+            "skipTests": true
+          },
+          "@schematics/angular:module": {
+            "skipTests": true
+          },
+          "@schematics/angular:pipe": {
+            "skipTests": true
+          },
+          "@schematics/angular:service": {
+            "skipTests": true
           }
         }
       }
