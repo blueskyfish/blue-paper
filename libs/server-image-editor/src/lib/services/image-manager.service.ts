@@ -109,13 +109,13 @@ export class ImageManagerService {
       const size = ImageSize.thumbnail;
 
       return dbFileList
-        .map(({ id, menuId, groupId, filename, mimetype, etag}) => {
+        .map(({ fileId, menuId, groupId, filename, mimetype, etag}) => {
           // Prepare image url
-          const imageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
+          const imageData = buildImageUrlFactory(fileId, menuId, groupId, size, mimetype, filename, etag);
           const imageUrl = this.imageFile.buildEditorImageUrl(imageData, size);
 
           return {
-            fileId: id,
+            fileId,
             menuId,
             groupId,
             size,
@@ -130,21 +130,21 @@ export class ImageManagerService {
 
   /**
    * Get the image url information from given file id with the size name
-   * @param {number} fileId
+   * @param {number} file_Id
    * @param {string} size
    * @returns {Promise<ImageUrlInfo>}
    */
-  async getImageUrlInfo(fileId: number, size: string): Promise<ImageUrlInfo> {
+  async getImageUrlInfo(file_Id: number, size: string): Promise<ImageUrlInfo> {
 
     return this.repository.execute<ImageUrlInfo>(async (rep: IRepositoryPool) => {
-      const db = await rep.file.findFileById(fileId);
+      const db = await rep.file.findFileById(file_Id);
       if (isNil(db)) {
-        throw new NotFoundException(`Image "${fileId}" is not found`);
+        throw new NotFoundException(`Image "${file_Id}" is not found`);
       }
 
-      const { id, menuId, groupId, mimetype, filename, etag } = db;
+      const { fileId, menuId, groupId, mimetype, filename, etag } = db;
 
-      const buildImageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
+      const buildImageData = buildImageUrlFactory(fileId, menuId, groupId, size, mimetype, filename, etag);
       const imageUrl = this.imageFile.buildEncryptedImageUrl(buildImageData);
 
       return {

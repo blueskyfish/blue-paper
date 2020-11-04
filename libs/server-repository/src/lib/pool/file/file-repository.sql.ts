@@ -1,6 +1,6 @@
 import { DbFile, NL } from '../repository.names';
 
-const SELECT_FILE = 'SELECT file_id AS id, menu_id AS menuId, group_id AS groupId, filename, mimetype, etag, size';
+const SELECT_FILE = 'SELECT file_id AS fileId, menu_id AS menuId, group_id AS groupId, filename, mimetype, etag, size';
 
 export const SQL_FIND_FILE_BY_GROUP_AND_FILENAME = [
   SELECT_FILE, NL,

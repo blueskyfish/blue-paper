@@ -6,7 +6,7 @@ export interface Brand {
   /**
    * Url for the logo
    */
-  url: string;
+  logoUrl: string;
 
   /**
    * Brand title

@@ -1,6 +1,8 @@
-
+/**
+ * The repository entity of the table `files`.
+ */
 export interface IDbFile {
-  id: number;
+  fileId: number;
   menuId: number;
   groupId: number;
   filename: string;

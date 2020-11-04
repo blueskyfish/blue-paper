@@ -166,13 +166,13 @@ export class ImageFileService implements OnApplicationBootstrap {
    */
   toImageUrlInfoList(dbFiles: IDbFile[], size: ImageSize = ImageSize.thumbnail): ImageUrlInfo[] {
     return dbFiles
-      .map(({ id, menuId, groupId, filename, mimetype, etag }) => {
+      .map(({ fileId, menuId, groupId, filename, mimetype, etag }) => {
         // Prepare image url
-        const imageData = buildImageUrlFactory(id, menuId, groupId, size, mimetype, filename, etag);
+        const imageData = buildImageUrlFactory(fileId, menuId, groupId, size, mimetype, filename, etag);
         const imageUrl = this.buildEditorImageUrl(imageData, size);
 
         return {
-          fileId: id,
+          fileId,
           menuId,
           groupId,
           size,

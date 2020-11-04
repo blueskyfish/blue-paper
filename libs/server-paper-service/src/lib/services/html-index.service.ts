@@ -5,16 +5,18 @@ import { isNil } from '@blue-paper/shared-commons';
 import { ImageUrlInfo } from '@blue-paper/shared-entities';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as marked from 'marked';
-import { PaperInfo } from '../models/paper-info';
+import { PaperInfo } from '../models';
 import { EncryptImageUrlFunc, ImageRenderer } from '../renderer';
 import { HtmlData, HtmlDataProvider, mergeFrom } from './html-data.provider';
 
 /**
  * The data entity for the index pages
+ *
+ * @see {@link HtmlData}
  */
 export interface HtmlIndexData extends HtmlData {
 
-  /**
+  /**Ich
    * The content of the index page
    */
   content: {
@@ -47,7 +49,6 @@ export class HtmlIndexService implements HtmlDataProvider<HtmlIndexData> {
    * @param {IRepositoryPool} rep
    * @returns {Promise<HtmlData>}
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getData(paperInfo: PaperInfo, rep: IRepositoryPool): Promise<HtmlIndexData> {
 
     const dbPage = await rep.page.findPage(paperInfo.groupId);

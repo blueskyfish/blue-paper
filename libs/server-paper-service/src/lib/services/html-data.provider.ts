@@ -1,12 +1,10 @@
 import { IRepositoryPool } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
-import { MenuItem } from '../models/menu-item';
-import { PaperInfo } from '../models/paper-info';
-import { Brand } from '../models/brand.data';
+import { Brand, MenuItem, PaperInfo } from '../models';
 
 
 export const DEFAULT_BRAND: Brand = {
-  url: 'assets/logo-black.svg',
+  logoUrl: 'assets/logo-black.svg',
   title: 'Hall Theme'
 };
 
