@@ -38,6 +38,9 @@
     "server-repository": {
       "tags": ["backend:lib"]
     },
+    "server-editor-service": {
+      "tags": ["backend:lib"]
+    },
     "server-paper-service": {
       "tags": ["backend:lib"]
     },
