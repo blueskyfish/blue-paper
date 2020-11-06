@@ -1,8 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { AuthenticationConfig, IAuthenticationConfig } from './authentication.config';
 import { AuthenticationInitService } from './services/authentication-init.service';
-import { AuthenticationService } from './services/authentication.service';
-import { CryptoService } from './services/crypto.service';
+import { AuthenticationService, CryptoService } from './services';
 
 const authServices = [
   AuthenticationService,

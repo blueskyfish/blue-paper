@@ -1,5 +1,4 @@
 import { LogService, toInt } from '@blue-paper/server-commons';
-import { ImageDataParams } from '@blue-paper/server-image-commons';
 import { HEADER_IF_NOT_MATCH, ImageDeliveryService } from '@blue-paper/server-image-delivery';
 import { FileInfo, ImageManagerService } from '@blue-paper/server-image-editor';
 import { isNil } from '@blue-paper/shared-commons';
@@ -18,7 +17,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { EditorImageParams } from './editor-image.params';
-import { PublicImageParams } from './params/public-image.params';
 
 @Controller('/editor/image')
 export class EditorImageController {
