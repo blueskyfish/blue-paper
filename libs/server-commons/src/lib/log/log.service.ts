@@ -21,6 +21,6 @@ export class LogService {
   }
 
   error(context: string, message: string): void {
-    this.logger.error(message, context);
+    this.logger.error(message, null, context);
   }
 }

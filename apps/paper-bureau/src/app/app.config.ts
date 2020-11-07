@@ -2,7 +2,6 @@ import { IAuthenticationConfig } from '@blue-paper/server-authentication';
 import { fromEnv } from '@blue-paper/server-commons';
 import { IDbConfig } from '@blue-paper/server-database';
 import { IImageFileConfig } from '@blue-paper/server-image-commons';
-import { IImageUploadConfig } from '@blue-paper/server-image-editor';
 
 export const BOOTSTRAP_GROUP = 'Bootstrap';
 
@@ -55,21 +54,4 @@ export function buildImageFileConfig(): IImageFileConfig {
     imageCache,
     imageTemp,
   }
-}
-
-export function buildImageEditorConfig(): IImageUploadConfig {
-
-  const imageTemp = fromEnv('IMAGE_TEMP', '??').asString;
-  if (imageTemp === '??') {
-    throw new Error('Environment "IMAGE_TEMP" is required');
-  }
-
-  return {
-    imageTemp,
-    acceptedMimetypes: [
-      'image/jpeg',
-      'image/png',
-      // 'application/pdf',
-    ]
-  };
 }

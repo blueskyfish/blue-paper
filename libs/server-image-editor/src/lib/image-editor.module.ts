@@ -1,29 +1,18 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { MulterModule } from '@nestjs/platform-express';
-import { IImageUploadConfig } from './image-upload.config';
+import { Global, Module } from '@nestjs/common';
 import { ImageManagerService } from './services/image-manager.service';
-import { buildConfiguration } from './image-upload.configuration';
 
 const imageUploadServices: any[] = [
   ImageManagerService,
 ];
 
-@Module({})
+@Global()
+@Module({
+  providers: [
+    ...imageUploadServices,
+  ],
+  exports: [
+    ...imageUploadServices,
+  ]
+})
 export class ServerImageEditorModule {
-
-  static forRoot(config: IImageUploadConfig): DynamicModule {
-    return {
-      global: true,
-      module: ServerImageEditorModule,
-      imports: [
-        MulterModule.register(buildConfiguration(config.imageTemp, config.acceptedMimetypes)),
-      ],
-      providers: [
-        ...imageUploadServices,
-      ],
-      exports: [
-        ...imageUploadServices,
-      ]
-    };
-  }
 }

@@ -15,9 +15,11 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { EditorImageParams } from './editor-image.params';
 
+@ApiTags('Images')
 @Controller('/editor/image')
 export class EditorImageController {
 
@@ -45,7 +47,6 @@ export class EditorImageController {
 
     await this.imageService.responseImage(imageData, etagMatch, res);
   }
-
 
   @Get('/info/:fileId(\\d+)/:sizeName')
   async getImageUrlInfo(@Param('fileId') fileId: string, @Param('sizeName') sizeName: string): Promise<ImageUrlInfo> {

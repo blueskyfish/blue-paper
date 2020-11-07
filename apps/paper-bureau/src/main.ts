@@ -22,6 +22,9 @@ async function bootstrap() {
     .setTitle('Blue-Paper "Editor"')
     .setDescription('The Blue Paper Editor backend API')
     .setVersion('1.0')
+    .addTag('User', 'The user access')
+    .addTag('System', 'System functions')
+    .addTag('Images', '**Don\'t use the functions**')
     .addSecurity(API_KEY_NAME, {
       name: HTTP_AUTH_HEADER,
       in: 'header',

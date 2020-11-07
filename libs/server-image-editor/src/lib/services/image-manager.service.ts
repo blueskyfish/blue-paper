@@ -34,7 +34,7 @@ export class ImageManagerService {
    * @param {number} menuId the menu id
    * @param {number} groupId the group id
    * @param {FileInfo} file the uploaded image file
-   * @returns {Promise<any>} the
+   * @returns {Promise<ImageUrlInfo>} the
    */
   async imageUpload(menuId: number, groupId: number, file: FileInfo): Promise<ImageUrlInfo> {
 
@@ -51,7 +51,7 @@ export class ImageManagerService {
       const dbFile = await rep.file.findFileByGroupAndFilename(groupId, filename);
       if (!isNil(dbFile)) {
         // Combination of group id + filename !!
-        throw new BadRequestException(`Image Upload File double (${groupId}/${filename}`);
+        throw new BadRequestException(`${IMAGE_MANAGER_GROUP}: Image Upload File double (${groupId}/${filename}`);
       }
 
       const imageFilename = await this.imageFile.buildImageFilenameAndPrepareDirectory(menuId, groupId, filename);
@@ -94,7 +94,9 @@ export class ImageManagerService {
         await rep.rollback();
         this.log.error(IMAGE_MANAGER_GROUP, `Image Upload is failed (${e.message})`);
         // console.log(e.stack);
-        throw new BadRequestException(`File Upload failed (${menuId}/${groupId}/${filename})`);
+        throw new BadRequestException(
+          `${IMAGE_MANAGER_GROUP}: File Upload failed (${menuId}/${groupId}/${filename})`
+        );
       } finally {
         this.log.debug(IMAGE_MANAGER_GROUP,
           `Image Upload in ${start.duration()} ms (${menuId}/${groupId}/${filename})`);

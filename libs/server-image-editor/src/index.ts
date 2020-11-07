@@ -1,4 +1,3 @@
-export * from './lib/image-upload.config';
 export * from './lib/image-editor.module';
 
 // Entities

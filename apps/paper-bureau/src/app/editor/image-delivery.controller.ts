@@ -2,9 +2,11 @@ import { toInt } from '@blue-paper/server-commons';
 import { HEADER_IF_NOT_MATCH } from '@blue-paper/server-image-delivery';
 import { ImageManagerService } from '@blue-paper/server-image-editor';
 import { Controller, Get, Headers, Param, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { PublicImageParams } from './params/public-image.params';
 
+@ApiTags('Images')
 @Controller('/images')
 export class ImageDeliveryController {
 
