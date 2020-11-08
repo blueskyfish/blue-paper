@@ -1,25 +1,18 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { UserService } from './user';
 
 const editorServices = [
   UserService,
 ];
 
-@Module({})
+@Global()
+@Module({
+  providers: [
+    ...editorServices,
+  ],
+  exports: [
+    ...editorServices,
+  ]
+})
 export class ServerEditorServiceModule {
-
-  static forRoot(config: any): DynamicModule {
-
-    return {
-      global: true,
-      module: ServerEditorServiceModule,
-      imports: [],
-      providers: [
-        ...editorServices,
-      ],
-      exports: [
-        ...editorServices,
-      ]
-    };
-  }
 }

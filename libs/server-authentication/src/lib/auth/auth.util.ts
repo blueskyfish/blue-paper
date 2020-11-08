@@ -15,7 +15,7 @@ export class AuthUtil {
    */
   static getAuthUser(req: Request): AuthUser {
     return (req as any).authUser || DUMMY;
-  };
+  }
 
   static setAuthUser(req: Request, authUser: AuthUser): void {
     (req as any).authUser = authUser;

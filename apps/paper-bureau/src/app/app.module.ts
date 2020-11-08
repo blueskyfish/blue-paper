@@ -13,8 +13,7 @@ import {
   BOOTSTRAP_GROUP,
   buildAuthenticationConfig,
   buildDatabaseConfig,
-  buildImageFileConfig,
-  configStoreDev
+  buildImageFileConfig
 } from './app.config';
 
 import { SystemController } from './system/system.controller';
@@ -34,7 +33,7 @@ import { UserController } from './user.controller';
     ServerImageCommonsModule.forRoot(buildImageFileConfig()),
     ServerImageEditorModule,
     ServerImageDeliveryModule,
-    ServerEditorServiceModule.forRoot(null),
+    ServerEditorServiceModule,
   ],
   controllers: [
     EditorImageController,

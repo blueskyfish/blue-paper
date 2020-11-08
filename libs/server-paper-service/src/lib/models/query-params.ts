@@ -61,10 +61,3 @@ export class QueryParams {
     return new QueryParams(query);
   }
 }
-
-/**
- * @deprecated
- */
-export function toQuery(query: QueryType): QueryParams {
-  return null; //new QueryParams(query);
-}
