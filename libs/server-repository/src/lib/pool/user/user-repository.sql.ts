@@ -12,7 +12,7 @@ const SQL_FIND_USER_BY_EMAIL = [
 const SQL_FIND_USER_BY_ID = [
   'SELECT u.user_id AS userId, u.name, u.email, u.roles', NL,
   'FROM ', DbUser, ' AS u', NL,
-  'WEHRE user_id = {userId}'
+  'WHERE user_id = {userId}'
 ].join('');
 
 export const userSql = {
