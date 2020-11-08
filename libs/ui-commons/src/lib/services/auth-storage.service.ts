@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { StorageFacadeService } from './storage-facade.service';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthStorageService {
 
   private readonly authToken = 'token';
 

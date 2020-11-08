@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProtectedPageGuard, RedirectPageGuard } from './guards';
-import { AuthenticationService, StorageFacadeService } from './services';
+import { AuthStorageService, StorageFacadeService } from './services';
 
 const commonProviders: any[] = [
   // Services
   StorageFacadeService,
-  AuthenticationService,
+  AuthStorageService,
 
   // Guards
   ProtectedPageGuard,
@@ -25,4 +25,5 @@ const commonProviders: any[] = [
   exports: [
   ]
 })
-export class UiCommonsModule {}
+export class UiCommonsModule {
+}

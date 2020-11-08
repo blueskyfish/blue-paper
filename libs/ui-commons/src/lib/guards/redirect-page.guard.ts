@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { PathName } from '../models';
-import { AuthenticationService } from '../services';
+import { AuthStorageService } from '../services';
 import { NavigateUtil } from '../util';
 
 /**
@@ -10,7 +10,7 @@ import { NavigateUtil } from '../util';
 @Injectable()
 export class RedirectPageGuard implements CanActivate {
 
-  constructor(private router: Router, private authentication: AuthenticationService) {
+  constructor(private router: Router, private authentication: AuthStorageService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

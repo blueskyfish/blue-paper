@@ -1,4 +1,5 @@
-export * from './lib/ui-commons.module';
+export * from './lib/commons.config';
+export * from './lib/commons.module';
 
 export * from './lib/models';
 export * from './lib/guards';
