@@ -1,9 +1,9 @@
-import { AuthenticationService, IAuthUser } from '@blue-paper/server-authentication';
+import { AuthService, AuthUser, IAuthUser } from '@blue-paper/server-authentication';
 import { LogService } from '@blue-paper/server-commons';
 import { IRepositoryPool, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { LoginInfo, LoginPayload } from '../entities';
+import { LoginInfo, LoginPayload, UserInfo } from '../entities';
 import { USER_GROUP } from './user.const';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UserService {
   constructor(
     private log: LogService,
     private repository: RepositoryService,
-    private authService: AuthenticationService
+    private authService: AuthService
   ) {
   }
 
@@ -50,5 +50,20 @@ export class UserService {
         token,
       } as LoginInfo;
     })
+  }
+
+  async getUserInfo(user: AuthUser): Promise<UserInfo> {
+    return await this.repository.execute<UserInfo>(async (rep: IRepositoryPool) => {
+      const db = await rep.user.findUserById(user.id);
+      if (isNil(db)) {
+        throw new NotFoundException(`${USER_GROUP}: User not found`);
+      }
+      return {
+        id: db.userId,
+        name: db.name,
+        email: db.email,
+        roles: JSON.parse(db.roles),
+      };
+    });
   }
 }
