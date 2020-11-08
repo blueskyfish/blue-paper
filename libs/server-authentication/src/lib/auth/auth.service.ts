@@ -1,11 +1,11 @@
 import { isNil } from '@blue-paper/shared-commons';
 import { Injectable } from '@nestjs/common';
 import { createHash } from "crypto";
-import { IAuthUser } from '../entities';
-import { CryptoService } from './crypto.service';
+import { AuthUser, IAuthUser } from '../entities';
+import { CryptoService } from '../services';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthService {
 
   private readonly ENCODING = 'utf16le';
   private readonly ALGORITHM = 'sha256';
@@ -42,8 +42,9 @@ export class AuthenticationService {
     return this.crypto.encrypt(text);
   }
 
-  parseToken(token: string): IAuthUser {
-    return this.crypto.decryptJson<IAuthUser>(token);
+  parseToken(token: string): AuthUser {
+    const user = this.crypto.decryptJson<IAuthUser>(token);
+    return new AuthUser(user);
   }
 
   /**

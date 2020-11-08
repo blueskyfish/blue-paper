@@ -1,10 +1,13 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { AuthService } from './auth';
+import { AuthMiddleware } from './auth/auth.middleware';
 import { AuthenticationConfig, IAuthenticationConfig } from './authentication.config';
-import { AuthenticationInitService } from './services/authentication-init.service';
-import { AuthenticationService, CryptoService } from './services';
+import { BootstrapService } from './services/bootstrap.service';
+import { CryptoService } from './services';
 
 const authServices = [
-  AuthenticationService,
+  AuthService,
+  AuthMiddleware,
   CryptoService,
 ];
 
@@ -24,7 +27,7 @@ export class ServerAuthenticationModule {
           provide: AuthenticationConfig,
           useValue: new AuthenticationConfig(config),
         },
-        AuthenticationInitService,
+        BootstrapService,
         ...authServices,
       ],
       exports: [

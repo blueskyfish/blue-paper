@@ -7,7 +7,7 @@ import { AUTHENTICATION_GROUP } from '../authentication.const';
  * Internal service for loading the keys from the file
  */
 @Injectable()
-export class AuthenticationInitService implements OnApplicationBootstrap{
+export class BootstrapService implements OnApplicationBootstrap{
 
   constructor(private log: LogService, private config: AuthenticationConfig) {
   }
