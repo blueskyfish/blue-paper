@@ -16,5 +16,7 @@ module.exports = {
     '<rootDir>/libs/shared-entities',
     '<rootDir>/libs/ui-commons',
     '<rootDir>/libs/ui-components',
+    '<rootDir>/libs/ui-store-editor',
+    '<rootDir>/libs/ui-editor-backend',
   ],
 };

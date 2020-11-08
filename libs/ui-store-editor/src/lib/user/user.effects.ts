@@ -1,0 +1,59 @@
+import { Injectable } from '@angular/core';
+import { AuthStorageService } from '@blue-paper/ui-commons';
+import { BpaUserInfo, BureauUserService } from '@blue-paper/ui-editor-backend';
+import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
+import { EMPTY, of } from 'rxjs';
+import { catchError, delay, map, mergeMap, switchMap } from 'rxjs/operators';
+import { processCatch } from '../message/message.utils';
+import { UserActions } from './user.actions';
+
+@Injectable()
+export class UserEffectService {
+
+  constructor(
+    private actions$: Actions,
+    private userService: BureauUserService,
+    private authService: AuthStorageService
+  ) {}
+
+  readonly sendLoginAndGetUserInfo$ = createEffect(
+    () => this.actions$
+      .pipe(
+        ofType(UserActions.sendLogin),
+        switchMap(({payload}) => {
+          return this.userService.sendLogin({ body: payload})
+            .pipe(
+              map(({ token, user}) => {
+                this.authService.updateToken(token);
+                return UserActions.userInfo(user);
+              }),
+              catchError(processCatch('app.error.login.message'))
+            );
+        })
+      )
+  );
+
+
+  readonly initialAndGetUserInfo$ = createEffect(
+    () => this.actions$
+      .pipe(
+        ofType(ROOT_EFFECTS_INIT),
+        delay(300),
+        switchMap(() => {
+          if (this.authService.hasToken()) {
+            return this.userService.getUserInfo()
+              .pipe(
+                mergeMap((user: BpaUserInfo) => {
+                  return of(
+                    UserActions.userInfo(user),
+                  )
+                }),
+                catchError(processCatch('app.error.userInfo.message'))
+              );
+          }
+
+          return EMPTY;
+        }),
+      )
+  );
+}

@@ -28,7 +28,9 @@
       "@blue-paper/server-image-delivery": ["libs/server-image-delivery/src/index.ts"],
       "@blue-paper/shared-entities": ["libs/shared-entities/src/index.ts"],
       "@blue-paper/ui-commons": ["libs/ui-commons/src/index.ts"],
-      "@blue-paper/ui-components": ["libs/ui-components/src/index.ts"]
+      "@blue-paper/ui-components": ["libs/ui-components/src/index.ts"],
+      "@blue-paper/ui-store-editor": ["libs/ui-store-editor/src/index.ts"],
+      "@blue-paper/ui-editor-backend": ["libs/ui-editor-backend/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

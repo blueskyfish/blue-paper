@@ -70,6 +70,12 @@
     },
     "ui-components": {
       "tags": ["frontend:lib"]
+    },
+    "ui-store-editor": {
+      "tags": ["frontend:lib"]
+    },
+    "ui-editor-backend": {
+      "tags": ["frontend:lib"]
     }
   }
 }
