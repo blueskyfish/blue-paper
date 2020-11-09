@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolButtonItem } from '@blue-paper/ui-components';
 
+export enum LoginToolbarCommand {
+  About = 'about',
+}
+
 @Component({
   selector: 'bpa-login-view',
   templateUrl: './login-view.component.html',
@@ -14,14 +18,11 @@ export class LoginViewComponent implements OnInit {
    * @type {ToolButtonItem[]}
    */
   toolbar: ToolButtonItem[] = [
-    {
-      icon: 'home',
-      tooltip: 'Home'
-    },
     '-',
     {
+      command: LoginToolbarCommand.About,
       icon: 'information-outline',
-      tooltip: 'Info über ...'
+      tooltip: 'app.error.toolbar.about.tooltip'
     }
   ];
 

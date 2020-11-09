@@ -10,6 +10,8 @@ export interface ToolButton {
    * The tooltip key (the translate is in this component)
    */
   tooltip?: string;
+
+  command: string;
 }
 
 /**

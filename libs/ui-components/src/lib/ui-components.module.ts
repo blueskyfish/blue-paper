@@ -17,6 +17,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 import { ToolbarComponent } from './toolbar';
 
 const components = [
@@ -30,6 +31,8 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    TranslateModule,
 
     MatButtonModule,
     MatIconModule,

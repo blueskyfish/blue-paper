@@ -7,6 +7,17 @@
           "title": "Not Available"
         }
       },
+      "toolbar": {
+        "account": {
+          "tooltip": "User Account"
+        },
+        "logout": {
+          "tooltip": "Logout..."
+        },
+        "about": {
+          "tooltip": "About..."
+        }
+      },
       "response": {
         "400": {
           "title": "Bad Request"

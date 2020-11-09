@@ -1,7 +1,5 @@
 <section class="mat-body page-body">
-  <aside class="sidebar">
-    Toolbar
-  </aside>
+  <bpa-toolbar [toolbar]="toolbar" (execute)="toolbarExecute($event)"></bpa-toolbar>
   <main class="content">
     <p>Home View</p>
   </main>

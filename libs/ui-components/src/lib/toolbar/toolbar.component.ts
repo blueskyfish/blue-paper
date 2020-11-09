@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { isString } from '@blue-paper/shared-commons';
-import { PathName } from '@blue-paper/ui-commons';
 import { ToolButtonItem } from './toolbar.item';
 
 interface ToolbarItem {
   divider: boolean;
+  command: string;
   icon?: string;
   tooltip?: string;
 }
@@ -15,8 +14,8 @@ interface ToolbarItem {
     <aside class="toolbar sidebar">
       <ul class="toolbar-menu">
         <li *ngFor="let item of items" class="toolbar-item" [class.divider]="item.divider">
-          <button mat-icon-button *ngIf="!item.divider" class="toolbar-button">
-            <mat-icon [svgIcon]="item.icon" [matTooltip]="item.tooltip" matTooltipPosition="after" matTooltipShowDelay="100"></mat-icon>
+          <button mat-icon-button *ngIf="!item.divider" class="toolbar-button" (click)="onExecute(item)" [matTooltip]="item.tooltip | translate" matTooltipPosition="after" matTooltipShowDelay="100">
+            <mat-icon [svgIcon]="item.icon"></mat-icon>
           </button>
         </li>
       </ul>
@@ -35,7 +34,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   disabled = false;
 
   @Output()
-  execute: EventEmitter<ToolbarItem> = new EventEmitter<ToolbarItem>(true);
+  execute: EventEmitter<string> = new EventEmitter<string>(true);
 
   constructor() { }
 
@@ -49,8 +48,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onExecute(item: ToolbarItem): void {
-    if (!this.disabled && item) {
-      this.execute.emit(item);
+    if (!this.disabled && !!item) {
+      this.execute.emit(item.command);
     }
   }
 
@@ -60,11 +59,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
         .map((item: ToolButtonItem) => {
           if (typeof item === 'string') {
             return {
-              divider: true
+              divider: true,
+              command: null,
             };
           }
           return {
             divider: false,
+            command: item.command,
             icon: item.icon,
             tooltip: item.tooltip,
           };
