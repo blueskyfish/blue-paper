@@ -24,7 +24,6 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('User', 'The user access')
     .addTag('System', 'System functions')
-    .addTag('Images', '**Don\'t use the functions**')
     .addSecurity(API_KEY_NAME, {
       name: HTTP_AUTH_HEADER,
       in: 'header',
