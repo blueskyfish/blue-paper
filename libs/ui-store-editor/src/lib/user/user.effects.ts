@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AuthStorageService } from '@blue-paper/ui-commons';
+import { AuthStorageService, PathName } from '@blue-paper/ui-commons';
 import { BpaUserInfo, BureauUserService } from '@blue-paper/ui-editor-backend';
 import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
 import { catchError, delay, map, mergeMap, switchMap } from 'rxjs/operators';
 import { processCatch } from '../message/message.utils';
+import { NavigateActions } from '../navigate';
 import { UserActions } from './user.actions';
 
 @Injectable()
@@ -23,9 +24,12 @@ export class UserEffectService {
         switchMap(({payload}) => {
           return this.userService.sendLogin({ body: payload})
             .pipe(
-              map(({ token, user}) => {
+              mergeMap(({ token, user}) => {
                 this.authService.updateToken(token);
-                return UserActions.userInfo(user);
+                return of(
+                  UserActions.userInfo(user),
+                  NavigateActions.navigate({ paths: [PathName.Root, PathName.Home]})
+                );
               }),
               catchError(processCatch('app.error.login.message'))
             );
