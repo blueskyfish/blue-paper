@@ -3,6 +3,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { BureauConfiguration, BureauConfigurationParams } from './bureau-configuration';
 
+import { BureauPaperService } from './services/bureau-paper.service';
 import { BureauUserService } from './services/bureau-user.service';
 import { BureauSystemService } from './services/bureau-system.service';
 
@@ -14,6 +15,7 @@ import { BureauSystemService } from './services/bureau-system.service';
   exports: [],
   declarations: [],
   providers: [
+    BureauPaperService,
     BureauUserService,
     BureauSystemService,
     BureauConfiguration

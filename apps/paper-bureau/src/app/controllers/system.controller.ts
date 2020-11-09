@@ -1,7 +1,7 @@
 import { Hello, SystemService } from '@blue-paper/server-commons';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { HelloParams } from './hello.params';
+import { HelloParams } from './params';
 
 @ApiTags('System')
 @Controller()

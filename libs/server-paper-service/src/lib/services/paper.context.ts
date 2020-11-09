@@ -1,8 +1,9 @@
 import { isNil } from '@blue-paper/shared-commons';
-import { QueryParams } from '../models/query-params';
-import { TemplateRenderFunc } from '../models/render-func';
+import { QueryParams, TemplateRenderFunc } from '../models';
 
-
+/**
+ * Paper context wraps the request information
+ */
 export class PaperContext {
 
   private readonly _pageUrl: string;
@@ -22,12 +23,12 @@ export class PaperContext {
   }
 
   /**
-   *
-   * @param {string} pageUrl
-   * @param {QueryParams} query
-   * @param {TemplateRenderFunc} templateRender
+   * Paper context wraps the request information
+   * @param {string} pageUrl the page url
+   * @param {QueryParams} query the query parameters
+   * @param {TemplateRenderFunc} [templateRender] the template render callback function
    */
-  constructor(pageUrl: string, public query: QueryParams, private templateRender: TemplateRenderFunc) {
+  constructor(pageUrl: string, public query: QueryParams, private templateRender?: TemplateRenderFunc) {
     if (isNil(pageUrl)) {
       pageUrl = '/index';
     }
@@ -35,6 +36,9 @@ export class PaperContext {
       pageUrl = `/${pageUrl}`;
     }
     this._pageUrl = pageUrl;
+
+    // Only if an template render function is available, the render function can be called
+    this._sentData = isNil(this.templateRender);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types

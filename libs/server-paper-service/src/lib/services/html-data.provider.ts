@@ -1,39 +1,5 @@
 import { IRepositoryPool } from '@blue-paper/server-repository';
-import { isNil } from '@blue-paper/shared-commons';
-import { Brand, MenuItem, PaperInfo } from '../models';
-
-
-export const DEFAULT_BRAND: Brand = {
-  logoUrl: 'assets/logo-black.svg',
-  title: 'Hall Theme'
-};
-
-/**
- * The base html data entity.
- */
-export interface HtmlData {
-
-  /**
-   * The title of the html data
-   */
-  title: string;
-
-  /**
-   * Brand information
-   */
-  brand: Brand;
-
-  /**
-   * The navbar menu list
-   */
-  navbar: MenuItem[];
-
-  /**
-   * The footer meu list.
-   */
-  footer: MenuItem[];
-}
-
+import { HtmlData, PaperInfo } from './entities';
 
 export interface HtmlDataProvider<D extends HtmlData> {
 
@@ -45,26 +11,4 @@ export interface HtmlDataProvider<D extends HtmlData> {
    * @returns {Promise<D>} the html data
    */
   getData(paperInfo: PaperInfo, rep: IRepositoryPool): Promise<D>;
-}
-
-/**
- * Merges the attributes from {@link PaperInfo} and the other {@link HtmlData} to one entity
- *
- * @param {PaperInfo} paperInfo use the attribute `title`, `navbar` and `footer` from the paper information
- * @param {Partial<D>} data the other html data
- * @returns {Partial<D>}
- */
-export const mergeFrom = <D extends HtmlData>(paperInfo: PaperInfo, data: Partial<D>): D => {
-  const value = {
-    title: paperInfo.title,
-    navbar: Array.isArray(paperInfo.navbar) ? [...paperInfo.navbar] : [],
-    footer: Array.isArray(paperInfo.footer) ? [...paperInfo.footer] : [],
-    ...data,
-  } as D;
-
-  if (isNil(value.brand)) {
-    value.brand = {...DEFAULT_BRAND};
-  }
-
-  return value;
 }

@@ -1,6 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { HtmlIndexService } from './services/html-index.service';
-import { PaperService } from './services/paper.service';
+import { HtmlIndexService, PaperService } from './services';
 
 const paperServices = [
   PaperService,

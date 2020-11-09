@@ -5,22 +5,20 @@ import { ServerEditorServiceModule } from '@blue-paper/server-editor-service';
 import { ServerImageCommonsModule } from '@blue-paper/server-image-commons';
 import { ServerImageDeliveryModule } from '@blue-paper/server-image-delivery';
 import { ServerImageEditorModule } from '@blue-paper/server-image-editor';
+import { ServerPaperServiceModule } from '@blue-paper/server-paper-service';
 import { ServerRepositoryModule } from '@blue-paper/server-repository';
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { environment } from '../environments/environment';
+import { BOOTSTRAP_GROUP, buildAuthenticationConfig, buildDatabaseConfig, buildImageFileConfig } from './app.config';
 import {
-  BOOTSTRAP_GROUP,
-  buildAuthenticationConfig,
-  buildDatabaseConfig,
-  buildImageFileConfig
-} from './app.config';
-
-import { SystemController } from './system/system.controller';
-import { EditorImageController } from './editor/editor-image.controller';
-import { ImageDeliveryController } from './editor/image-delivery.controller';
+  DeliveryImageController,
+  EditorImageController,
+  PaperController,
+  SystemController,
+  UserController
+} from './controllers';
 import { buildUploadConfiguration } from './image/upload-configuration';
-import { UserController } from './user.controller';
 
 @Module({
   imports: [
@@ -34,10 +32,12 @@ import { UserController } from './user.controller';
     ServerImageEditorModule,
     ServerImageDeliveryModule,
     ServerEditorServiceModule,
+    ServerPaperServiceModule,
   ],
   controllers: [
     EditorImageController,
-    ImageDeliveryController,
+    PaperController,
+    DeliveryImageController,
     UserController,
     SystemController
   ],
@@ -57,6 +57,7 @@ export class AppModule implements NestModule {
       .exclude(...publicPaths)
       .forRoutes(
         UserController,
+        PaperController,
       )
 
   }

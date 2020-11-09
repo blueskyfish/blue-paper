@@ -3,7 +3,7 @@ import { IsIn, IsNumberString, IsString, ValidateIf } from 'class-validator';
 /**
  * Path parameters for the public image request
  */
-export class PublicImageParams {
+export class DeliveryImageParams {
 
   @IsNumberString()
   menuId: string;

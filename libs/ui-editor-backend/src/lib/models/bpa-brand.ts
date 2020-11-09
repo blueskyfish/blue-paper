@@ -1,7 +1,5 @@
-/**
- * Brand data
- */
-export interface Brand {
+/* tslint:disable */
+export interface BpaBrand {
 
   /**
    * Url for the logo
