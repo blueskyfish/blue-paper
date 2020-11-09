@@ -1,2 +1,10 @@
 
 @import "themes/editor/src/blue-paper";
+
+:host {
+
+  .content {
+    @include display-flex(column);
+    overflow: auto;
+  }
+}

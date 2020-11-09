@@ -1,21 +1,37 @@
 {
   "app": {
     "title": "Blue Paper (Editor)",
+    "toolbar": {
+      "account": {
+        "tooltip": "User Account"
+      },
+      "logout": {
+        "tooltip": "Logout..."
+      },
+      "about": {
+        "tooltip": "About..."
+      }
+    },
+    "login": {
+      "title": "Login",
+      "email": {
+        "label": "Email",
+        "placeholder": "Please enter your email address"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Please enter your password"
+      }
+    },
+    "command": {
+      "login": {
+        "title": "Login"
+      }
+    },
     "error": {
       "server": {
         "notAvailable": {
           "title": "Not Available"
-        }
-      },
-      "toolbar": {
-        "account": {
-          "tooltip": "User Account"
-        },
-        "logout": {
-          "tooltip": "Logout..."
-        },
-        "about": {
-          "tooltip": "About..."
         }
       },
       "response": {

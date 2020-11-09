@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolButtonItem } from '@blue-paper/ui-components';
+import { BpaLoginPayload } from '@blue-paper/ui-editor-backend';
+import { UserFacadeService } from '@blue-paper/ui-store-editor';
 
 export enum LoginToolbarCommand {
   About = 'about',
@@ -22,13 +25,26 @@ export class LoginViewComponent implements OnInit {
     {
       command: LoginToolbarCommand.About,
       icon: 'information-outline',
-      tooltip: 'app.error.toolbar.about.tooltip'
+      tooltip: 'app.toolbar.about.tooltip'
     }
   ];
 
-  constructor() { }
+  formLogin: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
+  });
+
+  constructor(private userFacade: UserFacadeService) { }
 
   ngOnInit(): void {
   }
 
+  toolbarExecute(command: string): void {
+    console.log('>> Debug: "%s"', command);
+  }
+
+  submitLoginCredentials(): void {
+    const payload: BpaLoginPayload = this.formLogin.value;
+    this.userFacade.login(payload);
+  }
 }

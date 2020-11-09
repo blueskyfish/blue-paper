@@ -1,0 +1,44 @@
+
+.form {
+  @include display-flex(column);
+  padding: $half-gap;
+
+  &.layout-medium {
+    width: 100%;
+  }
+
+  &.layout-large {
+    width: 70%;
+    min-width: 70%;
+    max-width: 80%;
+
+    &.center {
+      margin: 0 auto;
+    }
+  }
+
+  .form-field {
+    .form-control {
+      width: 100%;
+    }
+  }
+
+  .command-bar {
+    @include display-flex(row);
+    justify-content: flex-end;
+
+    .button {
+      margin-left: $half-gap;
+    }
+  }
+}
+
+input[type=date]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+  -webkit-appearance: none;
+  display: none;
+}

@@ -18,18 +18,18 @@ export class HomeViewComponent implements OnInit {
     {
       command: HomeToolbarCommand.UserAccount,
       icon: 'account-circle-outline',
-      tooltip: 'app.error.toolbar.account.tooltip'
+      tooltip: 'app.toolbar.account.tooltip'
     },
     '-',
     {
       command: HomeToolbarCommand.About,
       icon: 'information-outline',
-      tooltip: 'app.error.toolbar.about.tooltip'
+      tooltip: 'app.toolbar.about.tooltip'
     },
     {
       command: HomeToolbarCommand.Logout,
       icon: 'logout',
-      tooltip: 'app.error.toolbar.logout.tooltip'
+      tooltip: 'app.toolbar.logout.tooltip'
     }
   ]
 
@@ -39,6 +39,6 @@ export class HomeViewComponent implements OnInit {
   }
 
   toolbarExecute(command: string): void {
-    console.log('>> Debug "%s"', command);
+    console.log('>> Debug: "%s"', command);
   }
 }

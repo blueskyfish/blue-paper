@@ -1,6 +1,10 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { forwardRef, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { UiCommonsModule } from '@blue-paper/ui-commons';
@@ -31,12 +35,17 @@ const components = [
       paramsInheritanceStrategy: 'always'
     }),
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     TranslateModule.forRoot(buildTranslateConfig()),
 
     ...configStoreDev(),
 
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
 
     UiCommonsModule,
     UiComponentsModule,
