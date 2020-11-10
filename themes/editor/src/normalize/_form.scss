@@ -1,7 +1,8 @@
 
 .form {
   @include display-flex(column);
-  padding: $half-gap;
+  background-color: mat-color($background-palette, dialog);
+  padding: $full-gap;
 
   &.layout-medium {
     width: 100%;

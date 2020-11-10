@@ -19,8 +19,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToolbarComponent } from './toolbar';
+import { MessagePanelComponent } from './message-panel/message-panel.component';
 
 const components = [
+  MessagePanelComponent,
   ToolbarComponent,
 ]
 

@@ -1,8 +1,9 @@
 <section class="mat-body page-body">
   <bpa-toolbar [toolbar]="toolbar" (execute)="toolbarExecute($event)"></bpa-toolbar>
   <main class="content">
-    <form class="form" [formGroup]="formLogin" (ngSubmit)="submitLoginCredentials()" autocomplete="off">
+    <form class="form" [formGroup]="formLogin" autocomplete="off">
       <h1>{{ 'app.login.title' | translate }}</h1>
+      <bpa-message-panel [message]="message" (close)="closeMessage()"></bpa-message-panel>
       <mat-form-field class="form-field">
         <mat-label>{{ 'app.login.email.label' | translate }}</mat-label>
         <input type="email" matInput [placeholder]="'app.login.email.placeholder' | translate" formControlName="email">
@@ -12,7 +13,7 @@
         <input type="password" matInput [placeholder]="'app.login.password.placeholder' | translate" formControlName="password">
       </mat-form-field>
       <div class="command-bar">
-        <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid" (click)="sendLoginCredentials()">
           {{ 'app.command.login.title' | translate }}
         </button>
       </div>

@@ -7,6 +7,7 @@ import { catchError, delay, map, mergeMap, switchMap } from 'rxjs/operators';
 import { processCatch } from '../message/message.utils';
 import { NavigateActions } from '../navigate';
 import { UserActions } from './user.actions';
+import { UserCategory } from './user.categories';
 
 @Injectable()
 export class UserEffectService {
@@ -31,7 +32,7 @@ export class UserEffectService {
                   NavigateActions.navigate({ paths: [PathName.Root, PathName.Home]})
                 );
               }),
-              catchError(processCatch('app.error.login.message'))
+              catchError(processCatch(UserCategory.Login, 'app.error.login.message'))
             );
         })
       )
@@ -52,7 +53,7 @@ export class UserEffectService {
                     UserActions.userInfo(user),
                   )
                 }),
-                catchError(processCatch('app.error.userInfo.message'))
+                catchError(processCatch(UserCategory.UserInfo, 'app.error.userInfo.message'))
               );
           }
 

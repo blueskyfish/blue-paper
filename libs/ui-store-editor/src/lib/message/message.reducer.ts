@@ -9,16 +9,21 @@ export interface MessagePartialState {
 }
 
 export const initialState: MessageState = {
-  list: [],
+  list: []
 };
 
 const messageReducer = createReducer(
   initialState,
-  on(MessageActions.appendError, (state, {message} ) => (
+  on(MessageActions.appendError, (state, { message }) => (
     {
-      list: [message, ...state.list],
+      list: [ message, ...state.list ]
     }
   )),
+  on(MessageActions.removeCategory, (state, { category }) => (
+    {
+      list: state.list.filter(m => m.category !== category),
+    }
+  ))
 );
 
 export function reducer(state: MessageState | undefined, action: Action) {
