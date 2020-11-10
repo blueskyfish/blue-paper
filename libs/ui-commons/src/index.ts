@@ -1,4 +1,4 @@
-export * from './lib/commons.config';
+
 export * from './lib/commons.module';
 
 export * from './lib/models';

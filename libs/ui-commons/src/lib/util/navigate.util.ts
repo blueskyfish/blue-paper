@@ -1,7 +1,13 @@
 import { NavigationExtras, Router } from '@angular/router';
 
+/**
+ * Path command types
+ */
 export type PathCommand = string | number;
 
+/**
+ * A utility class for navigate
+ */
 export class NavigateUtil {
 
   static navigate(router: Router, ...commands: PathCommand[]): void {

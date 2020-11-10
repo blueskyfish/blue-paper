@@ -3,9 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNil } from '@blue-paper/shared-commons';
 import { IMessageText, ToolButtonItem } from '@blue-paper/ui-components';
 import { BpaLoginPayload } from '@blue-paper/ui-editor-backend';
-import { UserFacadeService } from '@blue-paper/ui-store-editor';
+import { IMessage, UserFacadeService } from '@blue-paper/ui-store-editor';
 import { Subscription } from 'rxjs';
-import { IMessage } from '../../../../../../libs/ui-store-editor/src/lib/message';
 
 export enum LoginToolbarCommand {
   About = 'about',

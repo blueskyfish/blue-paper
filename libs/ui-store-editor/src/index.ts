@@ -5,5 +5,7 @@ export * from './lib/store-http-config';
 export * from './lib/store-http.service';
 
 // Feature Stores
+export * from './lib/loader';
+export * from './lib/message';
 export * from './lib/user';
 
