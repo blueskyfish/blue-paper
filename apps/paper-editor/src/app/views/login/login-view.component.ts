@@ -1,24 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { isNil } from '@blue-paper/shared-commons';
 import { IMessageText, ToolButtonItem } from '@blue-paper/ui-components';
 import { BpaLoginPayload } from '@blue-paper/ui-editor-backend';
-import { IMessage, UserFacadeService } from '@blue-paper/ui-store-editor';
 import { Subscription } from 'rxjs';
+import { LoginViewService } from './login-view.service';
 
 export enum LoginToolbarCommand {
   About = 'about',
 }
 
-const DEFAULT_MESSAGE: IMessageText = {
-  kind: 'info',
-  text: 'app.login.message.text',
-}
-
 @Component({
   selector: 'bpa-login-view',
   templateUrl: './login-view.component.html',
-  styleUrls: ['./login-view.component.scss']
+  styleUrls: ['./login-view.component.scss'],
+  providers: [
+    LoginViewService,
+  ]
 })
 export class LoginViewComponent implements OnInit, OnDestroy {
 
@@ -38,28 +35,18 @@ export class LoginViewComponent implements OnInit, OnDestroy {
     }
   ];
 
-  message: IMessageText = { ...DEFAULT_MESSAGE};
+  message: IMessageText;
 
   formLogin: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
 
-  constructor(private userFacade: UserFacadeService) { }
+  constructor(private loginState: LoginViewService) { }
 
   ngOnInit(): void {
-    this.userFacade.loginInit();
-    this.subscriber$ = this.userFacade.getLoginError$
-      .subscribe((msg: IMessage) => {
-        this.message = isNil(msg) ?
-          {...DEFAULT_MESSAGE} :
-          {
-            kind: 'error',
-            title: msg.title,
-            text: msg.message,
-            closeable: true,
-          }
-      });
+    this.subscriber$ = this.loginState.message$
+      .subscribe((msg) => this.message = msg);
   }
 
   ngOnDestroy() {
@@ -74,17 +61,12 @@ export class LoginViewComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * The close button is visible in the message panel. Remove or close the error messages.
-   */
-  closeMessage(): void {
-    this.userFacade.closeLoginError();
-  }
-
-  /**
    * Send the login credentials
    */
   sendLoginCredentials(): void {
     const payload: BpaLoginPayload = this.formLogin.value;
-    this.userFacade.login(payload);
+    // this.userFacade.login(payload);
+    this.loginState.sendLogin(payload)
+      .subscribe(result => console.log('> Debug: Login result "%s"', result));
   }
 }

@@ -3,7 +3,7 @@
   <main class="content">
     <form class="form" [formGroup]="formLogin" autocomplete="off">
       <h1>{{ 'app.login.title' | translate }}</h1>
-      <bpa-message-panel [message]="message" (close)="closeMessage()"></bpa-message-panel>
+      <bpa-message-panel [message]="message"></bpa-message-panel>
       <mat-form-field class="form-field">
         <mat-label>{{ 'app.login.email.label' | translate }}</mat-label>
         <input type="email" matInput [placeholder]="'app.login.email.placeholder' | translate" formControlName="email">
