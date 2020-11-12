@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolButtonItem } from '@blue-paper/ui-components';
+import { HomeViewService } from './home-view.service';
 
 export enum HomeToolbarCommand {
   UserAccount = 'userAccount',
@@ -10,7 +11,10 @@ export enum HomeToolbarCommand {
 @Component({
   selector: 'bpa-home-view',
   templateUrl: './home-view.component.html',
-  styleUrls: ['./home-view.component.scss']
+  styleUrls: ['./home-view.component.scss'],
+  providers: [
+    HomeViewService,
+  ]
 })
 export class HomeViewComponent implements OnInit {
 
@@ -33,12 +37,19 @@ export class HomeViewComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private homeState: HomeViewService) { }
 
   ngOnInit(): void {
   }
 
   toolbarExecute(command: string): void {
-    console.log('>> Debug: "%s"', command);
+    switch (command) {
+      case HomeToolbarCommand.Logout:
+        this.homeState.confirmLogout();
+        break;
+      default:
+        console.log('>> Debug: "%s"', command);
+        break;
+    }
   }
 }

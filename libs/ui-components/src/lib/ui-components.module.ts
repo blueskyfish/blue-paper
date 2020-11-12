@@ -18,13 +18,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { DialogService } from './dialog';
 import { ToolbarComponent } from './toolbar';
 import { MessagePanelComponent } from './message-panel/message-panel.component';
 
 const components = [
   MessagePanelComponent,
   ToolbarComponent,
-]
+];
+
+const providers = [
+  DialogService,
+];
+
 
 @NgModule({
   imports: [
@@ -53,6 +59,9 @@ const components = [
   ],
   declarations: [
     ...components,
+  ],
+  providers: [
+    ...providers,
   ],
   exports: [
     ...components,

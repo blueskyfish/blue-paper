@@ -26,9 +26,19 @@
         "placeholder": "Please enter your password"
       }
     },
+    "logout-dialog": {
+      "title": "Logout",
+      "message": "Do you want to log out? If you want to continue working, you have to log in again."
+    },
     "command": {
       "login": {
         "title": "Login"
+      },
+      "logout": {
+        "title": "Logout"
+      },
+      "cancel": {
+        "title": "Cancel"
       }
     },
     "error": {

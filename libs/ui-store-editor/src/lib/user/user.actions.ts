@@ -12,4 +12,6 @@ export class UserActions {
     '[User] get user info',
     props<BpaUserInfo>()
   );
+
+  static logoutUser = createAction('[User] logout user');
 }

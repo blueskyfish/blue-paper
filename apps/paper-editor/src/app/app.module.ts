@@ -14,6 +14,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { buildHttpConfig, buildTranslateConfig, configStoreDev } from './app.config';
 import { ROUTES } from './app.routing';
+import { LogoutConfirmComponent } from './dialogs';
+import { LogoutDialogService } from './dialogs/logout-dialog.service';
 import { HomeViewComponent, LoginViewComponent } from './views';
 
 const components = [
@@ -21,11 +23,16 @@ const components = [
   // views
   LoginViewComponent,
   HomeViewComponent,
-]
+];
+
+const dialogs = [
+  LogoutConfirmComponent,
+];
 
 @NgModule({
   declarations: [
     ...components,
+    ...dialogs,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,11 @@ const components = [
       provide: HTTP_INTERCEPTORS,
       useExisting: forwardRef(() => StoreHttpService),
       multi: true,
-    }
+    },
+    LogoutDialogService,
+  ],
+  entryComponents: [
+    ...dialogs,
   ],
   bootstrap: [
     AppComponent

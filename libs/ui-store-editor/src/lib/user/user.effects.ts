@@ -38,7 +38,6 @@ export class UserEffectService {
       )
   );
 
-
   readonly initialAndGetUserInfo$ = createEffect(
     () => this.actions$
       .pipe(
@@ -61,4 +60,15 @@ export class UserEffectService {
         }),
       )
   );
+
+  readonly logoutUser$ = createEffect(
+    () => this.actions$
+      .pipe(
+        ofType(UserActions.logoutUser),
+        map(() => {
+          this.authService.removeToken();
+          return NavigateActions.navigate({paths: [PathName.Root, PathName.Login]});
+        })
+      )
+  )
 }
