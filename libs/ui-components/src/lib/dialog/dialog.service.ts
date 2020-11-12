@@ -1,5 +1,5 @@
 import { ComponentType, Overlay, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
-import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector } from '@angular/core';
 import { GLOBAL_DIALOG_CONFIG, IDialogConfig } from './dialog.config';
 import { DialogHandler } from './dialog.handler';
@@ -55,12 +55,12 @@ export class DialogService {
       maxHeight: '95vh',
       maxWidth: '95vw',
       hasBackdrop: true,
-      positionStrategy: this.getPositionStrategy(config),
+      positionStrategy: this.getPositionStrategy(),
       scrollStrategy: this.overlay.scrollStrategies.block()
     };
   }
 
-  private getPositionStrategy(config: IDialogConfig): PositionStrategy {
+  private getPositionStrategy(): PositionStrategy {
     return this.overlay
       .position()
       .global()
