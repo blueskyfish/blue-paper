@@ -3,26 +3,42 @@
 @include on-host(column) {
 
   .view {
-    @include display-flex(column);
+    @include display-flex(row);
     @include flex-resizable();
+    background-color: mat-color($background-palette, status-bar);
+    padding-left: $half-gap;
     overflow: auto;
 
-    .view-title {
+    .view-menu {
+      @include abs-width(15rem);
       @include flex-fixed();
-      @include display-flex(row);
-      align-items: center;
-
-      mat-icon {
-        margin: $half-gap $full-gap;
-      }
+      background-color: mat-color($background-palette, status-bar);
     }
 
-    .view-body {
+    .view-subview {
       @include flex-resizable();
-      @include display-flex(row, wrap);
-      align-content: flex-start;
-      overflow: auto;
-      padding: 0 $half-gap;
+      @include display-flex(column);
+      background-color: mat-color($background-palette, dialog);
+
+      .view-title {
+        @include flex-fixed();
+        @include display-flex(row);
+        align-items: center;
+
+        mat-icon {
+          margin: $half-gap $full-gap;
+        }
+      }
+
+      .view-body {
+        @include flex-resizable();
+        @include display-flex(row, wrap);
+        align-content: flex-start;
+        overflow: auto;
+        padding: 0 $half-gap;
+      }
+
     }
+
   }
 }

@@ -3,6 +3,8 @@
 
 :host {
   box-shadow: 2px 0 2px mat-color($mat-gray, 500);
+  z-index: $z-index-toolbar;
+
   .toolbar {
     height: 100%;
     padding: 0 $four-gap;

@@ -31,6 +31,9 @@ export class HomeViewComponent implements OnInit {
     switch (command) {
       case HomeToolbarCommand.UserAccount:
         break;
+      case HomeToolbarCommand.Dashboard:
+        this.homeState.navigateToDashboard();
+        break;
       case HomeToolbarCommand.EditorBureau:
         this.homeState.navigateToEditor();
         break;

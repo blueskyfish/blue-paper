@@ -30,7 +30,7 @@ export class HomeStateFacadeService {
 
           return TOOL_BUTTON_LIST
             .filter((t) => {
-              console.log('>> Debug: %s =>', roles.join(','), t);
+              //console.log('>> Debug: %s =>', roles.join(','), t);
               if (isNil(t.role)) {
                 return true;
               }
@@ -49,6 +49,12 @@ export class HomeStateFacadeService {
   navigateToEditor(): void {
     this.store.dispatch(NavigateActions.navigate({
       paths: [ PathName.Root, PathName.Home, PathName.Editor]
+    }));
+  }
+
+  navigateToDashboard(): void {
+    this.store.dispatch(NavigateActions.navigate({
+      paths: [ PathName.Root, PathName.Home]
     }));
   }
 

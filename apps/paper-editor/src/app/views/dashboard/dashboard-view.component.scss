@@ -6,7 +6,9 @@
   .view {
     @include display-flex(column);
     @include flex-resizable();
+    background-color: mat-color($background-palette, dialog);
     overflow: auto;
+    padding-left: $half-gap;
 
     .view-title {
       @include flex-fixed();

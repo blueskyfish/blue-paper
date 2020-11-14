@@ -5,6 +5,9 @@
       "account": {
         "tooltip": "User Account"
       },
+      "dashboard": {
+        "tooltip": "Show the dashboard"
+      },
       "editorBureau": {
         "tooltip": "Editor Bureau"
       },

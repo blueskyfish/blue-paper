@@ -6,6 +6,7 @@ import { ToolButtonDivider, ToolButtonItem } from '@blue-paper/ui-components';
  */
 export enum HomeToolbarCommand {
   UserAccount = 'userAccount',
+  Dashboard = 'dashboard',
   EditorBureau = 'editor.bureau',
   AccountManager = 'account.manager',
   Logout = 'logout',
@@ -35,6 +36,15 @@ export const USER_ACCOUNT_TOOL_BUTTON: ToolButtonDef = {
     tooltip: 'app.toolbar.account.tooltip'
   }
 };
+
+export const DASHBOARD_TOOL_BUTTON: ToolButtonDef = {
+  role: null,
+  button: {
+    command: HomeToolbarCommand.Dashboard,
+    icon: 'billboard',
+    tooltip: 'app.toolbar.dashboard.tooltip'
+  }
+}
 
 export const EDITOR_TOOL_BUTTON: ToolButtonDef = {
   role: RoleName.Editor,
@@ -84,6 +94,7 @@ const DIVIDER_TOOL: ToolButtonDef = {
  */
 export const TOOL_BUTTON_LIST = [
   USER_ACCOUNT_TOOL_BUTTON,
+  DASHBOARD_TOOL_BUTTON,
   EDITOR_TOOL_BUTTON,
   ACCOUNT_MANAGER_TOOL_BUTTON,
   DIVIDER_TOOL,
