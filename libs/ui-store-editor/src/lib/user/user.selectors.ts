@@ -6,7 +6,7 @@ import { USER_FEATURE_KEY, UserPartialState } from './user.reducer';
 
 const selectUser = (state: UserPartialState) => state[USER_FEATURE_KEY];
 
-export class UserQuery {
+export class UserQueries {
 
   /**
    * Get the current user
@@ -28,6 +28,16 @@ export class UserQuery {
     selectUser,
     (state: UserState): boolean => (
       !isNil(state.id) || !isNaN(state.id)
+    )
+  );
+
+  /**
+   * Get the user roles
+   */
+  static readonly selectUserRoles$ = createSelector(
+    selectUser,
+    (state: UserState): string[] => (
+      isNil(state.roles) ? [] : state.roles
     )
   );
 }

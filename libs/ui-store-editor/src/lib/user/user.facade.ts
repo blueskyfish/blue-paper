@@ -9,7 +9,7 @@ import { IMessage, MessageActions, MessageQueries } from '../message';
 import { UserActions } from './user.actions';
 import { UserCategory } from './user.categories';
 import { IUserName } from './user.entities';
-import { UserQuery } from './user.selectors';
+import { UserQueries } from './user.selectors';
 
 @Injectable()
 export class UserFacadeService {
@@ -17,7 +17,7 @@ export class UserFacadeService {
   get currentUserName$(): Observable<IUserName> {
     return this.store
       .pipe(
-        select(UserQuery.selectUserName$),
+        select(UserQueries.selectUserName$),
         filter(user => !isNil(user))
       );
   }
@@ -25,7 +25,7 @@ export class UserFacadeService {
   get snapshotUserName$(): Observable<IUserName> {
     return this.store
       .pipe(
-        select(UserQuery.selectUserName$),
+        select(UserQueries.selectUserName$),
         first()
       );
   }
@@ -33,7 +33,7 @@ export class UserFacadeService {
   get snapshotUserAvailable$(): Observable<boolean> {
     return this.store
       .pipe(
-        select(UserQuery.selectUserAvailable$),
+        select(UserQueries.selectUserAvailable$),
         first()
       );
   }

@@ -6,5 +6,6 @@
   .content {
     @include display-flex(column);
     overflow: auto;
+    padding-left: $half-gap;
   }
 }

@@ -5,6 +5,12 @@
       "account": {
         "tooltip": "User Account"
       },
+      "editorBureau": {
+        "tooltip": "Editor Bureau"
+      },
+      "accountManager": {
+        "tooltip": "User Account Manager"
+      },
       "logout": {
         "tooltip": "Logout..."
       },
@@ -40,6 +46,12 @@
       "cancel": {
         "title": "Cancel"
       }
+    },
+    "editorBureau": {
+      "title": "Editor Overview"
+    },
+    "dashboard": {
+      "title": "Dashboard"
     },
     "error": {
       "server": {

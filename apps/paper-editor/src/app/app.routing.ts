@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProtectedPageGuard, RedirectPageGuard } from '@blue-paper/ui-commons';
-import { HomeViewComponent, LoginViewComponent } from './views';
+import { DashboardViewComponent, EditorBureauViewComponent, HomeViewComponent, LoginViewComponent } from './views';
 
 /**
  * The Routing table
@@ -19,6 +19,16 @@ export const ROUTES: Routes = [
     canActivate: [
       ProtectedPageGuard,
     ],
+    children: [
+      {
+        path: '',
+        component: DashboardViewComponent,
+      },
+      {
+        path: 'editor',
+        component: EditorBureauViewComponent,
+      }
+    ]
   },
   {
     path: '**',

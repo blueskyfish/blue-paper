@@ -2,6 +2,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { forwardRef, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,11 +17,13 @@ import { buildHttpConfig, buildTranslateConfig, configStoreDev } from './app.con
 import { ROUTES } from './app.routing';
 import { LogoutConfirmComponent } from './dialogs';
 import { LogoutDialogService } from './dialogs/logout-dialog.service';
-import { HomeViewComponent, LoginViewComponent } from './views';
+import { DashboardViewComponent, EditorBureauViewComponent, HomeViewComponent, LoginViewComponent } from './views';
 
 const components = [
   AppComponent,
   // views
+  DashboardViewComponent,
+  EditorBureauViewComponent,
   LoginViewComponent,
   HomeViewComponent,
 ];
@@ -53,6 +56,7 @@ const dialogs = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatRippleModule,
 
     UiCommonsModule,
     UiComponentsModule,

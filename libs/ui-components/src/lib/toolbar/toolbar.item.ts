@@ -1,4 +1,8 @@
-
+/**
+ * The tool button with the icon, tooltip and command.
+ *
+ * **NOTE**: Command must be unique.
+ */
 export interface ToolButton {
 
   /**

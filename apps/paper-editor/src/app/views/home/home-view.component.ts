@@ -1,49 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolButtonItem } from '@blue-paper/ui-components';
-import { HomeViewService } from './home-view.service';
+import { HomeStateFacadeService } from './home-state-facade.service';
+import { HomeToolbarCommand } from './home-view.models';
 
-export enum HomeToolbarCommand {
-  UserAccount = 'userAccount',
-  Logout = 'logout',
-  About = 'about'
-}
 
 @Component({
   selector: 'bpa-home-view',
-  templateUrl: './home-view.component.html',
+  template: `
+    <section class="mat-body page-body">
+      <bpa-toolbar [toolbar]="toolbar$ | async" (execute)="toolbarExecute($event)"></bpa-toolbar>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+    </section>
+  `,
   styleUrls: ['./home-view.component.scss'],
   providers: [
-    HomeViewService,
+    HomeStateFacadeService,
   ]
 })
 export class HomeViewComponent implements OnInit {
 
-  toolbar: ToolButtonItem[] = [
-    {
-      command: HomeToolbarCommand.UserAccount,
-      icon: 'account-circle-outline',
-      tooltip: 'app.toolbar.account.tooltip'
-    },
-    '-',
-    {
-      command: HomeToolbarCommand.About,
-      icon: 'information-outline',
-      tooltip: 'app.toolbar.about.tooltip'
-    },
-    {
-      command: HomeToolbarCommand.Logout,
-      icon: 'logout',
-      tooltip: 'app.toolbar.logout.tooltip'
-    }
-  ]
+  toolbar$ = this.homeState.getToolButtonList$();
 
-  constructor(private homeState: HomeViewService) { }
+  constructor(private homeState: HomeStateFacadeService) { }
 
   ngOnInit(): void {
   }
 
   toolbarExecute(command: string): void {
     switch (command) {
+      case HomeToolbarCommand.UserAccount:
+        break;
+      case HomeToolbarCommand.EditorBureau:
+        this.homeState.navigateToEditor();
+        break;
+      case HomeToolbarCommand.AccountManager:
+        break;
       case HomeToolbarCommand.Logout:
         this.homeState.confirmLogout();
         break;
