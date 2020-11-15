@@ -14,6 +14,7 @@ import { BOOTSTRAP_GROUP, buildAuthenticationConfig, buildDatabaseConfig, buildI
 import {
   DeliveryImageController,
   EditorImageController,
+  MenuController,
   PaperController,
   SystemController,
   UserController
@@ -37,6 +38,7 @@ import { buildUploadConfiguration } from './image/upload-configuration';
   controllers: [
     EditorImageController,
     PaperController,
+    MenuController,
     DeliveryImageController,
     UserController,
     SystemController
@@ -56,6 +58,7 @@ export class AppModule implements NestModule {
       .apply(AuthMiddleware) // AuthMiddleware
       .exclude(...publicPaths)
       .forRoutes(
+        MenuController,
         UserController,
         PaperController,
       )

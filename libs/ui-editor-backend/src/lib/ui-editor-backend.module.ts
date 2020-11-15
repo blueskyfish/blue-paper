@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BureauConfiguration, BureauConfigurationParams } from './bureau-configuration';
 
 import { BureauPaperService } from './services/bureau-paper.service';
+import { BureauAdminService } from './services/bureau-admin.service';
 import { BureauUserService } from './services/bureau-user.service';
 import { BureauSystemService } from './services/bureau-system.service';
 
@@ -16,6 +17,7 @@ import { BureauSystemService } from './services/bureau-system.service';
   declarations: [],
   providers: [
     BureauPaperService,
+    BureauAdminService,
     BureauUserService,
     BureauSystemService,
     BureauConfiguration

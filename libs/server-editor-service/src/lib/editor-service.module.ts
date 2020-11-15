@@ -1,7 +1,9 @@
 import { Global, Module } from '@nestjs/common';
+import { MenuService } from './menu';
 import { UserService } from './user';
 
 const editorServices = [
+  MenuService,
   UserService,
 ];
 
