@@ -51,7 +51,30 @@
       }
     },
     "editorBureau": {
-      "title": "Editor Overview"
+      "title": "Editor Overview",
+      "menu": {
+        "title": "Menu",
+        "search": {
+          "placeholder": "Filter Menu"
+        },
+        "treeView": {
+          "navbar": {
+            "section": {
+              "title": "Navbar Menu"
+            }
+          },
+          "footer": {
+            "section": {
+              "title": "Footer Menu"
+            }
+          },
+          "hidden": {
+            "section": {
+              "title": "Hidden Menu"
+            }
+          }
+        }
+      }
     },
     "dashboard": {
       "title": "Dashboard"
@@ -84,6 +107,9 @@
       },
       "userInfo": {
         "message": "The user information is not available! Maybe the login credentials are missing."
+      },
+      "editorMenu": {
+        "treeRoot": "The root tree menu are not avialable"
       }
     }
   }

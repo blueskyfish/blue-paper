@@ -18,6 +18,7 @@ import { ROUTES } from './app.routing';
 import { LogoutConfirmComponent } from './dialogs';
 import { LogoutDialogService } from './dialogs/logout-dialog.service';
 import { DashboardViewComponent, EditorBureauViewComponent, HomeViewComponent, LoginViewComponent } from './views';
+import { MenuFeatureModule } from './views/editor-bureau/store/menu-feature.module';
 
 const components = [
   AppComponent,
@@ -61,6 +62,8 @@ const dialogs = [
     UiCommonsModule,
     UiComponentsModule,
     UiStoreEditorModule.forRoot(buildHttpConfig()),
+
+    MenuFeatureModule,
   ],
   providers: [
     {

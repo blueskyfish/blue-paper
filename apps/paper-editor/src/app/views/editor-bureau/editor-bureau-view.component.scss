@@ -5,14 +5,28 @@
   .view {
     @include display-flex(row);
     @include flex-resizable();
-    background-color: mat-color($background-palette, status-bar);
+    background-color: mat-color($background-palette, app-bar);
     padding-left: $half-gap;
+    padding-bottom: $half-gap;
     overflow: auto;
 
     .view-menu {
-      @include abs-width(15rem);
+      @include abs-width(25rem);
       @include flex-fixed();
-      background-color: mat-color($background-palette, status-bar);
+      @include display-flex(column);
+
+      background-color: mat-color($background-palette, app-bar);
+      padding-right: $half-gap;
+
+      .title {
+        @include nowrapWithEllipsis();
+        @include flex-fixed();
+      }
+
+      .menu-tree-container {
+        @include flex-resizable();
+        overflow: auto;
+      }
     }
 
     .view-subview {
@@ -26,7 +40,7 @@
         align-items: center;
 
         mat-icon {
-          margin: $half-gap $full-gap;
+          margin: 0 $full-gap;
         }
       }
 

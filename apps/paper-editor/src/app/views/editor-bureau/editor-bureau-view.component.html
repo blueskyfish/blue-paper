@@ -1,6 +1,9 @@
 <section class="view">
   <div class="view-menu">
-    <h1>Menu List</h1>
+    <h2 class="title">{{ 'app.editorBureau.menu.title' | translate }}</h2>
+    <div class="menu-tree-container">
+      <bpa-tree-node [sections]="menuPlaces" (selectedMenu)="selectMenuItem($event)"></bpa-tree-node>
+    </div>
   </div>
   <div class="view-subview">
     <h2 class="view-title">
