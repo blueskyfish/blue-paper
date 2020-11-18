@@ -67,4 +67,28 @@ export function size(s: string | object | Array<any>): number {
   }
   return -1;
 }
+
+/**
+ * Check if the value is empty
+ *
+ * * string: The string has the length of `0`
+ * * array: The array has the length of `0`
+ * * object: The object has no public attributes
+ *
+ * @param {*[] | string | object} v the value of string or array
+ * @returns {boolean} `true` means, the string or array is empty.
+ */
+export function isEmpty(v: any[] | string | object): boolean {
+  if (isNil(v)) {
+    return true;
+  }
+  if (Array.isArray(v)) {
+    return v.length === 0;
+  }
+  if (typeof v === 'string') {
+    return v.length === 0;
+  }
+  return Object.keys(v).length === 0;
+}
+
 /* eslint-enable */
