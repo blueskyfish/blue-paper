@@ -4,11 +4,11 @@ import {
   PaperExceptionFilter,
   PaperService,
   QueryParams,
-  QueryType
+  QueryType,
+  TemplateRenderFunc
 } from '@blue-paper/server-paper-service';
 import { Controller, Get, Param, Query, Res, UseFilters } from '@nestjs/common';
 import { Response } from 'express';
-import { TemplateRenderFunc } from '../../../../libs/server-paper-service/src/lib/models/render-func';
 import { CONTROLLER_GROUP } from './app.config';
 import { HtmlPaperParams } from './html-paper.params';
 

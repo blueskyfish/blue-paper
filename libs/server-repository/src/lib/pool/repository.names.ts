@@ -18,6 +18,16 @@ export const DbPage = '`pages`';
 export const DbFile = '`files`';
 
 /**
+ * The table name of the user repository.
+ */
+export const DbUser = '`editor_users`';
+
+/**
+ * The table name of the user-salt repository.
+ */
+export const DbUserSalt = '`editor_user_salts`';
+
+/**
  * The value of enabled = `Y`.
  */
 export const ENABLED = `'${Enabled.Yes}'`;

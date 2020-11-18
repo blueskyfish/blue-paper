@@ -2,14 +2,11 @@ import { LogService } from '@blue-paper/server-commons';
 import { IDbMenu, IRepositoryPool, MenuRepository, RepositoryService } from '@blue-paper/server-repository';
 import { isNil } from '@blue-paper/shared-commons';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PaperInfo } from '../models/paper-info';
-import { PaperTemplates } from '../models/paper-templates';
-import { HtmlData } from './html-data.provider';
+import { PaperTemplates } from '../models';
+import { HtmlData, HtmlIndexData, PaperInfo } from './entities';
 import { HtmlIndexService } from './html-index.service';
 import { PaperContext } from './paper.context';
 import { addMenu, PAPER_GROUP } from './paper.util';
-
-
 
 /**
  * Handles the request of html pages.
@@ -26,6 +23,30 @@ export class PaperService {
   ) {
   }
 
+  async getPaperInfo(paperContext: PaperContext): Promise<PaperInfo> {
+    return await this.repository.execute<PaperInfo>(async (rep: IRepositoryPool) => {
+      return await this.getMenuInfo(paperContext.pageUrl, rep.menu);
+    })
+  }
+
+  async getHtmlPage(paperContext: PaperContext): Promise<HtmlData | HtmlIndexData> {
+    return await this.repository.execute<HtmlData | HtmlIndexData>(async (rep: IRepositoryPool) => {
+      // get paper info ()
+      const paperInfo = await this.getMenuInfo(paperContext.pageUrl, rep.menu);
+
+      if (isNil(paperInfo) || isNil(paperInfo.template) || paperInfo.template === '') {
+        throw new NotFoundException(`${PAPER_GROUP}: Page could not found`);
+      }
+
+      switch (paperInfo.template) {
+        case PaperTemplates.Index:
+          return await this.indexService.getData(paperInfo, rep);
+        default:
+          throw new NotFoundException(`${PAPER_GROUP}: Page provider not found`);
+      }
+    });
+  }
+
   /**
    * Process the html page with the given paper context.
    *
@@ -35,7 +56,7 @@ export class PaperService {
     return await this.repository.execute<void>(async (rep: IRepositoryPool) => {
 
       // get paper info ()
-      const paperInfo = await this.getPaperInfo(paperContext.pageUrl, rep.menu);
+      const paperInfo = await this.getMenuInfo(paperContext.pageUrl, rep.menu);
 
       if (isNil(paperInfo) || isNil(paperInfo.template) || paperInfo.template === '') {
         throw new NotFoundException(`${PAPER_GROUP}: Page could not found`);
@@ -56,14 +77,14 @@ export class PaperService {
   }
 
   /**
-   * Get the paper information. If the return value is `null`, then the page url is not existing.
+   * Get the menu / paper information. If the return value is `null`, then the menu / page url is not existing.
    *
    * @param {string} currentUrl the page url
    * @param {MenuRepository} menuRepository
    * @returns {Promise<PaperInfo>} if returns null, the page url is not found
    * @private
    */
-  private async getPaperInfo(currentUrl: string, menuRepository: MenuRepository): Promise<PaperInfo> {
+  private async getMenuInfo(currentUrl: string, menuRepository: MenuRepository): Promise<PaperInfo> {
     this.log.debug('Paper', `Current Page => ${currentUrl}`);
 
     let currentMenu: IDbMenu = null;

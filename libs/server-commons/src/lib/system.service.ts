@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Hello } from './entities';
 
 @Injectable()
 export class SystemService {
@@ -9,7 +10,7 @@ export class SystemService {
    * @param {string} [name] the optional name
    * @returns {{message: string}}
    */
-  getHello(name?: string): { message: string } {
+  getHello(name?: string): Hello {
     return {
       message: `Hello ${name || 'World'}!`
     };

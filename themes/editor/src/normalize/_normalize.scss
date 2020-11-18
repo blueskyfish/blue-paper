@@ -20,4 +20,7 @@ body {
   box-sizing: border-box;
 }
 
+@import "material";
 @import "page-body";
+@import "form";
+@import "dialog";

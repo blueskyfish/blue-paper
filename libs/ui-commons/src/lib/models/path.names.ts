@@ -5,6 +5,13 @@ export enum PathName {
 
   Home = 'home',
 
-  Login = 'login'
+  /**
+   * The login view
+   */
+  Login = 'login',
 
+  /**
+   * The path to the editor bureau main view
+   */
+  Editor = 'editor',
 }

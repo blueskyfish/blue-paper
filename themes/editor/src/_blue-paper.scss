@@ -33,5 +33,11 @@ $full-gap: 16px;
 $half-gap: $full-gap / 2;
 $four-gap: $full-gap / 4;
 
+//
+// Z-Index
+//
+
+$z-index-toolbar: 5;
+
 
 @import "mixins";

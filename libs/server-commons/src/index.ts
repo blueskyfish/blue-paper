@@ -1,6 +1,8 @@
 
 export * from './lib/server-commons.module';
 
+export * from './lib/entities';
+
 // System service
 export * from './lib/system.service';
 

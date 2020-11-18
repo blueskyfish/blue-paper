@@ -1,0 +1,35 @@
+
+@import "themes/editor/src/blue-paper";
+
+@include on-host(column) {
+  .message-panel {
+    border-radius: $four-gap;
+    border: 1px solid mat-color($mat-gray, 200);
+    padding: $full-gap;
+    position: relative;
+    margin-bottom: $full-gap;
+
+    &.error {
+      background-color: mat-color($mat-amber, 100);
+      color: mat-contrast($mat-amber, 100);
+      border: 1px solid mat-color($mat-amber, 600);
+    }
+
+    .message-title {
+      margin-top: 0;
+    }
+
+    .message-text {
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    .message-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}

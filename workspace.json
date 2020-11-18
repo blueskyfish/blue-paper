@@ -616,6 +616,103 @@
           "style": "scss"
         }
       }
+    },
+    "ui-store-editor": {
+      "projectType": "library",
+      "root": "libs/ui-store-editor",
+      "sourceRoot": "libs/ui-store-editor/src",
+      "prefix": "bpd",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-store-editor/tsconfig.lib.json", "libs/ui-store-editor/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-store-editor/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-store-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "server-editor-service": {
+      "root": "libs/server-editor-service",
+      "sourceRoot": "libs/server-editor-service/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/server-editor-service/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/server-editor-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/server-editor-service",
+            "tsConfig": "libs/server-editor-service/tsconfig.lib.json",
+            "packageJson": "libs/server-editor-service/package.json",
+            "main": "libs/server-editor-service/src/index.ts",
+            "assets": ["libs/server-editor-service/*.md"]
+          }
+        }
+      }
+    },
+    "ui-editor-backend": {
+      "projectType": "library",
+      "root": "libs/ui-editor-backend",
+      "sourceRoot": "libs/ui-editor-backend/src",
+      "prefix": "bda",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/ui-editor-backend/tsconfig.lib.json",
+            "project": "libs/ui-editor-backend/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ui-editor-backend/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/ui-editor-backend/tsconfig.lib.json", "libs/ui-editor-backend/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/ui-editor-backend/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-editor-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

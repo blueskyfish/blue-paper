@@ -1,0 +1,58 @@
+@import "themes/editor/src/blue-paper";
+
+@include on-host(column) {
+
+  .view {
+    @include display-flex(row);
+    @include flex-resizable();
+    background-color: mat-color($background-palette, app-bar);
+    padding-left: $half-gap;
+    padding-bottom: $half-gap;
+    overflow: auto;
+
+    .view-menu {
+      @include abs-width(25rem);
+      @include flex-fixed();
+      @include display-flex(column);
+
+      background-color: mat-color($background-palette, app-bar);
+      padding-right: $half-gap;
+
+      .title {
+        @include nowrapWithEllipsis();
+        @include flex-fixed();
+      }
+
+      .menu-tree-container {
+        @include flex-resizable();
+        overflow: auto;
+      }
+    }
+
+    .view-subview {
+      @include flex-resizable();
+      @include display-flex(column);
+      background-color: mat-color($background-palette, dialog);
+
+      .view-title {
+        @include flex-fixed();
+        @include display-flex(row);
+        align-items: center;
+
+        mat-icon {
+          margin: 0 $full-gap;
+        }
+      }
+
+      .view-body {
+        @include flex-resizable();
+        @include display-flex(row, wrap);
+        align-content: flex-start;
+        overflow: auto;
+        padding: 0 $half-gap;
+      }
+
+    }
+
+  }
+}

@@ -2,6 +2,7 @@ import { DbConnection } from '@blue-paper/server-database';
 import { FileRepository } from './file';
 import { MenuRepository } from './menu';
 import { PageRepository } from './page';
+import { UserRepository } from './user';
 
 /**
  * A repository interface
@@ -38,6 +39,11 @@ export interface IRepositoryPool extends IRepository {
    * The sub repository works with the page entities
    */
   readonly page: PageRepository;
+
+  /**
+   * The sub repository works with the user entities
+   */
+  readonly user: UserRepository;
 
   /**
    * @see {@link DbConnection.startTransaction}

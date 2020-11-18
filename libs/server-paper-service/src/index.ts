@@ -7,12 +7,10 @@ export * from './lib/paper-service.module';
 
 // Entities and Models
 export * from './lib/models';
+export * from './lib/services/entities';
 
 // Services
-export * from './lib/services/paper.context';
-export * from './lib/services/paper.service';
-export * from './lib/services/html-data.provider';
-export * from './lib/services/html-index.service';
+export * from './lib/services';
 
 // Exception Filter
 export * from './lib/filters/paper-exception.filter';

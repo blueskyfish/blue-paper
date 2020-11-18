@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "http://localhost:28090/open-api.json",
+  "output": "./libs/ui-editor-backend/src/lib",
+  "excludeTags": ["Images"],
+  "indexFile": true,
+  "serviceIndex": false,
+  "modelIndex": false,
+  "module": "UiEditorBackendModule",
+  "baseService": "BureauBaseService",
+  "configuration": "BureauConfiguration",
+  "servicePrefix": "Bureau",
+  "modelPrefix": "Bpa",
+  "requestBuilder": "BureauRequestBuilder",
+  "enumStyle": "pascal",
+  "ignoreUnusedModels": true,
+  "response": "BureauHttpResponse",
+  "removeStaleFiles": true
+}

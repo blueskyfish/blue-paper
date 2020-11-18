@@ -1,3 +1,22 @@
 
 @import "themes/editor/src/blue-paper";
 
+:host {
+
+  .content {
+    @include display-flex(column);
+    overflow: auto;
+
+    .form {
+      @include mat-elevation(2);
+      border: 1px solid mat-color($mat-gray, 100);
+      width: 30rem;
+      padding: $full-gap;
+      margin: $full-gap * 2;
+
+      h1 {
+
+      }
+    }
+  }
+}

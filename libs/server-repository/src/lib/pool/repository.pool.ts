@@ -4,6 +4,7 @@ import { FileRepository } from './file';
 import { MenuRepository } from './menu';
 import { PageRepository } from './page';
 import { IRepositoryPool } from './repository';
+import { UserRepository } from './user';
 
 /**
  * The repository pool
@@ -13,6 +14,7 @@ export class RepositoryPool implements IRepositoryPool {
   private _file: FileRepository = null;
   private _menu: MenuRepository = null;
   private _page: PageRepository = null;
+  private _user: UserRepository = null;
 
   constructor(private _conn: DbConnection) {
   }
@@ -39,6 +41,11 @@ export class RepositoryPool implements IRepositoryPool {
   get page(): PageRepository {
     return isNil(this._page) ?
       (this._page = new PageRepository(this.conn)) : this._page;
+  }
+
+  get user(): UserRepository {
+    return isNil(this._user) ?
+      (this._user = new UserRepository(this.conn)) : this._user;
   }
 
   /**
@@ -71,6 +78,10 @@ export class RepositoryPool implements IRepositoryPool {
     if (this._page) {
       this._page.close();
       this._page = null;
+    }
+    if (this._user) {
+      this._user.close();
+      this._user = null;
     }
     this._conn = null;
   }

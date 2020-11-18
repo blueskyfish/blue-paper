@@ -4,6 +4,11 @@
 
 export const environment = {
   production: false,
+
+  /**
+   * The ase api url for request to the backend
+   */
+  baseApiUrl: 'api/'
 };
 
 /*

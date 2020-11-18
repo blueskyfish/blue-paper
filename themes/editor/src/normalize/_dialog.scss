@@ -1,0 +1,31 @@
+
+
+.dialog {
+  @include mat-elevation(24);
+  background-color: mat-color($background-palette, dialog);
+  border: 1px solid mat-color($foreground-palette, divider);
+  border-radius: $four-gap;
+  padding: $full-gap;
+
+  .title {
+    margin: 0 0 $full-gap 0;
+  }
+
+  .content {
+
+    p {
+      margin: 0 0 $half-gap 0;
+    }
+  }
+
+  .command-bar {
+    @include display-flex(row);
+    justify-content: flex-end;
+    margin-top: $full-gap;
+
+    .button {
+      margin-left: $half-gap;
+    }
+  }
+}
+

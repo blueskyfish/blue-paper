@@ -15,18 +15,35 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { DialogService } from './dialog';
+import { ToolbarComponent } from './toolbar';
+import { MessagePanelComponent } from './message-panel/message-panel.component';
+import { TreeMenuComponent, TreeNodeComponent } from './tree-node';
 
 const components = [
+  MessagePanelComponent,
   ToolbarComponent,
-]
+  TreeMenuComponent,
+  TreeNodeComponent,
+];
+
+const providers = [
+  DialogService,
+];
+
 
 @NgModule({
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    TranslateModule,
 
     MatButtonModule,
     MatIconModule,
@@ -41,9 +58,13 @@ const components = [
     MatRadioModule,
     MatCheckboxModule,
     MatSliderModule,
+    MatTooltipModule,
   ],
   declarations: [
     ...components,
+  ],
+  providers: [
+    ...providers,
   ],
   exports: [
     ...components,

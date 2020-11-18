@@ -1,0 +1,116 @@
+{
+  "app": {
+    "title": "Blue Paper (Editor)",
+    "toolbar": {
+      "account": {
+        "tooltip": "User Account"
+      },
+      "dashboard": {
+        "tooltip": "Show the dashboard"
+      },
+      "editorBureau": {
+        "tooltip": "Editor Bureau"
+      },
+      "accountManager": {
+        "tooltip": "User Account Manager"
+      },
+      "logout": {
+        "tooltip": "Logout..."
+      },
+      "about": {
+        "tooltip": "About..."
+      }
+    },
+    "login": {
+      "title": "Login",
+      "message": {
+        "text": "Please enter your credentials."
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Please enter your email address"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Please enter your password"
+      }
+    },
+    "logout-dialog": {
+      "title": "Logout",
+      "message": "Do you want to log out? If you want to continue working, you have to log in again."
+    },
+    "command": {
+      "login": {
+        "title": "Login"
+      },
+      "logout": {
+        "title": "Logout"
+      },
+      "cancel": {
+        "title": "Cancel"
+      }
+    },
+    "editorBureau": {
+      "title": "Editor Overview",
+      "menu": {
+        "title": "Menu",
+        "search": {
+          "placeholder": "Filter Menu"
+        },
+        "treeView": {
+          "navbar": {
+            "section": {
+              "title": "Navbar Menu"
+            }
+          },
+          "footer": {
+            "section": {
+              "title": "Footer Menu"
+            }
+          },
+          "hidden": {
+            "section": {
+              "title": "Hidden Menu"
+            }
+          }
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "error": {
+      "server": {
+        "notAvailable": {
+          "title": "Not Available"
+        }
+      },
+      "response": {
+        "400": {
+          "title": "Bad Request"
+        },
+        "401": {
+          "title": "Unauthorized"
+        },
+        "403": {
+          "title": "Forbidden"
+        },
+        "404": {
+          "title": "Not Found"
+        },
+        "unknown": {
+          "title": "Unknown Error"
+        }
+      },
+      "login": {
+        "message": "The combination of user email address and password is not correct. Please try again with the correct credentials."
+      },
+      "userInfo": {
+        "message": "The user information is not available! Maybe the login credentials are missing."
+      },
+      "editorMenu": {
+        "treeRoot": "The root tree menu are not avialable"
+      }
+    }
+  }
+}

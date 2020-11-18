@@ -1,6 +1,6 @@
 import { LogService } from '@blue-paper/server-commons';
 import { DbService } from '@blue-paper/server-database';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { IRepositoryPool, RepositoryPool } from './pool';
 import { REPOSITORY_GROUP } from './repository.constants';
 
@@ -28,14 +28,18 @@ export class RepositoryService {
       // close the repository
       rep.close();
       // release the connection
-      conn.release();
+      await conn.release();
     }
   }
 
   private handleError(e): void {
 
     if (e.stack) {
-      this.log.error(REPOSITORY_GROUP, `Error: \n%${e.stack.replace('\t', '  ').split('\n')}`);
+      this.log.error(REPOSITORY_GROUP, `Error: \n${e.stack}`);
+    }
+
+    if (e instanceof HttpException) {
+      throw e;
     }
 
     throw new BadRequestException(e.message, 'Repository error');
