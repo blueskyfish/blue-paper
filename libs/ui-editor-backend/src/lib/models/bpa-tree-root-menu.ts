@@ -1,6 +1,6 @@
 /* tslint:disable */
+import { BpaMenuPlace } from './bpa-menu-place';
 import { BpaTreeMenu } from './bpa-tree-menu';
-import { BpaPlace } from './bpa-place';
 export interface BpaTreeRootMenu {
 
   /**
@@ -11,5 +11,5 @@ export interface BpaTreeRootMenu {
   /**
    * The place of the menu list
    */
-  place: BpaPlace;
+  place: BpaMenuPlace;
 }

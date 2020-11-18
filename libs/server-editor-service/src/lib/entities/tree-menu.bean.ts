@@ -37,7 +37,7 @@ export class TreeRootMenu {
   @ApiProperty({
     description: 'The place of the menu list',
     enum: MenuPlace,
-    enumName: 'place'
+    enumName: 'MenuPlace'
   })
   place: MenuPlace;
 

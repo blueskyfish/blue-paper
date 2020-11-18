@@ -7,7 +7,7 @@ export { BpaBrand } from './models/bpa-brand';
 export { BpaMenuItem } from './models/bpa-menu-item';
 export { BpaHtmlData } from './models/bpa-html-data';
 export { BpaPaperInfo } from './models/bpa-paper-info';
-export { BpaPlace } from './models/bpa-place';
+export { BpaMenuPlace } from './models/bpa-menu-place';
 export { BpaTreeMenu } from './models/bpa-tree-menu';
 export { BpaTreeRootMenu } from './models/bpa-tree-root-menu';
 export { BpaLoginPayload } from './models/bpa-login-payload';

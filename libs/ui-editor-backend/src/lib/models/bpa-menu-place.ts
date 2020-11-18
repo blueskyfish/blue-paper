@@ -1,5 +1,5 @@
 /* tslint:disable */
-export enum BpaPlace {
+export enum BpaMenuPlace {
   Navbar = 'navbar',
   Footer = 'footer',
   Hidden = 'hidden'
