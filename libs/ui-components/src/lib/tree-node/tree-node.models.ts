@@ -1,4 +1,5 @@
 import { isNil } from '@blue-paper/shared-commons';
+import { BpaMenuPlace } from '@blue-paper/ui-editor-backend';
 
 export enum TreeMenuItemStatus {
   Expanded = 'expanded',
@@ -36,6 +37,12 @@ export const TreeMenuIcon = {
   }
 }
 
+export const TreeNodeSectionIcon = {
+  navbar: 'border-top-variant',
+  footer: 'border-bottom-variant',
+  hidden: 'border-none-variant',
+}
+
 /**
  * The event transporter of the menu item selection
  */
@@ -44,6 +51,17 @@ export class TreeMenuEvent {
     public readonly id: number,
     public readonly data: any
   ) {
+  }
+}
+
+export class TreeNodeEvent extends TreeMenuEvent {
+
+  static cloneWith(place: BpaMenuPlace, ev: TreeMenuEvent): TreeNodeEvent {
+    return new TreeNodeEvent(place, ev.id, ev.data);
+  }
+
+  constructor(public readonly place: BpaMenuPlace, id: number, data: any) {
+    super(id, data);
   }
 }
 
@@ -140,6 +158,10 @@ export class TreeNodeSection {
     return this._active;
   }
 
+  get icon(): string {
+    return TreeNodeSectionIcon[this.place] || TreeNodeSectionIcon.hidden;
+  }
+
   /**
    * Has children or not
    */
@@ -147,17 +169,19 @@ export class TreeNodeSection {
     return Array.isArray(this.children) && this.children.length > 0;
   }
 
+  get title(): string {
+    return `app.editorBureau.menu.treeView.${this.place}.section.title`;
+  }
+
   /**
    *
    * @param {number} id The id of the section
-   * @param {string} icon The icon of the section
-   * @param {string} title The title of the section
+   * @param {BpaMenuPlace} place the menu place
    * @param {TreeMenuItem[]} children The list of children tree meun items
    */
   constructor(
     public readonly id: number,
-    public readonly icon: string,
-    public readonly title: string,
+    public readonly place: BpaMenuPlace,
     public readonly children?: TreeMenuItem[]
   ) {
   }
@@ -167,6 +191,21 @@ export class TreeNodeSection {
   }
 }
 
+/**
+ * The id generator
+ */
+export class IdGenerator {
+  constructor(private start) {
+  }
+
+  /**
+   * Returns the next id
+   * @returns {number}
+   */
+  get next(): number {
+    return ++this.start;
+  }
+}
 
 /**
  * Id generator
@@ -175,19 +214,6 @@ export class TreeNodeSection {
  *
  * @returns {{next: number}} the generator class with the attribute next, that returns the next id.
  */
-export function idGenerator(start: number = 0) {
-
-  /**
-   * The ID generator
-   */
-  return {
-
-    /**
-     * Returns the next id
-     * @returns {number}
-     */
-    get next(): number {
-      return ++start;
-    }
-  };
+export function idGenerator(start: number = 0): IdGenerator {
+  return new IdGenerator(start);
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TreeMenuEvent, TreeNodeSection } from './tree-node.models';
+import { TreeMenuEvent, TreeNodeEvent, TreeNodeSection } from './tree-node.models';
 
 @Component({
   selector: 'bpa-tree-node',
@@ -12,7 +12,7 @@ import { TreeMenuEvent, TreeNodeSection } from './tree-node.models';
           <mat-icon [svgIcon]="section.active ? 'chevron-down' : 'chevron-up'" class="marker"></mat-icon>
         </div>
         <div class="menu-panel" *ngIf="section.active">
-          <bpa-tree-menu [list]="section.children" (selected)="this.selectedMenu.emit($event)" *ngIf="section.hasChildren"></bpa-tree-menu>
+          <bpa-tree-menu [list]="section.children" (selected)="selectMenuItem(section, $event)" *ngIf="section.hasChildren"></bpa-tree-menu>
         </div>
       </section>
     </div>
@@ -25,7 +25,7 @@ export class TreeNodeComponent implements OnInit {
   sections: TreeNodeSection[] = [];
 
   @Output()
-  selectedMenu: EventEmitter<TreeMenuEvent> = new EventEmitter<TreeMenuEvent>(true);
+  selectedMenu: EventEmitter<TreeNodeEvent> = new EventEmitter<TreeNodeEvent>(true);
 
   constructor() { }
 
@@ -35,5 +35,9 @@ export class TreeNodeComponent implements OnInit {
   selectSection(section: TreeNodeSection) {
     this.sections.forEach(s => s.updateActive(s.id === section.id));
     // TODO
+  }
+
+  selectMenuItem(section: TreeNodeSection, ev: TreeMenuEvent) {
+    this.selectedMenu.emit(TreeNodeEvent.cloneWith(section.place, ev));
   }
 }
