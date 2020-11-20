@@ -12,3 +12,5 @@ export * from './lib/navigate';
 export * from './lib/message';
 export * from './lib/user';
 
+// Guards
+export * from './lib/guards';

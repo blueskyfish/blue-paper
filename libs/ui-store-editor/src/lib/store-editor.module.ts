@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ProtectedRoleGuard } from './guards';
 import { NavigateEffectService } from './navigate';
 import { IStoreHttpConfig, StoreHttpConfig } from './store-http-config';
 import { StoreHttpService } from './store-http.service';
@@ -18,7 +19,6 @@ import * as fromUser from './user/user.reducer';
 const storeEffects = [
   UserEffectService,
   NavigateEffectService,
-  StoreHttpService,
 ];
 
 @NgModule({
@@ -45,6 +45,8 @@ const storeEffects = [
   ],
   providers: [
     UserFacadeService,
+    StoreHttpService,
+    ProtectedRoleGuard,
   ],
 })
 export class UiStoreEditorModule {

@@ -5,7 +5,7 @@ import { ToolButtonItem } from '@blue-paper/ui-components';
 import { AppState, NavigateActions, UserQueries } from '@blue-paper/ui-store-editor';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { LogoutDialogService } from '../../dialogs/logout-dialog.service';
 import { TOOL_BUTTON_LIST } from './home-view.models';
 
@@ -26,6 +26,7 @@ export class HomeStateFacadeService {
     return this.store
       .pipe(
         select(UserQueries.selectUserRoles$),
+        filter(r => !isNil(r)),
         map((roles: string[]) => {
 
           return TOOL_BUTTON_LIST
