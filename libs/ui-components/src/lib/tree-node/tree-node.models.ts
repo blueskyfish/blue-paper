@@ -15,6 +15,7 @@ export enum TreeNodeMarker {
 /**
  * The definition of the icons
  *
+ * **NOTE**: The key is the enumeration value from {@link BpaTreeKind}
  */
 export const TreeMenuIcon = {
   folder: {
