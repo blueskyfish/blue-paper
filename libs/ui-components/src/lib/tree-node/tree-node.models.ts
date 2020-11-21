@@ -1,19 +1,13 @@
 import { isNil } from '@blue-paper/shared-commons';
-import { BpaMenuPlace } from '@blue-paper/ui-editor-backend';
+import { BpaMenuPlace, BpaTreeKind, BpaTreeMenu } from '@blue-paper/ui-editor-backend';
 
 export enum TreeMenuItemStatus {
   Expanded = 'expanded',
   Collapsed = 'collapsed',
 }
 
-export enum TreeMenuItemKind {
-  Path = 'path',
-  Page = 'page',
-  Blog = 'blog',
-}
-
 export enum TreeNodeMarker {
-  NoChildren = 'circle-medium',
+  Document = 'menu-right',
   Expanded = 'chevron-down',
   Collapsed = 'chevron-right',
 }
@@ -23,7 +17,7 @@ export enum TreeNodeMarker {
  *
  */
 export const TreeMenuIcon = {
-  path: {
+  folder: {
     expanded: 'folder-open-outline',
     collapsed: 'folder-outline',
   },
@@ -72,16 +66,18 @@ export class TreeMenuItem {
 
   /**
    * @param {number} id the menu id
-   * @param {TreeMenuItemKind} kind the kind of menu item
+   * @param {BpaTreeKind} kind the kind of menu item
+   * @param {string} path the path segment
    * @param {string} title the title of the menu item
-   * @param data the data section for the menu
+   * @param {BpaTreeMenu} data the data section for the menu
    * @param {TreeMenuItem[]} children the children menu items
    */
   constructor(
     public readonly id: number,
-    public readonly kind: TreeMenuItemKind,
+    public readonly kind: BpaTreeKind,
+    public readonly path: string,
     public readonly title: string,
-    public readonly data?: any,
+    public readonly data?: BpaTreeMenu,
     public readonly children?: TreeMenuItem[]
   ) {
   }
@@ -100,6 +96,10 @@ export class TreeMenuItem {
 
   get active(): boolean {
     return this._active;
+  }
+
+  get tooltip(): string {
+    return `${this.title} (${this.data.keyPath})`;
   }
 
   updateStatus(status: TreeMenuItemStatus): void {
@@ -136,7 +136,7 @@ export class TreeMenuItem {
 
   get marker(): string {
     if (!this.hasChildren) {
-      return TreeNodeMarker.NoChildren;
+      return TreeNodeMarker.Document;
     }
     return this._status === TreeMenuItemStatus.Expanded ? TreeNodeMarker.Expanded : TreeNodeMarker.Collapsed;
   }

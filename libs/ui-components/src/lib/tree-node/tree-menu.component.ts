@@ -12,7 +12,9 @@ import { TreeMenuEvent, TreeMenuItem } from './tree-node.models';
           </button>
           <div class="caption-text" matRipple (click)="selectMenuItem(item)">
             <mat-icon [svgIcon]="item.icon"></mat-icon>
-            <p class="title">{{ item.title }}</p>
+            <p class="title">
+              <span [matTooltip]="item.tooltip" matTooltipPosition="after">{{ item.path }}</span>
+            </p>
           </div>
         </div>
         <div class="submenu" *ngIf="item.isExpanded">
