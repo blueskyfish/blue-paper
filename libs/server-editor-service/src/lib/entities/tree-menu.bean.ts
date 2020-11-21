@@ -1,5 +1,6 @@
 import { MenuPlace } from '@blue-paper/server-repository';
 import { ApiProperty } from '@nestjs/swagger';
+import { TreeKind } from './tree-kind.enum';
 
 export class TreeMenu {
 
@@ -13,6 +14,13 @@ export class TreeMenu {
     description: 'The title of the tree menu'
   })
   title: string;
+
+  @ApiProperty({
+    description: 'The kind of tree menu item',
+    enum: TreeKind,
+    enumName: 'TreeKind'
+  })
+  kind: TreeKind;
 
   @ApiProperty({
     description: 'The path segment'
@@ -31,6 +39,11 @@ export class TreeMenu {
     type: TreeMenu,
   })
   children?: TreeMenu[];
+
+  @ApiProperty({
+    description: 'The key path to this tree menu (e.g. `menuPlace://segement1/segement2/path`)'
+  })
+  keyPath: string;
 }
 
 export class TreeRootMenu {

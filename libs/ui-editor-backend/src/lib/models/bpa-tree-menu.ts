@@ -1,10 +1,21 @@
 /* tslint:disable */
+import { BpaTreeKind } from './bpa-tree-kind';
 export interface BpaTreeMenu {
 
   /**
    * The optional children menu list
    */
   children?: Array<BpaTreeMenu>;
+
+  /**
+   * The key path to this tree menu (e.g. `menuPlace://segement1/segement2/path`)
+   */
+  keyPath: string;
+
+  /**
+   * The kind of tree menu item
+   */
+  kind: BpaTreeKind;
 
   /**
    * The menuId or if the path node **0**
