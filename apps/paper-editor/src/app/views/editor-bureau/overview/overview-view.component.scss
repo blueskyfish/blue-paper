@@ -1,0 +1,29 @@
+
+@import "themes/editor/src/blue-paper";
+
+@include on-host(column) {
+  .view-page {
+    @include flex-resizable();
+    @include display-flex(column);
+    overflow: auto;
+
+    .view-title {
+      @include flex-fixed();
+      @include display-flex(row);
+      align-items: center;
+
+      mat-icon {
+        margin: 0 $full-gap;
+      }
+    }
+
+    .view-body {
+      @include flex-resizable();
+      @include display-flex(row, wrap);
+      align-content: flex-start;
+      overflow: auto;
+      padding: 0 $half-gap;
+    }
+
+  }
+}

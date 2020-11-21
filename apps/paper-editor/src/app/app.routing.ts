@@ -2,7 +2,13 @@ import { Routes } from '@angular/router';
 import { RoleName } from '@blue-paper/shared-commons';
 import { ProtectedPageGuard, RedirectPageGuard } from '@blue-paper/ui-commons';
 import { ProtectedRoleGuard } from '@blue-paper/ui-store-editor';
-import { DashboardViewComponent, EditorBureauViewComponent, HomeViewComponent, LoginViewComponent } from './views';
+import {
+  DashboardViewComponent,
+  EditorBureauViewComponent,
+  HomeViewComponent,
+  LoginViewComponent,
+  OverviewViewComponent
+} from './views';
 
 /**
  * The Routing table
@@ -34,7 +40,13 @@ export const ROUTES: Routes = [
         ],
         data: {
           role: RoleName.Editor
-        }
+        },
+        children: [
+          {
+            path: '',
+            component: OverviewViewComponent,
+          }
+        ]
       }
     ]
   },

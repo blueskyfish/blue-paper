@@ -7,7 +7,19 @@ import { EditorBureauStateService } from './editor-bureau-state.service';
 
 @Component({
   selector: 'bpa-editor-bureau-view',
-  templateUrl: './editor-bureau-view.component.html',
+  template: `
+    <section class="view">
+      <div class="view-menu">
+        <h2 class="title">{{ 'app.editorBureau.menu.title' | translate }}</h2>
+        <div class="menu-tree-container">
+          <bpa-tree-node [sections]="menuPlaces" (selectedMenu)="selectMenuItem($event)"></bpa-tree-node>
+        </div>
+      </div>
+      <div class="view-subview">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  `,
   styleUrls: ['./editor-bureau-view.component.scss'],
   providers: [
     EditorBureauStateService,
