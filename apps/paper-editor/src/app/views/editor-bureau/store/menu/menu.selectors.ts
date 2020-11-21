@@ -1,5 +1,5 @@
 import { isEmpty } from '@blue-paper/shared-commons';
-import { idGenerator, IdGenerator, TreeMenuItem, TreeMenuItemKind, TreeNodeSection } from '@blue-paper/ui-components';
+import { idGenerator, IdGenerator, TreeMenuItem, TreeNodeSection } from '@blue-paper/ui-components';
 import { BpaTreeMenu, BpaTreeRootMenu } from '@blue-paper/ui-editor-backend';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { MenuFeatureKey, MenuState } from './menu.reducer';
@@ -46,11 +46,7 @@ export class MenuQueries {
           children = MenuQueries.buildTreeMenu(idGen, menu.children);
         }
 
-        // kind and data ()
-        const kind = (menu.menuId < 0) ? TreeMenuItemKind.Path : TreeMenuItemKind.Page;
-        const data = (menu.menuId < 0) ? null : menu;
-
-        return new TreeMenuItem(idGen.next, kind, menu.title, data, children);
+        return new TreeMenuItem(idGen.next, menu.kind, menu.path, menu.title, menu, children);
       });
   }
 }
