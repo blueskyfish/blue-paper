@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { BpaGroupInfo } from './bpa-group-info';
 import { BpaTreeKind } from './bpa-tree-kind';
 export interface BpaTreeMenu {
 
@@ -6,6 +7,7 @@ export interface BpaTreeMenu {
    * The optional children menu list
    */
   children?: Array<BpaTreeMenu>;
+  group?: BpaGroupInfo & any;
 
   /**
    * The key path to this tree menu (e.g. `menuPlace://segement1/segement2/path`)
@@ -18,7 +20,7 @@ export interface BpaTreeMenu {
   kind: BpaTreeKind;
 
   /**
-   * The menuId or if the path node **0**
+   * The menuId or if the path node **-1**
    */
   menuId?: number;
 

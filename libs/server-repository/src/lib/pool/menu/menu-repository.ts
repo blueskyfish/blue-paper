@@ -1,6 +1,11 @@
 import { SubRepository } from '../sub-repository';
+import { IDbMenuGroup } from './entities/menu-group.entity';
 import { IDbMenu } from './entities/menu.entity';
-import { SQL_FIND_MENU_BY_PAGE_URL, SQL_SELECT_EDITOR_MENU_LIST, SQL_SELECT_MENU_LIST } from './menu-repository.sql';
+import {
+  SQL_FIND_MENU_BY_PAGE_URL,
+  SQL_SELECT_EDITOR_MENU_GROUP_LIST,
+  SQL_SELECT_MENU_LIST
+} from './menu-repository.sql';
 
 /**
  * Repository for the menu table
@@ -10,7 +15,7 @@ export class MenuRepository extends SubRepository {
   /**
    * Get the menu entity from the given page url
    * @param {string} pageUrl the page url
-   * @returns {Promise<IDbMenu | null>}
+   * @returns {Promise<IDbMenuGroup | null>}
    */
   async findMenuByPageUrl(pageUrl: string): Promise<IDbMenu | null > {
     return await this.conn.selectOne<IDbMenu>(SQL_FIND_MENU_BY_PAGE_URL, {pageUrl});
@@ -30,7 +35,7 @@ export class MenuRepository extends SubRepository {
    *
    * @returns {Promise<IDbMenu[]>}
    */
-  async getEditorMenuList(): Promise<IDbMenu[]> {
-    return await this.conn.select<IDbMenu>(SQL_SELECT_EDITOR_MENU_LIST);
+  async getEditorMenuList(): Promise<IDbMenuGroup[]> {
+    return await this.conn.select<IDbMenuGroup>(SQL_SELECT_EDITOR_MENU_GROUP_LIST);
   }
 }

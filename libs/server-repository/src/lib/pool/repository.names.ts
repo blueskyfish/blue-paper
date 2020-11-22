@@ -9,8 +9,14 @@ export const DbMenu = '`menus`';
 
 /**
  * The table name of the page repository
+ * @deprecated
  */
 export const DbPage = '`pages`';
+
+/**
+ * The table name of the group content repository
+ */
+export const DbGroup = '`groups`';
 
 /**
  * The table name of the file repository.

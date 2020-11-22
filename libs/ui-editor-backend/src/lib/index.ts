@@ -9,6 +9,8 @@ export { BpaHtmlData } from './models/bpa-html-data';
 export { BpaPaperInfo } from './models/bpa-paper-info';
 export { BpaMenuPlace } from './models/bpa-menu-place';
 export { BpaTreeKind } from './models/bpa-tree-kind';
+export { BpaUserName } from './models/bpa-user-name';
+export { BpaGroupInfo } from './models/bpa-group-info';
 export { BpaTreeMenu } from './models/bpa-tree-menu';
 export { BpaTreeRootMenu } from './models/bpa-tree-root-menu';
 export { BpaLoginPayload } from './models/bpa-login-payload';

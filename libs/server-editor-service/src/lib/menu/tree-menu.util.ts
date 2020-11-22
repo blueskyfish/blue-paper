@@ -1,11 +1,11 @@
 import { TreeMenu, TreeRootMenu } from '@blue-paper/server-editor-service';
-import { IDbMenu, MenuPlace, Template } from '@blue-paper/server-repository';
+import { IDbMenu, IDbMenuGroup, MenuPlace, Template } from '@blue-paper/server-repository';
 import { isEmpty, isNil } from '@blue-paper/shared-commons';
 import { TreeKind } from '../entities/tree-kind.enum';
 
 export class TreeMenuUtil {
 
-  static append(menuMap: Map<MenuPlace, TreeMenu[]>, dbMenu: IDbMenu): void {
+  static append(menuMap: Map<MenuPlace, TreeMenu[]>, dbMenu: IDbMenuGroup): void {
 
     const segments = dbMenu.pageUrl
       .split('/')
@@ -23,7 +23,7 @@ export class TreeMenuUtil {
     TreeMenuUtil.insertMenu(keyPath, dbMenu, segments, menuList);
   }
 
-  private static insertMenu(parentKeyPath: string, dbMenu: IDbMenu, segments: string[], menuList: TreeMenu[]): void {
+  private static insertMenu(parentKeyPath: string, dbMenu: IDbMenuGroup, segments: string[], menuList: TreeMenu[]): void {
     const [first, ...paths] = segments;
 
     const hasMore = !isEmpty(paths);
@@ -33,12 +33,22 @@ export class TreeMenuUtil {
 
     if (isNil(treeMenu)) {
       treeMenu = {
-        menuId: hasMore ? -1 : dbMenu.id,
+        menuId: hasMore ? -1 : dbMenu.menuId,
         title: hasMore ? first : dbMenu.title,
         kind: hasMore ? TreeKind.Folder : TreeMenuUtil.fromMenuKind(dbMenu),
         path: first,
         ordering: dbMenu.ordering,
         children: hasMore ? [] : null,
+        group: hasMore ? null : {
+          groupId: dbMenu.groupId,
+          title: dbMenu.title,
+          author: {
+            id: dbMenu.authorId,
+            name: dbMenu.authorName
+          },
+          creation: dbMenu.creation.toISOString(),
+          modified: dbMenu.modified.toISOString()
+        },
         keyPath,
       };
       menuList.push(treeMenu);
