@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { SubscriberList } from '@blue-paper/ui-commons';
-import { idGenerator, TreeNodeEvent, TreeNodeSection } from '@blue-paper/ui-components';
+import { idGenerator, TreeNodeSectionEvent, TreeNodeSection } from '@blue-paper/ui-components';
 import { debounceTime, filter } from 'rxjs/operators';
 import { EditorBureauStateService } from './editor-bureau-state.service';
 
@@ -52,7 +52,7 @@ export class EditorBureauViewComponent implements OnInit, OnDestroy {
     this.subscriber$.unsubscribe();
   }
 
-  selectMenuItem(ev: TreeNodeEvent): void {
-    console.log('> Debug: Select menu =>', ev);
+  selectMenuItem(ev: TreeNodeSectionEvent): void {
+    this.editorState.navigateMenuDetail(ev.menu);
   }
 }

@@ -9,6 +9,7 @@ import {
   LoginViewComponent,
   OverviewViewComponent
 } from './views';
+import { DetailViewComponent } from './views/editor-bureau/detail/detail-view.component';
 
 /**
  * The Routing table
@@ -45,6 +46,10 @@ export const ROUTES: Routes = [
           {
             path: '',
             component: OverviewViewComponent,
+          },
+          {
+            path: 'detail/:menuId',
+            component: DetailViewComponent,
           }
         ]
       }

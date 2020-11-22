@@ -4,10 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'bpa-overview-view',
   template: `
     <section class="view-page">
-      <h2 class="view-title">
-        <mat-icon svgIcon="bulletin-board"></mat-icon>
-        <span>{{ 'app.editorBureau.overview.title' | translate }}</span>
-      </h2>
+      <bpa-title-panel icon="bulletin-board" title="app.editorBureau.overview.title"></bpa-title-panel>
       <div class="view-body mat-body">
         <p>{{ 'app.editorBureau.overview.message' | translate }}</p>
       </div>

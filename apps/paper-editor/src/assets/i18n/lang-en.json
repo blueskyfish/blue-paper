@@ -78,6 +78,9 @@
       "overview": {
         "title": "Editor Overview",
         "message": "Please select a menu item..."
+      },
+      "detail": {
+        "title": "Menu Overview"
       }
     },
     "dashboard": {
