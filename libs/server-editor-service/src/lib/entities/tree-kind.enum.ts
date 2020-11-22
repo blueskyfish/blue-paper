@@ -7,7 +7,7 @@ export enum TreeKind {
 
   Folder = 'folder',
 
-  Index = 'index',
+  Page = 'page',
 
   Blog = 'blog',
 }

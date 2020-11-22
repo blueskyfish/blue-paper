@@ -86,7 +86,7 @@ export class TreeMenuUtil {
   static fromMenuKind(dbMenu: IDbMenu): TreeKind {
     switch (dbMenu.template) {
       case Template.Index:
-        return TreeKind.Index;
+        return TreeKind.Page;
       case Template.Blog:
         return TreeKind.Blog;
       default:
