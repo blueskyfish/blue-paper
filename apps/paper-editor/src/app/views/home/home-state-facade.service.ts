@@ -49,13 +49,13 @@ export class HomeStateFacadeService {
    */
   navigateToEditor(): void {
     this.store.dispatch(NavigateActions.navigate({
-      paths: [ PathName.Root, PathName.Home, PathName.Editor]
+      pathSegments: [ PathName.Root, PathName.Home, PathName.Editor]
     }));
   }
 
   navigateToDashboard(): void {
     this.store.dispatch(NavigateActions.navigate({
-      paths: [ PathName.Root, PathName.Home]
+      pathSegments: [ PathName.Root, PathName.Home]
     }));
   }
 
