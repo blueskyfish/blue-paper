@@ -91,6 +91,10 @@ export class TreeMenuItem {
     return !isNil(this.data);
   }
 
+  get isFolder(): boolean {
+    return this.kind === BpaTreeKind.Folder;
+  }
+
   get isExpanded(): boolean {
     return this.hasChildren && this._status === TreeMenuItemStatus.Expanded;
   }

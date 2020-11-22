@@ -1,6 +1,6 @@
 import { isEmpty } from '@blue-paper/shared-commons';
 import { idGenerator, IdGenerator, TreeMenuItem, TreeNodeSection } from '@blue-paper/ui-components';
-import { BpaTreeKind, BpaTreeMenu, BpaTreeRootMenu } from '@blue-paper/ui-editor-backend';
+import { BpaTreeMenu, BpaTreeRootMenu } from '@blue-paper/ui-editor-backend';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { MenuFeatureKey, MenuState } from './menu.reducer';
 

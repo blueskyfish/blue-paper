@@ -42,7 +42,7 @@ export class TreeMenuComponent {
   }
 
   selectMenuItem(item: TreeMenuItem): void {
-    if (!item.hasData && item.hasChildren) {
+    if (item.isFolder && item.hasChildren) {
       this.toggleMenuItem(item);
     } else {
       this.selected.emit(new TreeMenuEvent(item.id, item.data));
