@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TreeMenuEvent, TreeMenuItem } from './tree-node.models';
+import { TreeNodeEvent, TreeNodeItem } from './tree-node.models';
 
 @Component({
-  selector: 'bpa-tree-menu',
+  selector: 'bpa-tree-item',
   template: `
     <ul class="tree-menu">
       <li class="menu-item" *ngFor="let item of list">
@@ -18,22 +18,22 @@ import { TreeMenuEvent, TreeMenuItem } from './tree-node.models';
           </div>
         </div>
         <div class="submenu" *ngIf="item.isExpanded">
-          <bpa-tree-menu [list]="item.children" (selected)="childrenSelectMenu($event)"></bpa-tree-menu>
+          <bpa-tree-item [list]="item.children" (selected)="childrenSelectMenu($event)"></bpa-tree-item>
         </div>
       </li>
     </ul>
   `,
-  styleUrls: ['./tree-menu.component.scss']
+  styleUrls: ['./tree-item.component.scss']
 })
-export class TreeMenuComponent {
+export class TreeItemComponent {
 
   @Input()
-  list: TreeMenuItem[] = [];
+  list: TreeNodeItem[] = [];
 
   @Output()
-  selected: EventEmitter<TreeMenuEvent> = new EventEmitter<TreeMenuEvent>(true);
+  selected: EventEmitter<TreeNodeEvent> = new EventEmitter<TreeNodeEvent>(true);
 
-  toggleMenuItem(item: TreeMenuItem): void {
+  toggleMenuItem(item: TreeNodeItem): void {
     if (item.isExpanded) {
       item.statusCollapsed();
     } else {
@@ -41,15 +41,15 @@ export class TreeMenuComponent {
     }
   }
 
-  selectMenuItem(item: TreeMenuItem): void {
+  selectMenuItem(item: TreeNodeItem): void {
     if (item.isFolder && item.hasChildren) {
       this.toggleMenuItem(item);
     } else {
-      this.selected.emit(new TreeMenuEvent(item.id, item.data));
+      this.selected.emit(new TreeNodeEvent(item.id, item.menu));
     }
   }
 
-  childrenSelectMenu(ev: TreeMenuEvent): void {
+  childrenSelectMenu(ev: TreeNodeEvent): void {
     this.selected.emit(ev);
   }
 }

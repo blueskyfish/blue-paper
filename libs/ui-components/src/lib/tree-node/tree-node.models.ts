@@ -1,7 +1,7 @@
 import { isNil } from '@blue-paper/shared-commons';
 import { BpaMenuPlace, BpaTreeKind, BpaTreeMenu } from '@blue-paper/ui-editor-backend';
 
-export enum TreeMenuItemStatus {
+export enum TreeNodeItemStatus {
   Expanded = 'expanded',
   Collapsed = 'collapsed',
 }
@@ -17,7 +17,7 @@ export enum TreeNodeMarker {
  *
  * **NOTE**: The key is the enumeration value from {@link BpaTreeKind}
  */
-export const TreeMenuIcon = {
+export const TreeNodeIcon = {
   folder: {
     expanded: 'folder-open-outline',
     collapsed: 'folder-outline',
@@ -41,18 +41,18 @@ export const TreeNodeSectionIcon = {
 /**
  * The event transporter of the menu item selection
  */
-export class TreeMenuEvent {
+export class TreeNodeEvent {
   constructor(
     public readonly id: number,
-    public readonly data: any
+    public readonly menu: BpaTreeMenu
   ) {
   }
 }
 
-export class TreeNodeEvent extends TreeMenuEvent {
+export class TreeNodeSectionEvent extends TreeNodeEvent {
 
-  static cloneWith(place: BpaMenuPlace, ev: TreeMenuEvent): TreeNodeEvent {
-    return new TreeNodeEvent(place, ev.id, ev.data);
+  static cloneWith(place: BpaMenuPlace, ev: TreeNodeEvent): TreeNodeSectionEvent {
+    return new TreeNodeSectionEvent(place, ev.id, ev.menu);
   }
 
   constructor(public readonly place: BpaMenuPlace, id: number, data: any) {
@@ -60,9 +60,9 @@ export class TreeNodeEvent extends TreeMenuEvent {
   }
 }
 
-export class TreeMenuItem {
+export class TreeNodeItem {
 
-  private _status: TreeMenuItemStatus = TreeMenuItemStatus.Collapsed;
+  private _status: TreeNodeItemStatus = TreeNodeItemStatus.Collapsed;
   private _active = false;
 
   /**
@@ -70,16 +70,16 @@ export class TreeMenuItem {
    * @param {BpaTreeKind} kind the kind of menu item
    * @param {string} path the path segment
    * @param {string} title the title of the menu item
-   * @param {BpaTreeMenu} data the data section for the menu
-   * @param {TreeMenuItem[]} children the children menu items
+   * @param {BpaTreeMenu} menu the data section for the menu
+   * @param {TreeNodeItem[]} children the children menu items
    */
   constructor(
     public readonly id: number,
     public readonly kind: BpaTreeKind,
     public readonly path: string,
     public readonly title: string,
-    public readonly data?: BpaTreeMenu,
-    public readonly children?: TreeMenuItem[]
+    public readonly menu?: BpaTreeMenu,
+    public readonly children?: TreeNodeItem[]
   ) {
   }
 
@@ -88,7 +88,7 @@ export class TreeMenuItem {
   }
 
   get hasData(): boolean {
-    return !isNil(this.data);
+    return !isNil(this.menu);
   }
 
   get isFolder(): boolean {
@@ -96,7 +96,7 @@ export class TreeMenuItem {
   }
 
   get isExpanded(): boolean {
-    return this.hasChildren && this._status === TreeMenuItemStatus.Expanded;
+    return this.hasChildren && this._status === TreeNodeItemStatus.Expanded;
   }
 
   get active(): boolean {
@@ -104,12 +104,12 @@ export class TreeMenuItem {
   }
 
   get tooltip(): string {
-    return `${this.title} (${this.data.keyPath})`;
+    return `${this.title} (${this.menu.keyPath})`;
   }
 
-  updateStatus(status: TreeMenuItemStatus): void {
+  updateStatus(status: TreeNodeItemStatus): void {
     if (this._status !== status) {
-      this._status = this.hasChildren ? status : TreeMenuItemStatus.Collapsed;
+      this._status = this.hasChildren ? status : TreeNodeItemStatus.Collapsed;
     }
   }
 
@@ -119,23 +119,23 @@ export class TreeMenuItem {
 
   statusExpanded(): void {
     if (this.hasChildren) {
-      this._status = TreeMenuItemStatus.Expanded;
+      this._status = TreeNodeItemStatus.Expanded;
     }
   }
 
   statusCollapsed(): void {
-    this._status = TreeMenuItemStatus.Collapsed;
+    this._status = TreeNodeItemStatus.Collapsed;
   }
 
-  get status(): TreeMenuItemStatus {
+  get status(): TreeNodeItemStatus {
     return this._status;
   }
 
   get icon(): string {
     try {
-      return TreeMenuIcon[this.kind][this.status] || TreeMenuIcon.page.collapsed;
+      return TreeNodeIcon[this.kind][this.status] || TreeNodeIcon.page.collapsed;
     } catch (e) {
-      return TreeMenuIcon.page.collapsed;
+      return TreeNodeIcon.page.collapsed;
     }
   }
 
@@ -143,7 +143,7 @@ export class TreeMenuItem {
     if (!this.hasChildren) {
       return TreeNodeMarker.Document;
     }
-    return this._status === TreeMenuItemStatus.Expanded ? TreeNodeMarker.Expanded : TreeNodeMarker.Collapsed;
+    return this._status === TreeNodeItemStatus.Expanded ? TreeNodeMarker.Expanded : TreeNodeMarker.Collapsed;
   }
 }
 
@@ -182,12 +182,12 @@ export class TreeNodeSection {
    *
    * @param {number} id The id of the section
    * @param {BpaMenuPlace} place the menu place
-   * @param {TreeMenuItem[]} children The list of children tree meun items
+   * @param {TreeNodeItem[]} children The list of children tree meun items
    */
   constructor(
     public readonly id: number,
     public readonly place: BpaMenuPlace,
-    public readonly children?: TreeMenuItem[]
+    public readonly children?: TreeNodeItem[]
   ) {
   }
 
