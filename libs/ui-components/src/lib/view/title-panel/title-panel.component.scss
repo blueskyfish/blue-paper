@@ -1,0 +1,22 @@
+
+@import "themes/editor/src/blue-paper";
+
+:host {
+  display: block;
+  @include flex-fixed();
+
+  .title-panel {
+    @include flex-fixed();
+    @include display-flex(row);
+    align-items: center;
+
+    .icon {
+      margin: 0 $full-gap;
+    }
+
+    .title {
+      @include nowrapWithEllipsis();
+      display: block;
+    }
+  }
+}

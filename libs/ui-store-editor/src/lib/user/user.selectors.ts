@@ -37,7 +37,7 @@ export class UserQueries {
   static readonly selectUserRoles$ = createSelector(
     selectUser,
     (state: UserState): string[] => (
-      isNil(state.roles) ? [] : state.roles
+      isNil(state.roles) ? null : state.roles
     )
   );
 }

@@ -1,5 +1,5 @@
-import { isEmpty } from '@blue-paper/shared-commons';
-import { idGenerator, IdGenerator, TreeMenuItem, TreeMenuItemKind, TreeNodeSection } from '@blue-paper/ui-components';
+import { isEmpty, isNil } from '@blue-paper/shared-commons';
+import { idGenerator, IdGenerator, TreeNodeItem, TreeNodeSection } from '@blue-paper/ui-components';
 import { BpaTreeMenu, BpaTreeRootMenu } from '@blue-paper/ui-editor-backend';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { MenuFeatureKey, MenuState } from './menu.reducer';
@@ -26,7 +26,7 @@ export class MenuQueries {
         .map((rootMenu: BpaTreeRootMenu) => {
 
           const idGen = idGenerator();
-          let children: TreeMenuItem[] = null;
+          let children: TreeNodeItem[] = null;
           if (!isEmpty(rootMenu.children)) {
             children = MenuQueries.buildTreeMenu(idGen, rootMenu.children);
           }
@@ -36,21 +36,49 @@ export class MenuQueries {
     }
   );
 
-  static buildTreeMenu = (idGen: IdGenerator, menuList: BpaTreeMenu[]): TreeMenuItem[] => {
+  /**
+   * Get the data from given menu id
+   * @param {number} menuId the menu id
+   */
+  static getMenuDetailFrom$ = (menuId: number) => createSelector(
+    selectMenu,
+    (state: MenuState) => {
+
+      let item: BpaTreeMenu = null;
+
+      if (!isEmpty(state)) {
+        state.forEach((root) => {
+          if (isNil(item) && !isEmpty(root.children)) {
+            item = root.children.find((menu) => MenuQueries.findMenu(menuId, menu));
+          }
+        });
+      }
+      return item;
+    }
+  )
+
+  static buildTreeMenu = (idGen: IdGenerator, menuList: BpaTreeMenu[]): TreeNodeItem[] => {
     return menuList
       .map((menu: BpaTreeMenu) => {
 
-        let children: TreeMenuItem[] = null;
+        let children: TreeNodeItem[] = null;
         if (!isEmpty(menu.children)) {
           // build the children menu
           children = MenuQueries.buildTreeMenu(idGen, menu.children);
         }
 
-        // kind and data ()
-        const kind = (menu.menuId < 0) ? TreeMenuItemKind.Path : TreeMenuItemKind.Page;
-        const data = (menu.menuId < 0) ? null : menu;
 
-        return new TreeMenuItem(idGen.next, kind, menu.title, data, children);
+        return new TreeNodeItem(idGen.next, menu.kind, menu.path, menu.title, menu, children);
       });
+  }
+
+  static findMenu = (menuId: number, menu: BpaTreeMenu): BpaTreeMenu | null => {
+    if (menu.menuId === menuId) {
+      return menu;
+    }
+    if (!isEmpty(menu.children)) {
+      return menu.children.find((item) => MenuQueries.findMenu(menuId, item));
+    }
+    return null;
   }
 }

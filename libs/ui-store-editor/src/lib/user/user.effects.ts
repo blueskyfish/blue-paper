@@ -4,7 +4,7 @@ import { BpaUserInfo, BureauUserService } from '@blue-paper/ui-editor-backend';
 import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
 import { catchError, delay, map, mergeMap, switchMap } from 'rxjs/operators';
-import { processCatch } from '../message/message.utils';
+import { processCatch } from '../message';
 import { NavigateActions } from '../navigate';
 import { UserActions } from './user.actions';
 import { UserCategory } from './user.categories';
@@ -29,7 +29,11 @@ export class UserEffectService {
                 this.authService.updateToken(token);
                 return of(
                   UserActions.userInfo(user),
-                  NavigateActions.navigate({ paths: [PathName.Root, PathName.Home]})
+                  NavigateActions.navigate({
+                    pathSegments: [
+                      PathName.Root, PathName.Home
+                    ]
+                  })
                 );
               }),
               catchError(processCatch(UserCategory.Login, 'app.error.login.message'))
@@ -67,7 +71,11 @@ export class UserEffectService {
         ofType(UserActions.logoutUser),
         map(() => {
           this.authService.removeToken();
-          return NavigateActions.navigate({paths: [PathName.Root, PathName.Login]});
+          return NavigateActions.navigate({
+            pathSegments: [
+              PathName.Root, PathName.Login
+            ]
+          });
         })
       )
   )

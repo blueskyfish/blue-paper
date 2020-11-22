@@ -109,7 +109,7 @@ export class PaperService {
           currentMenu = menu;
 
           // Update paper info
-          paperInfo.menuId = menu.id;
+          paperInfo.menuId = menu.menuId;
           paperInfo.groupId = menu.groupId;
           paperInfo.template = menu.template;
           paperInfo.title = menu.title;

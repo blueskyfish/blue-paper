@@ -54,7 +54,7 @@ export class LoginViewService extends ComponentStore<IMessageText> {
         map(({ token, user }) => {
           this.authStorage.updateToken(token);
           this.store.dispatch(UserActions.userInfo(user));
-          this.store.dispatch(NavigateActions.navigate({ paths: [ PathName.Root, PathName.Home ] }));
+          this.store.dispatch(NavigateActions.navigate({ pathSegments: [ PathName.Root, PathName.Home ] }));
           return true;
         }),
         catchError((reason) => {

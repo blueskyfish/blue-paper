@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,15 +19,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { DialogService } from './dialog';
-import { ToolbarComponent } from './toolbar';
 import { MessagePanelComponent } from './message-panel/message-panel.component';
-import { TreeMenuComponent, TreeNodeComponent } from './tree-node';
+import { ToolbarComponent } from './toolbar';
+import { TreeItemComponent, TreeNodeComponent } from './tree-node';
+import { TitlePanelComponent } from './view';
 
 const components = [
   MessagePanelComponent,
   ToolbarComponent,
-  TreeMenuComponent,
+  TreeItemComponent,
   TreeNodeComponent,
+  TitlePanelComponent,
 ];
 
 const providers = [

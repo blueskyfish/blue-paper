@@ -15,8 +15,8 @@ export class NavigateEffectService {
     () => this.actions$
       .pipe(
         ofType(NavigateActions.navigate),
-        tap(({paths}) => {
-          NavigateUtil.navigate(this.router, ...paths);
+        tap(({pathSegments}) => {
+          NavigateUtil.navigate(this.router, ...pathSegments);
         })
       ),
     { dispatch: false }

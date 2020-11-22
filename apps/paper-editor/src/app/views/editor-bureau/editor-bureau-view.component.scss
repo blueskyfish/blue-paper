@@ -33,26 +33,6 @@
       @include flex-resizable();
       @include display-flex(column);
       background-color: mat-color($background-palette, dialog);
-
-      .view-title {
-        @include flex-fixed();
-        @include display-flex(row);
-        align-items: center;
-
-        mat-icon {
-          margin: 0 $full-gap;
-        }
-      }
-
-      .view-body {
-        @include flex-resizable();
-        @include display-flex(row, wrap);
-        align-content: flex-start;
-        overflow: auto;
-        padding: 0 $half-gap;
-      }
-
     }
-
   }
 }
