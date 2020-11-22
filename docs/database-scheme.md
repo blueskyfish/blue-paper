@@ -32,7 +32,7 @@ Field                   | Type           | Required | Description
 `salt`                  | varchar(240)   | not null | The salt for the user password
 
 
-## Table `menu`
+## Table `menus`
 
 The table contains the menu structure.
 
