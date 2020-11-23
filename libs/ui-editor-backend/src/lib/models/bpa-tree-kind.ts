@@ -1,6 +1,6 @@
 /* tslint:disable */
 export enum BpaTreeKind {
   Folder = 'folder',
-  Index = 'index',
+  Page = 'page',
   Blog = 'blog'
 }

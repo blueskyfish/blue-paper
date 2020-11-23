@@ -30,6 +30,11 @@ export interface BpaTreeMenu {
   ordering: number;
 
   /**
+   * The page url for the menu
+   */
+  pageUrl: string;
+
+  /**
    * The path segment
    */
   path: string;

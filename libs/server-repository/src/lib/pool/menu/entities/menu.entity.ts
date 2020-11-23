@@ -5,15 +5,34 @@ import { Enabled, MenuPlace, Template } from '../../../models';
  */
 export interface IDbMenu {
 
+  /**
+   * The id of the menu (PK)
+   */
   menuId: number;
+
+  /**
+   * The page url (without the the file extension)
+   */
   pageUrl: string;
+
+  /**
+   * The menu title
+   */
   title: string;
 
   /**
    * The kind of template for the menu item
    */
   template: Template;
+
+  /**
+   * The ordering in the menu
+   */
   ordering: number;
+
+  /**
+   * The id of the group content
+   */
   groupId: number;
 
   /**

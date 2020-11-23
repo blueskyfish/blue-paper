@@ -50,6 +50,7 @@ export class TreeMenuUtil {
           modified: dbMenu.modified.toISOString()
         },
         keyPath,
+        pageUrl: dbMenu.pageUrl,
       };
       menuList.push(treeMenu);
     }

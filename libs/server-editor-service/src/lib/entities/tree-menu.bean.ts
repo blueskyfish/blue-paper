@@ -56,6 +56,11 @@ export class TreeMenu {
     description: 'The key path to this tree menu (e.g. `menuPlace://segement1/segement2/path`)'
   })
   keyPath: string;
+
+  @ApiProperty({
+    description: 'The page url for the menu'
+  })
+  pageUrl: string;
 }
 
 
