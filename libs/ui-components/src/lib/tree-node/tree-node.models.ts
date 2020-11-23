@@ -67,20 +67,26 @@ export class TreeNodeItem {
 
   /**
    * @param {number} id the menu id
-   * @param {BpaTreeKind} kind the kind of menu item
-   * @param {string} path the path segment
-   * @param {string} title the title of the menu item
    * @param {BpaTreeMenu} menu the data section for the menu
    * @param {TreeNodeItem[]} children the children menu items
    */
   constructor(
     public readonly id: number,
-    public readonly kind: BpaTreeKind,
-    public readonly path: string,
-    public readonly title: string,
-    public readonly menu?: BpaTreeMenu,
+    public readonly menu: BpaTreeMenu,
     public readonly children?: TreeNodeItem[]
   ) {
+  }
+
+  get path(): string {
+    return this.menu.path;
+  }
+
+  get kind(): BpaTreeKind {
+    return this.menu.kind;
+  }
+
+  get title(): string {
+    return this.menu.title;
   }
 
   get hasChildren(): boolean {

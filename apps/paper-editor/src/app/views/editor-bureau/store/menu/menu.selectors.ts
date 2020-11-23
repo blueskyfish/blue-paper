@@ -38,26 +38,29 @@ export class MenuQueries {
 
   /**
    * Get the data from given menu id
+   *
    * @param {number} menuId the menu id
    */
   static getMenuDetailFrom$ = (menuId: number) => createSelector(
     selectMenu,
     (state: MenuState) => {
 
-      let item: BpaTreeMenu = null;
-
       if (!isEmpty(state)) {
-        state.forEach((root) => {
-          if (isNil(item) && !isEmpty(root.children)) {
-            item = root.children.find((menu) => MenuQueries.findMenu(menuId, menu));
+        for(const place of state) {
+          if (!isEmpty(place.children)) {
+            const founded = MenuQueries.findTreeMenu(menuId, place.children);
+            if (!isNil(founded)) {
+              return founded;
+            }
           }
-        });
+        }
       }
-      return item;
+      // not found menu
+      return null;
     }
   )
 
-  static buildTreeMenu = (idGen: IdGenerator, menuList: BpaTreeMenu[]): TreeNodeItem[] => {
+  private static buildTreeMenu = (idGen: IdGenerator, menuList: BpaTreeMenu[]): TreeNodeItem[] => {
     return menuList
       .map((menu: BpaTreeMenu) => {
 
@@ -67,17 +70,21 @@ export class MenuQueries {
           children = MenuQueries.buildTreeMenu(idGen, menu.children);
         }
 
-
-        return new TreeNodeItem(idGen.next, menu.kind, menu.path, menu.title, menu, children);
+        return new TreeNodeItem(idGen.next, menu, children);
       });
   }
 
-  static findMenu = (menuId: number, menu: BpaTreeMenu): BpaTreeMenu | null => {
-    if (menu.menuId === menuId) {
-      return menu;
-    }
-    if (!isEmpty(menu.children)) {
-      return menu.children.find((item) => MenuQueries.findMenu(menuId, item));
+  private static findTreeMenu = (menuId: number, children: BpaTreeMenu[]): BpaTreeMenu => {
+    for (const item of children) {
+      if (item.menuId === menuId) {
+        return item;
+      }
+      if (!isEmpty(item.children)) {
+        const founded = MenuQueries.findTreeMenu(menuId, item.children);
+        if (!isNil(founded)) {
+          return founded;
+        }
+      }
     }
     return null;
   }
