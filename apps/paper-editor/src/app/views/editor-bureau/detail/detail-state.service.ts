@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { isNil } from '@blue-paper/shared-commons';
-import { BpaTreeMenu } from '@blue-paper/ui-editor-backend';
+import { BpaEditorMenuItem } from '@blue-paper/ui-editor-backend';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -13,7 +13,7 @@ export class DetailStateService {
   constructor(private store: Store<MenuPartialState>) {
   }
 
-  getMenuDetailFrom$(menuId: number): Observable<BpaTreeMenu> {
+  getMenuDetailFrom$(menuId: number): Observable<BpaEditorMenuItem> {
     return this.store
       .pipe(
         select(MenuQueries.getMenuDetailFrom$(menuId)),

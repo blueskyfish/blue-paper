@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PathParams, SubscriberList, toInt } from '@blue-paper/ui-commons';
-import { TreeNodeIcon } from '@blue-paper/ui-components';
-import { BpaTreeMenu } from '@blue-paper/ui-editor-backend';
+import { NodeMenuIcon } from '@blue-paper/ui-components';
+import { BpaEditorMenuItem } from '@blue-paper/ui-editor-backend';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { DetailStateService } from './detail-state.service';
 
@@ -28,7 +28,7 @@ export class DetailViewComponent implements OnInit, OnDestroy {
 
   icon: string = DEFAULT_ICON;
 
-  menuDetail: BpaTreeMenu;
+  menuDetail: BpaEditorMenuItem;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +50,7 @@ export class DetailViewComponent implements OnInit, OnDestroy {
           console.log('> Debug: menu detail =>', menuDetail);
           this.menuDetail = menuDetail;
           try {
-            this.icon = TreeNodeIcon[menuDetail.kind].collapsed;
+            this.icon = NodeMenuIcon[menuDetail.template].collapsed;
           } catch (e) {
             this.icon = DEFAULT_ICON;
           }

@@ -4,4 +4,4 @@ export * from './lib/dialog';
 
 export * from './lib/toolbar';
 export * from './lib/message-panel/message-panel.component';
-export * from './lib/tree-node';
+export * from './lib/node-menu';

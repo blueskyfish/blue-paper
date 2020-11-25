@@ -21,14 +21,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DialogService } from './dialog';
 import { MessagePanelComponent } from './message-panel/message-panel.component';
 import { ToolbarComponent } from './toolbar';
-import { TreeItemComponent, TreeNodeComponent } from './tree-node';
+import { MenuItemComponent, NodeSectionComponent } from './node-menu';
 import { TitlePanelComponent } from './view';
 
 const components = [
   MessagePanelComponent,
   ToolbarComponent,
-  TreeItemComponent,
-  TreeNodeComponent,
+  MenuItemComponent,
+  NodeSectionComponent,
   TitlePanelComponent,
 ];
 
