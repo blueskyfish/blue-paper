@@ -1,0 +1,5 @@
+<section class="view-page">
+  <bpa-title-panel [icon]="icon" title="app.editorBureau.detail.title"></bpa-title-panel>
+  <bpa-menu-panel [menu]="menu" (changeState)="menuChanged($event)" *ngIf="menu"></bpa-menu-panel>
+  <bpa-content-panel [text]="text" *ngIf="text"></bpa-content-panel>
+</section>

@@ -21,6 +21,32 @@
   .form-field {
     .form-control {
       width: 100%;
+
+      .form-radio {
+        margin-bottom: $four-gap;
+      }
+
+      &.form-radio-group {
+
+        mat-radio-button {
+          display: block;
+        }
+      }
+
+      .only-text {
+        border-bottom: 1px solid mat-color($foreground-palette, text);
+        padding: $four-gap 0;
+        margin-bottom: $half-gap;
+      }
+    }
+
+    .form-label {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+
+    &.fixed-height {
+      @include abs-height(68px);
     }
   }
 
@@ -32,6 +58,10 @@
       margin-left: $half-gap;
     }
   }
+
+  .disabled {
+    color: mat-color($foreground-palette, disabled-text);
+  }
 }
 
 input[type=date]::-webkit-inner-spin-button {
@@ -42,4 +72,8 @@ input[type=date]::-webkit-inner-spin-button {
 input[type=date]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
   display: none;
+}
+
+input[readonly=true] {
+  color: mat-color($foreground-palette, disabled-text);
 }

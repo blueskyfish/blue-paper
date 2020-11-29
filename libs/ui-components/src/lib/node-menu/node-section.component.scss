@@ -6,12 +6,12 @@ $section-border-color: mat-color($mat-gray, 300);
 @include on-host(column) {
   @include abs-height(100%);
 
-  .tree-node {
+  .node-section-list {
     @include flex-resizable();
     @include display-flex(column);
     overflow: auto;
 
-    .tree-section {
+    .node-section {
       @include flex-fixed();
       @include display-flex(column);
       border-top: 1px solid $section-border-color;
@@ -52,6 +52,7 @@ $section-border-color: mat-color($mat-gray, 300);
           @include flex-resizable();
           @include display-flex(column);
           overflow: auto;
+          padding-left: $full-gap;
 
           visibility: visible;
         }

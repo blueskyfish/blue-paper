@@ -9,7 +9,7 @@ import {
   LoginViewComponent,
   OverviewViewComponent
 } from './views';
-import { DetailViewComponent } from './views/editor-bureau/detail/detail-view.component';
+import { MenuDetailViewComponent } from './views/editor-bureau/detail/menu-detail-view.component';
 
 /**
  * The Routing table
@@ -49,7 +49,7 @@ export const ROUTES: Routes = [
           },
           {
             path: 'detail/:menuId',
-            component: DetailViewComponent,
+            component: MenuDetailViewComponent,
           }
         ]
       }

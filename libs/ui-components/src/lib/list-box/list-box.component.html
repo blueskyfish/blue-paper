@@ -1,0 +1,18 @@
+<div class="list-box">
+  <ul [ngStyle]="styleListHeights" class="list-items" [class.disabled]="disabled">
+    <li *ngFor="let item of items" class="list-item" [class.selected]="item === selected" matRipple (click)="selectItem(item)">
+      <p class="list-value">{{ item.label }}</p>
+    </li>
+  </ul>
+  <div class="commands">
+    <button mat-icon-button class="action" [disabled]="disabledAddAction" (click)="addItem()">
+      <mat-icon svgIcon="plus"></mat-icon>
+    </button>
+    <button mat-icon-button class="action" [disabled]="disabledAction" (click)="editItem()">
+      <mat-icon svgIcon="pencil-outline"></mat-icon>
+    </button>
+    <button mat-icon-button class="action" [disabled]="disabledAction" (click)="deleteItem()">
+      <mat-icon svgIcon="delete-outline"></mat-icon>
+    </button>
+  </div>
+</div>

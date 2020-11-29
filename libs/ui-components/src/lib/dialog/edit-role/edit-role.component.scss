@@ -1,0 +1,13 @@
+
+@import "themes/editor/src/blue-paper";
+
+.dialog {
+  @include abs-width(20rem);
+
+  .content {
+
+    .form-field {
+      width: 100%;
+    }
+  }
+}

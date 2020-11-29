@@ -1,0 +1,33 @@
+<fieldset class="field-group form ">
+  <legend>Content</legend>
+  <div class="flex-grid flex-vertical align-stretch">
+    <div class="col-6">
+      <div class="form-field">
+        <p class="form-label">Title</p>
+        <div class="form-control">
+          <p class="only-text">{{ text.title }}</p>
+        </div>
+      </div>
+      <div class="form-field">
+        <p class="form-label">Author</p>
+        <div class="form-control">
+          <p class="only-text">{{ text.author.name }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-field">
+        <p class="form-label">Create At</p>
+        <div class="form-control">
+          <p class="only-text">{{ text.creation }}</p>
+        </div>
+      </div>
+      <div class="form-field">
+        <p class="form-label">Last Modify At</p>
+        <div class="form-control">
+          <p class="only-text">{{ text.modified }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

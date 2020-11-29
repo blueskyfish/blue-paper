@@ -3,7 +3,7 @@
 :host {
   display: block;
 
-  .tree-menu {
+  .node-menu-list {
     @include display-flex(column);
 
     list-style: none;
@@ -18,18 +18,10 @@
 
         align-items: center;
         cursor: pointer;
+        padding: $half-gap 0;
 
-        .icon, .marker {
+        .icon {
           @include flex-fixed();
-        }
-
-        .caption-text {
-          @include flex-resizable();
-          @include display-flex(row);
-
-          align-items: center;
-
-          padding: $half-gap 0;
         }
 
         .title {
