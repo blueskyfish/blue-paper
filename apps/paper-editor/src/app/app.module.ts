@@ -19,7 +19,7 @@ import { LogoutConfirmComponent } from './dialogs';
 import { LogoutDialogService } from './dialogs/logout-dialog.service';
 import {
   DashboardViewComponent,
-  DetailViewComponent,
+  MenuDetailViewComponent,
   EditorBureauViewComponent,
   HomeViewComponent,
   LoginViewComponent,
@@ -33,7 +33,7 @@ const components = [
   DashboardViewComponent,
   EditorBureauViewComponent,
   OverviewViewComponent,
-  DetailViewComponent,
+  MenuDetailViewComponent,
   LoginViewComponent,
   HomeViewComponent,
 ];
