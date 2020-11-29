@@ -32,6 +32,12 @@
           display: block;
         }
       }
+
+      .only-text {
+        border-bottom: 1px solid mat-color($foreground-palette, text);
+        padding: $four-gap 0;
+        margin-bottom: $half-gap;
+      }
     }
 
     .form-label {

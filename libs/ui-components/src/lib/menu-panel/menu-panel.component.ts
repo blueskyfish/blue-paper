@@ -25,7 +25,7 @@ export class MenuPanelEditEvent {
 @Component({
   selector: 'bpa-menu-panel',
   templateUrl: './menu-panel.component.html',
-  styleUrls: ['./menu-panel.component.scss']
+  styles: []
 })
 export class MenuPanelComponent implements OnInit, OnDestroy, OnChanges, ListBoxChangeProvider<string> {
 
@@ -54,6 +54,7 @@ export class MenuPanelComponent implements OnInit, OnDestroy, OnChanges, ListBox
 
 
   menuForm = new FormGroup({
+    menuId: new FormControl(0),
     title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
     pageUrl: new FormControl('', [Validators.required, Validators.maxLength(512)]),
     place: new FormControl(BpaMenuPlace.Navbar, Validators.required),

@@ -20,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContentPanelComponent } from './content-panel';
 import { DialogService, EditRoleComponent } from './dialog';
 import { ListBoxComponent } from './list-box';
 import { MenuDataService, MenuPanelComponent } from './menu-panel';
@@ -27,6 +28,7 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
 import { MenuItemComponent, NodeSectionComponent } from './node-menu';
 import { ToolbarComponent } from './toolbar';
 import { TitlePanelComponent } from './view';
+import { HiddenControlComponent } from './hidde-control/hidden-control.component';
 
 const components = [
   ListBoxComponent,
@@ -36,6 +38,8 @@ const components = [
   MenuItemComponent,
   NodeSectionComponent,
   TitlePanelComponent,
+  ContentPanelComponent,
+  HiddenControlComponent,
 ];
 
 const dialogs = [
