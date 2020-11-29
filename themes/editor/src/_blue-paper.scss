@@ -18,8 +18,8 @@ $foreground-palette: map-get($bpa-theme, foreground);
 //
 // colors
 //
-$ebb-divider-color: mat-color($foreground-palette, divider);
-$ebb-primary-color: mat-color($bpa-primary, 500);
+$divider-color: mat-color($foreground-palette, divider);
+$primary-color: mat-color($bpa-primary, 500);
 
 $active-background-color: mat-color($background-palette, selected-button);
 $active-text-color: mat-color($bpa-primary, 600);

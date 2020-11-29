@@ -1,0 +1,17 @@
+
+// The style for the html element "field-set"
+
+.field-group {
+
+  padding: $half-gap;
+  margin-bottom: $half-gap;
+
+  border: none;
+  border-top: 1px solid $divider-color;
+
+  legend {
+    font-weight: bold;
+    padding: $half-gap;
+    margin-left: .9rem;
+  }
+}

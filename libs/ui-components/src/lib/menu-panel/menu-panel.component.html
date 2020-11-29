@@ -1,0 +1,60 @@
+<div class="menu-panel">
+  <fieldset class="field-group">
+    <legend>{{ title | translate }}</legend>
+    <form class="form" [formGroup]="menuForm">
+      <div class="flex-grid">
+        <div class="col-6 flex-vertical align-stretch">
+          <mat-form-field class="form-field fixed-height">
+            <mat-label>{{ 'app.editorBureau.menuPanel.title.label' | translate }}</mat-label>
+            <input matInput type="text" formControlName="title" class="form-control">
+          </mat-form-field>
+          <mat-form-field class="form-field fixed-height">
+            <mat-label>{{ 'app.editorBureau.menuPanel.pageUrl.label' | translate }}</mat-label>
+            <input matInput type="text" formControlName="pageUrl" class="form-control">
+            <mat-hint>{{exampleUrl}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="form-field fixed-height">
+            <mat-label>{{ 'app.editorBureau.menuPanel.menuPlace.label' | translate }}</mat-label>
+            <mat-select class="form-control" formControlName="place">
+              <mat-option *ngFor="let item of menuPlaceList" [value]="item.key">{{ item.label | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field fixed-height">
+            <mat-label>{{ 'app.editorBureau.menuPanel.template.label' | translate }}</mat-label>
+            <mat-select class="form-control" formControlName="template">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of templateList" [value]="item.key">{{ item.label | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="form-field fixed-height">
+            <p class="form-label" [class.disabled]="!editMode">{{ 'app.editorBureau.menuPanel.ordering.label' | translate }}</p>
+            <mat-slider formControlName="ordering" min="0" max="1000" color="primary" thumbLabel [displayWith]="formatOrdering" step="10" class="form-control"></mat-slider>
+          </div>
+        </div>
+        <div class="col-6 flex-vertical align-stretch">
+          <div class="form-field">
+            <p class="form-label" [class.disabled]="!editMode">Roles</p>
+            <bpa-list-box formControlName="roles" [changeProvider]="this"></bpa-list-box>
+          </div>
+          <div class="form-field">
+            <p class="form-label" [class.disabled]="!editMode">{{ 'app.editorBureau.menuPanel.enabled.label' | translate }}</p>
+            <mat-radio-group formControlName="enabled" class="form-control form-radio-group">
+              <mat-radio-button [value]="item.key" *ngFor="let item of enabledList" class="form-radio">{{ item.label | translate }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="command-bar">
+        <button mat-raised-button color="primary" [disabled]="editMode" (click)="edit()" class="button">
+          {{ 'app.command.edit.title' | translate }}
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!editMode" (click)="save()" class="button">
+          {{ 'app.command.save.title' | translate }}
+        </button>
+        <button mat-raised-button [disabled]="!editMode" (click)="cancel()" class="button">
+          {{ 'app.command.cancel.title' | translate }}
+        </button>
+      </div>
+    </form>
+  </fieldset>
+</div>
