@@ -8,7 +8,7 @@ import { BureauRequestBuilder } from '../bureau-request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { BpaTreeRootMenu } from '../models/bpa-tree-root-menu';
+import { BpaEditorMenuItem } from '../models/bpa-editor-menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -22,23 +22,23 @@ export class BureauAdminService extends BureauBaseService {
   }
 
   /**
-   * Path part for operation getEditorTreeMenuList
+   * Path part for operation getEditorMenuList
    */
-  static readonly GetEditorTreeMenuListPath = '/api/editor/menu';
+  static readonly GetEditorMenuListPath = '/api/editor/menu';
 
   /**
-   * The menu list as tree nodes
+   * The menu list of the frontend
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getEditorTreeMenuList()` instead.
+   * To access only the response body, use `getEditorMenuList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getEditorTreeMenuList$Response(params?: {
+  getEditorMenuList$Response(params?: {
 
-  }): Observable<BureauHttpResponse<Array<BpaTreeRootMenu>>> {
+  }): Observable<BureauHttpResponse<Array<BpaEditorMenuItem>>> {
 
-    const rb = new BureauRequestBuilder(this.rootUrl, BureauAdminService.GetEditorTreeMenuListPath, 'get');
+    const rb = new BureauRequestBuilder(this.rootUrl, BureauAdminService.GetEditorMenuListPath, 'get');
     if (params) {
 
 
@@ -49,25 +49,25 @@ export class BureauAdminService extends BureauBaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as BureauHttpResponse<Array<BpaTreeRootMenu>>;
+        return r as BureauHttpResponse<Array<BpaEditorMenuItem>>;
       })
     );
   }
 
   /**
-   * The menu list as tree nodes
+   * The menu list of the frontend
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `getEditorTreeMenuList$Response()` instead.
+   * To access the full response (for headers, for example), `getEditorMenuList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getEditorTreeMenuList(params?: {
+  getEditorMenuList(params?: {
 
-  }): Observable<Array<BpaTreeRootMenu>> {
+  }): Observable<Array<BpaEditorMenuItem>> {
 
-    return this.getEditorTreeMenuList$Response(params).pipe(
-      map((r: BureauHttpResponse<Array<BpaTreeRootMenu>>) => r.body as Array<BpaTreeRootMenu>)
+    return this.getEditorMenuList$Response(params).pipe(
+      map((r: BureauHttpResponse<Array<BpaEditorMenuItem>>) => r.body as Array<BpaEditorMenuItem>)
     );
   }
 

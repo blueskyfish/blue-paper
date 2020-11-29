@@ -1,8 +1,11 @@
-import { BpaTreeRootMenu } from '@blue-paper/ui-editor-backend';
+import { BpaEditorMenuItem } from '@blue-paper/ui-editor-backend';
 import { Action, createReducer, on } from '@ngrx/store';
 import { MenuActions } from './menu.actions';
 
-export type MenuState = BpaTreeRootMenu[];
+/**
+ * The list of menu items
+ */
+export type MenuState = BpaEditorMenuItem[];
 
 export const MenuFeatureKey = 'menu';
 
@@ -14,7 +17,7 @@ export const initialState: MenuState = [];
 
 const menuReducer = createReducer(
   initialState,
-  on(MenuActions.updateTreeMenuList, (state, {list}) => ([...list])),
+  on(MenuActions.updateMenuList, (state, {list}) => ([...list])),
 );
 
 export function reducer(state: MenuState, action: Action) {

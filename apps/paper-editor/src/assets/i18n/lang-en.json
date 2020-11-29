@@ -48,6 +48,12 @@
       },
       "cancel": {
         "title": "Cancel"
+      },
+      "edit": {
+        "title": "Edit"
+      },
+      "save": {
+        "title": "Save"
       }
     },
     "editorBureau": {
@@ -81,10 +87,65 @@
       },
       "detail": {
         "title": "Menu Overview"
+      },
+      "menuPanel": {
+        "menuItem": {
+          "title": "Menu Item",
+          "edit": "Edit menu item",
+          "new": "New menu item"
+        },
+        "title": {
+          "label": "Title"
+        },
+        "pageUrl": {
+          "label": "URL"
+        },
+        "menuPlace": {
+          "label": "Menu Place"
+        },
+        "template": {
+          "label": "Template from menu"
+        },
+        "ordering": {
+          "label": "Sorted by"
+        },
+        "enabled": {
+          "label": "State of menu item"
+        }
+      },
+      "dialog": {
+        "editRole": {
+          "title": "Edit or create Role",
+          "role": {
+            "label": "Role"
+          },
+          "command": {
+            "save": {
+              "title": "Save Role"
+            }
+          }
+        }
       }
     },
     "dashboard": {
       "title": "Dashboard"
+    },
+    "data": {
+      "menu": {
+        "template": {
+          "page": "Page with content",
+          "blog": "Blog with articles"
+        },
+        "enabled": {
+          "yes": "Menu item is enabled",
+          "no": "Menu item is disabled"
+        },
+        "menuPlace": {
+          "navbar": "Navbar",
+          "footer": "Footer",
+          "hidden": "Hidden"
+        }
+      }
     },
     "error": {
       "server": {

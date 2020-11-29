@@ -1,0 +1,55 @@
+
+@import "themes/editor/src/blue-paper";
+
+:host {
+  @include flex-resizable();
+
+  display: block;
+  margin-bottom: $full-gap;
+
+  .list-box {
+
+    .list-items {
+      @include display-flex(column);
+      @include flex-resizable();
+      border: 1px solid $divider-color;
+      border-radius: $four-gap;
+      overflow: auto;
+      margin: 0;
+      padding: 0;
+
+      &.disabled {
+        border: 1px dotted mat-color($foreground-palette, disabled-text);
+        color: mat-color($foreground-palette, disabled-color);
+      }
+
+      .list-item {
+        cursor: pointer;
+
+        &.selected {
+          background-color: mat-color($background-palette, selected-button);
+          color: mat-color($foreground-palette, selected-button);
+        }
+
+        .list-value {
+          margin: 0;
+          padding: $half-gap;
+        }
+      }
+    }
+
+    .commands {
+      @include flex-fixed();
+    }
+
+    &.vertical {
+      @include display-flex(row);
+    }
+
+    &.horizontal {
+      @include display-flex(column);
+
+
+    }
+  }
+}

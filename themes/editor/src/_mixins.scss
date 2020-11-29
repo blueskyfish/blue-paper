@@ -17,6 +17,12 @@
   flex-shrink: 1;
 }
 
+@mixin flex-grid($grow, $shrink, $basis: auto) {
+  flex-basis: $basis;
+  flex-grow: $grow;
+  flex-shrink: $shrink;
+}
+
 @mixin on-host($direction, $wrap: nowrap) {
   :host {
     @include flex-resizable();
